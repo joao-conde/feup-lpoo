@@ -1,24 +1,26 @@
 import java.util.Scanner;
 
 public class Maze {
-	
+
 	private char[][] map1 = new char[10][10];
 	private char[][] map2 = new char[10][10];
-	private int[] hero, guard, lever, ogre;
-	
-	private char[][][] mapList = {map1,map2};
+
+	int invalid = 1000;
+	private int[] hero = { invalid, invalid }, guard = { invalid, invalid }, lever = { invalid, invalid },
+			ogre = { invalid, invalid };
+
+	private char[][][] mapList = { map1, map2 };
 	private int currentMapIndex = 0;
-	
-	
+
 	public void run() {
-		
+
 		boolean end = false;
-		
+
 		buildMap(1);
-		
-		while(!end){
+
+		while (!end) {
 			play();
-			end = !isGameOver();
+			end = isGameOver();
 		}
 	}
 
@@ -56,32 +58,43 @@ public class Maze {
 		switch (character) {
 
 		case 'H':
-			changeCell(hero[0],hero[1],' ',board);
+			if (hero[0] != invalid || hero[1] != invalid) {
+				changeCell(hero[0], hero[1], ' ', board);
+			}
+
 			changeCell(lin, col, 'H', board);
-			hero[0] = lin; hero[1] = col;
+			hero[0] = lin;
+			hero[1] = col;
+
 			break;
 
 		case 'G':
-			changeCell(guard[0],guard[1],' ',board);
+			if (guard[0] != invalid || guard[1] != invalid) {
+				changeCell(guard[0], guard[1], ' ', board);
+			}
 			changeCell(lin, col, 'G', board);
-			guard[0] = lin;	guard[1] = col;
+			guard[0] = lin;
+			guard[1] = col;
 			break;
-			
+
 		case 'k':
-			changeCell(lever[0],lever[1],' ',board);
-			changeCell(lin,col,'k',board);
-			lever[0] = lin;	lever[1] = col;
+			if (lever[0] != invalid || lever[1] != invalid) {
+				changeCell(lever[0], lever[1], ' ', board);
+			}
+			changeCell(lin, col, 'k', board);
+			lever[0] = lin;
+			lever[1] = col;
 			break;
 		}
 
 	}
 
-	public void buildMap(int mapNumber){
-		
-		switch(mapNumber){
-		
+	public void buildMap(int mapNumber) {
+
+		switch (mapNumber) {
+
 		case 1:
-			
+
 			// Building external walls for map1
 			buildWalls(map1);
 
@@ -117,14 +130,16 @@ public class Maze {
 
 			// placing lever
 			moveCharacter(8, 7, 'k', map1);
-			
+
 			// set Hero initial location
 			moveCharacter(1, 1, 'H', map1);
-			
 
 			// set guard initial location
 			moveCharacter(1, 8, 'G', map1);
-			
+
+			break;
+
+		case 2:
 			break;
 		}
 	}
@@ -138,54 +153,54 @@ public class Maze {
 			System.out.println();
 		}
 	}
-	
-	public boolean isGameOver(){
-		
-		//check if guard is in the 3 above positions of the hero
-		if(hero[0]-1 == guard[0] && (hero[1]-1 == guard[1] || hero[1] == guard[1] || hero[1]+1 == guard[1]))
+
+	public boolean isGameOver() {
+
+		// check if guard is in the 3 above positions of the hero
+		if (hero[0] - 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1]))
 			return true;
-		
-		//check if guard is in the 3 below position of the hero
-		if(hero[0]+1 == guard[0] && (hero[1]-1 == guard[1] || hero[1] == guard[1] || hero[1]+1 == guard[1]))
+
+		// check if guard is in the 3 below position of the hero
+		if (hero[0] + 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1]))
 			return true;
-		
-		//check if guard is in the 3 remaining positions
-		if(hero[0] == guard[0] && (hero[1]-1 == guard[1] || hero[1] + 1 == guard[1]))
+
+		// check if guard is in the 3 remaining positions
+		if (hero[0] == guard[0] && (hero[1] - 1 == guard[1] || hero[1] + 1 == guard[1]))
 			return true;
-		
+
 		return false;
 	}
-	
-	public void play(){
-		
-			
+
+	public void play() {
+
 		printMaze(mapList[currentMapIndex]);
-		
-		//reading user move
-		System.out.println("Enter your move:");		
+
+		// reading user move
+		System.out.println("Enter your move:");
 		Scanner scan = new Scanner(System.in);
+		
 		char move = scan.next().charAt(0);
 		move = Character.toUpperCase(move);
-			
-		switch(move){
-		
-		case 'W':	
-			moveCharacter(hero[0]-1,hero[1],'H', mapList[currentMapIndex]);
+
+		switch (move) {
+
+		case 'W':
+			moveCharacter(hero[0] - 1, hero[1], 'H', mapList[currentMapIndex]);
 			break;
-			
+
 		case 'A':
-			moveCharacter(hero[0],hero[1]-1,'H', mapList[currentMapIndex]);
+			moveCharacter(hero[0], hero[1] - 1, 'H', mapList[currentMapIndex]);
 			break;
-			
+
 		case 'S':
-			moveCharacter(hero[0]+1,hero[1],'H', mapList[currentMapIndex]);
+			moveCharacter(hero[0] + 1, hero[1], 'H', mapList[currentMapIndex]);
 			break;
-			
+
 		case 'D':
-			moveCharacter(hero[0],hero[1]+1,'H', mapList[currentMapIndex]);
+			moveCharacter(hero[0], hero[1] + 1, 'H', mapList[currentMapIndex]);
 			break;
-		
+
 		}
-			
+
 	}
 }
