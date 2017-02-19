@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Maze {
+public class Maze { 
 
 	private char[][] map1 = new char[10][10];
 	private char[][] map2 = new char[10][10];
@@ -35,6 +35,7 @@ public class Maze {
 			board[0][i] = 'X';
 		}
 
+		
 		for (int i = 0; i < board[9].length; i++) {
 			board[9][i] = 'X';
 		}
