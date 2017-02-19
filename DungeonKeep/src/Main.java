@@ -5,5 +5,5 @@ public class Main {
 		Maze m = new Maze(); 
 		m.run(); 
 	}
-	
+	 
 }

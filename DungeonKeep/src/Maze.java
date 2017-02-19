@@ -21,7 +21,7 @@ public class Maze {
 
 		buildMap(1);
 
-		while (!end) {
+		while (!end) { 
 			play();
 			end = isGameOver();
 		}
