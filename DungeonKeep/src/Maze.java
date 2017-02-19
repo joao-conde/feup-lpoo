@@ -12,7 +12,7 @@ public class Maze {
 	private char[] guardMoves = {'A','S','S','S','S','A','A','A','A','A','A','S','D','D','D','D','D','D','D','W','W','W','W','W'};
 	private int currentGuardMove = 0;	
 	
-	private char[][][] mapList = { map1, map2 };
+	private char[][][] mapList = { map1, map2 }; 
 	private int currentMapIndex = 0;
 
 	public void run() {
