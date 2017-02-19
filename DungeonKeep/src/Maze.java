@@ -8,7 +8,10 @@ public class Maze {
 	int invalid = 1000;
 	private int[] hero = { invalid, invalid }, guard = { invalid, invalid }, lever = { invalid, invalid },
 			ogre = { invalid, invalid };
-
+	
+	private char[] guardMoves = {'A','S','S','S','S','A','A','A','A','A','A','S','D','D','D','D','D','D','D','W','W','W','W','W'};
+	private int currentGuardMove = 0;	
+	
 	private char[][][] mapList = { map1, map2 };
 	private int currentMapIndex = 0;
 
@@ -22,6 +25,7 @@ public class Maze {
 			play();
 			end = isGameOver();
 		}
+		
 	}
 
 	public void buildWalls(char[][] board) {
@@ -52,7 +56,7 @@ public class Maze {
 
 	public void moveCharacter(int lin, int col, char character, char[][] board) {
 
-		if (board[lin][col] == 'X')
+		if (board[lin][col] == 'X' || board[lin][col] == 'I')
 			return;
 
 		switch (character) {
@@ -87,6 +91,19 @@ public class Maze {
 			break;
 		}
 
+	}
+
+	public void openDoors(){
+	
+		switch(currentMapIndex){
+		
+		case 0:
+			changeCell(5,0,'S',mapList[currentMapIndex]);
+			changeCell(6,0,'S',mapList[currentMapIndex]);
+			break;
+		
+		}
+		
 	}
 
 	public void buildMap(int mapNumber) {
@@ -152,20 +169,38 @@ public class Maze {
 
 			System.out.println();
 		}
+
 	}
 
 	public boolean isGameOver() {
 
 		// check if guard is in the 3 above positions of the hero
-		if (hero[0] - 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1]))
+		if (hero[0] - 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1])){
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("GAME OVER! Better luck next time!");
 			return true;
+		}
 
 		// check if guard is in the 3 below position of the hero
-		if (hero[0] + 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1]))
+		if (hero[0] + 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1])){
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("GAME OVER! Better luck next time!");
 			return true;
+		}
 
 		// check if guard is in the 3 remaining positions
-		if (hero[0] == guard[0] && (hero[1] - 1 == guard[1] || hero[1] + 1 == guard[1]))
+		if (hero[0] == guard[0] && (hero[1] - 1 == guard[1] || hero[1] + 1 == guard[1])){
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("/nGAME OVER!/nBetter luck next time!");
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean isLeverOverlapse() {
+
+		if ((lever[0] == hero[0] && lever[1] == hero[1]) || (lever[0] == ogre[0] && lever[1] == ogre[1]))
 			return true;
 
 		return false;
@@ -173,12 +208,14 @@ public class Maze {
 
 	public void play() {
 
+		boolean leverHidden = isLeverOverlapse();
+
 		printMaze(mapList[currentMapIndex]);
 
 		// reading user move
 		System.out.println("Enter your move:");
 		Scanner scan = new Scanner(System.in);
-		
+
 		char move = scan.next().charAt(0);
 		move = Character.toUpperCase(move);
 
@@ -201,6 +238,42 @@ public class Maze {
 			break;
 
 		}
+		
+		//move guard OBS.: he moves regardless of hero "moving", e.g if hero hits a wall, guard moves
+		
+		
+		switch (guardMoves[currentGuardMove]) {
+
+		case 'W':
+			moveCharacter(guard[0] - 1, guard[1], 'G', mapList[currentMapIndex]);
+			break;
+
+		case 'A':
+			moveCharacter(guard[0], guard[1] - 1, 'G', mapList[currentMapIndex]);
+			break;
+
+		case 'S':
+			moveCharacter(guard[0] + 1, guard[1], 'G', mapList[currentMapIndex]);
+			break;
+
+		case 'D':
+			moveCharacter(guard[0], guard[1] + 1, 'G', mapList[currentMapIndex]);
+			break;
+
+		}
+		
+		if(currentGuardMove != guardMoves.length-1)
+			currentGuardMove++;
+		else
+			currentGuardMove = 0;
+		
+		
+		if(hero[0] == lever[0] && hero[1] == lever[1])
+			openDoors();
+			
+		
+		if (leverHidden)
+			moveCharacter(lever[0], lever[1], 'k', mapList[currentMapIndex]);
 
 	}
 }
