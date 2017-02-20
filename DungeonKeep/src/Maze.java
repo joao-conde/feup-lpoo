@@ -25,6 +25,13 @@ public class Maze {
 		while (!end) {
 			if (play()) {
 				currentMapIndex++;
+			
+				if(currentMapIndex == mapList.length){
+					System.out.println("\nGG! You beat the game!\n");					
+					return;
+				}
+					
+					
 				buildMap(currentMapIndex + 1);
 			}
 
@@ -210,25 +217,48 @@ public class Maze {
 	}
 
 	public boolean isGameOver() {
-
+		
+		//Guard game over
 		// check if guard is in the 3 above positions of the hero
 		if (hero[0] - 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1])) {
 			printMaze(mapList[currentMapIndex]);
-			System.out.println("GAME OVER! Better luck next time!");
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
 			return true;
 		}
 
 		// check if guard is in the 3 below position of the hero
 		if (hero[0] + 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1])) {
 			printMaze(mapList[currentMapIndex]);
-			System.out.println("GAME OVER! Better luck next time!");
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
 			return true;
 		}
 
 		// check if guard is in the 3 remaining positions
 		if (hero[0] == guard[0] && (hero[1] - 1 == guard[1] || hero[1] + 1 == guard[1])) {
 			printMaze(mapList[currentMapIndex]);
-			System.out.println("/nGAME OVER!/nBetter luck next time!");
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
+			return true;
+		}
+		
+		//Ogre game over
+		// check if ogre is in the 3 above positions of the hero
+		if (hero[0] - 1 == ogre[0] && (hero[1] - 1 == ogre[1] || hero[1] == ogre[1] || hero[1] + 1 == ogre[1])) {
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
+			return true;
+		}
+
+		// check if guard is in the 3 below position of the hero
+		if (hero[0] + 1 == ogre[0] && (hero[1] - 1 == ogre[1] || hero[1] == ogre[1] || hero[1] + 1 == ogre[1])) {
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
+			return true;
+		}
+
+		// check if guard is in the 3 remaining positions
+		if (hero[0] == ogre[0] && (hero[1] - 1 == ogre[1] || hero[1] + 1 == ogre[1])) {
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
 			return true;
 		}
 
