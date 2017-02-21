@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class Maze {
-
+	
+	//class attributes
 	private char[][] map1 = new char[10][10];
 	private char[][] map2 = new char[9][9];
 
@@ -15,7 +17,9 @@ public class Maze {
 
 	private char[][][] mapList = { map1, map2 };
 	private int currentMapIndex = 0;
-
+	
+	
+	//class methods
 	public void run() {
 
 		boolean end = false;
@@ -25,14 +29,14 @@ public class Maze {
 		while (!end) {
 			if (play()) {
 				currentMapIndex++;
-			
-				if(currentMapIndex == mapList.length){
-					System.out.println("\nGG! You beat the game!\n");					
+
+				if (currentMapIndex == mapList.length) {
+					System.out.println("\nGG! You beat the game!\n");
 					return;
 				}
-					
-					
-				buildMap(currentMapIndex + 1);
+
+				else
+					buildMap(currentMapIndex + 1);
 			}
 
 			end = isGameOver();
@@ -217,8 +221,8 @@ public class Maze {
 	}
 
 	public boolean isGameOver() {
-		
-		//Guard game over
+
+		// Guard game over
 		// check if guard is in the 3 above positions of the hero
 		if (hero[0] - 1 == guard[0] && (hero[1] - 1 == guard[1] || hero[1] == guard[1] || hero[1] + 1 == guard[1])) {
 			printMaze(mapList[currentMapIndex]);
@@ -239,8 +243,8 @@ public class Maze {
 			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
 			return true;
 		}
-		
-		//Ogre game over
+
+		// Ogre game over
 		// check if ogre is in the 3 above positions of the hero
 		if (hero[0] - 1 == ogre[0] && (hero[1] - 1 == ogre[1] || hero[1] == ogre[1] || hero[1] + 1 == ogre[1])) {
 			printMaze(mapList[currentMapIndex]);
@@ -282,6 +286,35 @@ public class Maze {
 		move = Character.toUpperCase(move);
 
 		return move;
+	}
+
+	public void randomOgreMove() {
+
+		Random randomGenerator = new Random();
+
+		switch (randomGenerator.nextInt(3)) {
+
+		// up move
+		case 0:
+			moveCharacter(ogre[0] - 1, ogre[1], 'O', mapList[currentMapIndex]);
+			break;
+
+		// down move
+		case 1:
+			moveCharacter(ogre[0] + 1, ogre[1], 'O', mapList[currentMapIndex]);
+			break;
+
+		// left move
+		case 2:
+			moveCharacter(ogre[0], ogre[1] - 1, 'O', mapList[currentMapIndex]);
+			break;
+
+		// right move
+		case 3:
+			moveCharacter(ogre[0], ogre[1] + 1, 'O', mapList[currentMapIndex]);
+			break;
+		}
+
 	}
 
 	public boolean play() {
@@ -356,6 +389,9 @@ public class Maze {
 
 		if (leverHidden)
 			moveCharacter(lever[0], lever[1], 'k', mapList[currentMapIndex]);
+
+		if (currentMapIndex == 1)
+			randomOgreMove();
 
 		return advancelvl;
 	}
