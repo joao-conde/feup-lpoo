@@ -292,7 +292,7 @@ public class Maze {
 
 		Random randomGenerator = new Random();
 
-		switch (randomGenerator.nextInt(3)) {
+		switch (randomGenerator.nextInt(4)) {
 
 		// up move
 		case 0:
@@ -317,6 +317,7 @@ public class Maze {
 
 	}
 
+	
 	public boolean play() {
 
 		boolean leverHidden = isLeverOverlapse();
@@ -392,6 +393,9 @@ public class Maze {
 
 		if (currentMapIndex == 1)
 			randomOgreMove();
+		
+		if(ogre[0] == lever[0] && ogre[1] == lever[1])
+			changeCell(ogre[0],ogre[1], '$', mapList[currentMapIndex]);
 
 		return advancelvl;
 	}
