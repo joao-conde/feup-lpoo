@@ -9,7 +9,7 @@ public class Maze {
 
 	int invalid = 1000;
 	private int[] hero = { invalid, invalid }, guard = { invalid, invalid }, lever = { invalid, invalid },
-			ogre = { invalid, invalid };
+			ogre = { invalid, invalid }, key = {2*invalid,2*invalid};
 
 	private char[] guardMoves = { 'A', 'S', 'S', 'S', 'S', 'A', 'A', 'A', 'A', 'A', 'A', 'S', 'D', 'D', 'D', 'D', 'D',
 			'D', 'D', 'W', 'W', 'W', 'W', 'W' };
@@ -17,6 +17,8 @@ public class Maze {
 
 	private char[][][] mapList = { map1, map2 };
 	private int currentMapIndex = 0;
+	
+	private boolean keyPickedUp = false;
 	
 	
 	//class methods
@@ -72,6 +74,12 @@ public class Maze {
 
 	public void moveCharacter(int lin, int col, char character, char[][] board) {
 
+		if(character == 'K')
+			if(board[lin][col] == 'I'){
+				openDoors();
+				return;
+			}
+		
 		if (board[lin][col] == 'X' || board[lin][col] == 'I')
 			return;
 
@@ -82,7 +90,10 @@ public class Maze {
 				changeCell(hero[0], hero[1], ' ', board);
 			}
 
-			changeCell(lin, col, 'H', board);
+			if(!keyPickedUp)
+				changeCell(lin, col, 'H', board);
+			else changeCell(lin, col, 'K', board);
+				
 			hero[0] = lin;
 			hero[1] = col;
 
@@ -104,6 +115,15 @@ public class Maze {
 			changeCell(lin, col, 'k', board);
 			lever[0] = lin;
 			lever[1] = col;
+			break;
+			
+		case 'K':
+			if (key[0] != 2*invalid || key[1] != 2*invalid) {
+				changeCell(key[0], key[1], ' ', board);
+			}
+			changeCell(lin, col, 'k', board);
+			key[0] = lin;
+			key[1] = col;
 			break;
 
 		case 'O':
@@ -140,6 +160,7 @@ public class Maze {
 		guard[0] = guard[1] = invalid;
 		ogre[0] = ogre[1] = invalid;
 		lever[0] = lever[1] = invalid;
+		key[0] = key[1] = 2*invalid;
 
 		switch (mapNumber) {
 
@@ -197,8 +218,8 @@ public class Maze {
 			// Placing doors in map2
 			changeCell(1, 0, 'I', map2);
 
-			// placing lever
-			moveCharacter(1, 7, 'k', map2);
+			// placing key
+			moveCharacter(1, 7, 'K', map2);
 
 			// set Hero initial location
 			moveCharacter(7, 1, 'H', map2);
@@ -277,6 +298,12 @@ public class Maze {
 		return false;
 	}
 
+	public void isKeyPickedUp(){
+		if(hero[0] == key[0] && key[1] == hero[1])
+			keyPickedUp = true;
+		
+	}
+	
 	public char readUserInput() {
 		// reading user move
 		System.out.println("Enter your move:");
@@ -288,7 +315,7 @@ public class Maze {
 		return move;
 	}
 
-	public void randomOgreMove() {
+	public boolean randomOgreMove() {
 
 		Random randomGenerator = new Random();
 
@@ -314,14 +341,24 @@ public class Maze {
 			moveCharacter(ogre[0], ogre[1] + 1, 'O', mapList[currentMapIndex]);
 			break;
 		}
+		
+		if(ogre[0]==key[0] && ogre[1]==key[1]){
+			changeCell(ogre[0],ogre[1],'$',mapList[currentMapIndex]);
+			return true;
+		}
+		
+		return false;
 
 	}
 
-	
 	public boolean play() {
 
 		boolean leverHidden = isLeverOverlapse();
 		boolean advancelvl = false;
+		boolean ogreOnKey = false;
+		
+		if(ogreOnKey)
+			moveCharacter(key[0], key[1], 'K', mapList[currentMapIndex]);
 
 		printMaze(mapList[currentMapIndex]);
 
@@ -396,6 +433,12 @@ public class Maze {
 		
 		if(ogre[0] == lever[0] && ogre[1] == lever[1])
 			changeCell(ogre[0],ogre[1], '$', mapList[currentMapIndex]);
+		
+		isKeyPickedUp();
+		
+		if(keyPickedUp)
+			openDoors();
+		
 
 		return advancelvl;
 	}
