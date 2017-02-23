@@ -46,6 +46,14 @@ public class Maze {
 
 	}
 
+	public void fillBoard(){
+		
+		for(int i=0; i < mapList[currentMapIndex].length; i++){
+			for(int j=0; j < mapList[currentMapIndex][i].length; j++)
+				mapList[currentMapIndex][i][j] = ' ';
+		}
+	}
+	
 	public void buildWalls(char[][] board) {
 
 		// filling off the top and bottom lines
@@ -165,7 +173,8 @@ public class Maze {
 		switch (mapNumber) {
 
 		case 1:
-
+			
+			fillBoard();
 			// Building external walls for map1
 			buildWalls(map1);
 
@@ -211,7 +220,8 @@ public class Maze {
 			break;
 
 		case 2:
-
+			
+			fillBoard();
 			// Building external walls for map2
 			buildWalls(map2);
 
