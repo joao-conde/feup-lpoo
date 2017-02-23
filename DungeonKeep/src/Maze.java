@@ -2,14 +2,14 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Maze {
-	
-	//class attributes
+
+	// class attributes
 	private char[][] map1 = new char[10][10];
 	private char[][] map2 = new char[9][9];
 
 	int invalid = 1000;
 	private int[] hero = { invalid, invalid }, guard = { invalid, invalid }, lever = { invalid, invalid },
-			ogre = { invalid, invalid }, key = {2*invalid,2*invalid};
+			ogre = { invalid, invalid }, key = { 2 * invalid, 2 * invalid }, club = { invalid, invalid };
 
 	private char[] guardMoves = { 'A', 'S', 'S', 'S', 'S', 'A', 'A', 'A', 'A', 'A', 'A', 'S', 'D', 'D', 'D', 'D', 'D',
 			'D', 'D', 'W', 'W', 'W', 'W', 'W' };
@@ -17,11 +17,10 @@ public class Maze {
 
 	private char[][][] mapList = { map1, map2 };
 	private int currentMapIndex = 0;
-	
-	private boolean keyPickedUp = false;
-	
-	
-	//class methods
+
+	private boolean keyPickedUp = false, keySteppedOn = false;
+
+	// class methods
 	public void run() {
 
 		boolean end = false;
@@ -46,14 +45,14 @@ public class Maze {
 
 	}
 
-	public void fillBoard(){
-		
-		for(int i=0; i < mapList[currentMapIndex].length; i++){
-			for(int j=0; j < mapList[currentMapIndex][i].length; j++)
+	public void fillBoard() {
+
+		for (int i = 0; i < mapList[currentMapIndex].length; i++) {
+			for (int j = 0; j < mapList[currentMapIndex][i].length; j++)
 				mapList[currentMapIndex][i][j] = ' ';
 		}
 	}
-	
+
 	public void buildWalls(char[][] board) {
 
 		// filling off the top and bottom lines
@@ -82,12 +81,12 @@ public class Maze {
 
 	public void moveCharacter(int lin, int col, char character, char[][] board) {
 
-		if(character == 'K')
-			if(board[lin][col] == 'I'){
+		if (character == 'H' && currentMapIndex == 1)
+			if (board[lin][col] == 'I') {
 				openDoors();
 				return;
 			}
-		
+
 		if (board[lin][col] == 'X' || board[lin][col] == 'I')
 			return;
 
@@ -98,10 +97,11 @@ public class Maze {
 				changeCell(hero[0], hero[1], ' ', board);
 			}
 
-			if(!keyPickedUp)
+			if (!keyPickedUp)
 				changeCell(lin, col, 'H', board);
-			else changeCell(lin, col, 'K', board);
-				
+			else
+				changeCell(lin, col, 'K', board);
+
 			hero[0] = lin;
 			hero[1] = col;
 
@@ -124,9 +124,9 @@ public class Maze {
 			lever[0] = lin;
 			lever[1] = col;
 			break;
-			
+
 		case 'K':
-			if (key[0] != 2*invalid || key[1] != 2*invalid) {
+			if (key[0] != 2 * invalid || key[1] != 2 * invalid) {
 				changeCell(key[0], key[1], ' ', board);
 			}
 			changeCell(lin, col, 'k', board);
@@ -142,23 +142,36 @@ public class Maze {
 			ogre[0] = lin;
 			ogre[1] = col;
 			break;
+
+		case '*':
+			if (club[0] != invalid || club[1] != invalid) {
+				changeCell(club[0], club[1], ' ', board);
+			}
+
+			changeCell(lin, col, '*', board);
+			club[0] = lin;
+			club[1] = col;
+			break;
 		}
 
 	}
 
-	public void openDoors() {
+	public boolean openDoors() {
 
 		switch (currentMapIndex) {
 
 		case 0:
 			changeCell(5, 0, 'S', mapList[currentMapIndex]);
 			changeCell(6, 0, 'S', mapList[currentMapIndex]);
-			break;
+			return true;
 
 		case 1:
 			changeCell(1, 0, 'S', mapList[currentMapIndex]);
+			return true;
 
 		}
+
+		return false;
 
 	}
 
@@ -168,12 +181,13 @@ public class Maze {
 		guard[0] = guard[1] = invalid;
 		ogre[0] = ogre[1] = invalid;
 		lever[0] = lever[1] = invalid;
-		key[0] = key[1] = 2*invalid;
+		key[0] = key[1] = 2 * invalid;
+		club[0] = club[1] = invalid;
 
 		switch (mapNumber) {
 
 		case 1:
-			
+
 			fillBoard();
 			// Building external walls for map1
 			buildWalls(map1);
@@ -220,7 +234,7 @@ public class Maze {
 			break;
 
 		case 2:
-			
+
 			fillBoard();
 			// Building external walls for map2
 			buildWalls(map2);
@@ -251,6 +265,13 @@ public class Maze {
 
 	}
 
+	public void keyOverlapsed(){
+		
+		if((key[0] == ogre[0] && key[1] == ogre[1]) || (key[0] == club[0] && key[1] == club[1])){
+			keySteppedOn = true;
+		}
+	}
+	
 	public boolean isGameOver() {
 
 		// Guard game over
@@ -283,15 +304,37 @@ public class Maze {
 			return true;
 		}
 
-		// check if guard is in the 3 below position of the hero
+		// check if ogre is in the 3 below position of the hero
 		if (hero[0] + 1 == ogre[0] && (hero[1] - 1 == ogre[1] || hero[1] == ogre[1] || hero[1] + 1 == ogre[1])) {
 			printMaze(mapList[currentMapIndex]);
 			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
 			return true;
 		}
 
-		// check if guard is in the 3 remaining positions
+		// check if ogre is in the 3 remaining positions
 		if (hero[0] == ogre[0] && (hero[1] - 1 == ogre[1] || hero[1] + 1 == ogre[1])) {
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
+			return true;
+		}
+
+		// Ogre's club game over
+		// check if club is in the 3 above positions of the hero
+		if (hero[0] - 1 == club[0] && (hero[1] - 1 == club[1] || hero[1] == club[1] || hero[1] + 1 == club[1])) {
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
+			return true;
+		}
+
+		// check if club is in the 3 below position of the hero
+		if (hero[0] + 1 == club[0] && (hero[1] - 1 == club[1] || hero[1] == club[1] || hero[1] + 1 == club[1])) {
+			printMaze(mapList[currentMapIndex]);
+			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
+			return true;
+		}
+
+		// check if club is in the 3 remaining positions
+		if (hero[0] == club[0] && (hero[1] - 1 == club[1] || hero[1] + 1 == club[1])) {
 			printMaze(mapList[currentMapIndex]);
 			System.out.println("\nGAME OVER!\nBetter luck next time!\n");
 			return true;
@@ -308,12 +351,12 @@ public class Maze {
 		return false;
 	}
 
-	public void isKeyPickedUp(){
-		if(hero[0] == key[0] && key[1] == hero[1])
+	public void isKeyPickedUp() {
+		if (hero[0] == key[0] && key[1] == hero[1])
 			keyPickedUp = true;
-		
+
 	}
-	
+
 	public char readUserInput() {
 		// reading user move
 		System.out.println("Enter your move:");
@@ -327,9 +370,10 @@ public class Maze {
 
 	public boolean randomOgreMove() {
 
-		Random randomGenerator = new Random();
+		Random randomOgreGenerator = new Random();
+		Random randomClubGenerator = new Random();
 
-		switch (randomGenerator.nextInt(4)) {
+		switch (randomOgreGenerator.nextInt(4)) {
 
 		// up move
 		case 0:
@@ -351,12 +395,61 @@ public class Maze {
 			moveCharacter(ogre[0], ogre[1] + 1, 'O', mapList[currentMapIndex]);
 			break;
 		}
-		
-		if(ogre[0]==key[0] && ogre[1]==key[1]){
-			changeCell(ogre[0],ogre[1],'$',mapList[currentMapIndex]);
+
+		switch (randomClubGenerator.nextInt(8)) {
+
+		// above ogre
+		case 0:
+			moveCharacter(ogre[0] - 1, ogre[1], '*', mapList[currentMapIndex]);
+			break;
+
+		// below ogre
+		case 1:
+			moveCharacter(ogre[0] + 1, ogre[1], '*', mapList[currentMapIndex]);
+			break;
+
+		// left of ogre
+		case 2:
+			moveCharacter(ogre[0], ogre[1] - 1, '*', mapList[currentMapIndex]);
+			break;
+
+		// right of ogre
+		case 3:
+			moveCharacter(ogre[0], ogre[1] + 1, '*', mapList[currentMapIndex]);
+			break;
+
+		// NW of ogre
+		case 4:
+			moveCharacter(ogre[0] - 1, ogre[1] - 1, '*', mapList[currentMapIndex]);
+			break;
+
+		// NE of ogre
+		case 5:
+			moveCharacter(ogre[0] - 1, ogre[1] + 1, '*', mapList[currentMapIndex]);
+			break;
+
+		// SW of ogre
+		case 6:
+			moveCharacter(ogre[0] + 1, ogre[1] - 1, '*', mapList[currentMapIndex]);
+			break;
+
+		// SE of ogre
+		case 7:
+			moveCharacter(ogre[0] + 1, ogre[1] + 1, '*', mapList[currentMapIndex]);
+			break;
+
+		}
+
+		if (ogre[0] == key[0] && ogre[1] == key[1]) {
+			changeCell(ogre[0], ogre[1], '$', mapList[currentMapIndex]);
 			return true;
 		}
-		
+
+		if (club[0] == key[0] && club[1] == key[1]) {
+			changeCell(club[0], club[1], '$', mapList[currentMapIndex]);
+			return true;
+		}
+
 		return false;
 
 	}
@@ -366,11 +459,12 @@ public class Maze {
 		boolean leverHidden = isLeverOverlapse();
 		boolean advancelvl = false;
 		boolean ogreOnKey = false;
-		
-		if(ogreOnKey)
+
+		if (ogreOnKey)
 			moveCharacter(key[0], key[1], 'K', mapList[currentMapIndex]);
 
 		printMaze(mapList[currentMapIndex]);
+		keyOverlapsed();
 
 		char move = readUserInput();
 
@@ -441,14 +535,12 @@ public class Maze {
 		if (currentMapIndex == 1)
 			randomOgreMove();
 		
-		if(ogre[0] == lever[0] && ogre[1] == lever[1])
-			changeCell(ogre[0],ogre[1], '$', mapList[currentMapIndex]);
-		
+		if(keySteppedOn){
+			changeCell(key[0],key[1],'k', mapList[currentMapIndex]);
+			keySteppedOn = false;
+		}
+
 		isKeyPickedUp();
-		
-		if(keyPickedUp)
-			openDoors();
-		
 
 		return advancelvl;
 	}
