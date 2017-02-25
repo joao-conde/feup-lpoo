@@ -1,9 +1,17 @@
 package dk2.logic;
 
 public abstract class Character {
+	
+	
+	//-------------ATTRIBUTES-------------//
 	private int lin, col;
 	private char symbol;
-
+	
+	
+	//--------------METHODS---------------//
+	
+	public Character(){}
+	
 	public int getLin() {
 		return lin;
 	}

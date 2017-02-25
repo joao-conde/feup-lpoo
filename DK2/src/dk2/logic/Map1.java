@@ -14,6 +14,7 @@ public class Map1 extends Map {
 	// Map1 constructor calling Map constructor
 	public Map1(int size) {
 		super(size);
+		this.lever = new Lever();
 	}
 
 	public void setDoors(Door d) {
@@ -24,7 +25,7 @@ public class Map1 extends Map {
 
 		// placing key elements//
 
-		// set Lever initial location
+		// set Lever initial location 
 		lever.setLin(8);
 		lever.setCol(7);
 		this.setBoardCell(lever.getLin(), lever.getCol(), lever.getSymbol());

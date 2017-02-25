@@ -1,9 +1,26 @@
 package dk2.logic;
 
 public class Hero extends MovingChar{
-	private boolean hasKey = false, gameOver = false;
 	
-	public void moveTo(int lin, int col){
-		
+	
+	//-------------ATTRIBUTES-------------//
+	
+	private boolean hasKey;
+	
+	
+	//--------------METHODS---------------//
+	
+	public Hero(){
+		super();
+		this.hasKey = false;
 	}
+	
+	public boolean getHasKey() {
+		return hasKey;
+	}
+
+	public void setHasKey(boolean hasKey) {
+		this.hasKey = hasKey;
+	}
+	
 }
