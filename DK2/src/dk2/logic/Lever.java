@@ -9,6 +9,7 @@ public class Lever extends StaticChar{
 	public Lever(){
 		super();
 		this.active = false;
+		this.setSymbol('k');
 	}
 
 

@@ -5,6 +5,7 @@ public abstract class Map {
 	//-------------ATTRIBUTES-------------//
 	private char[][] board;
 	private int size;
+	Hero mieic_student;
 	
 	
 	//--------------METHODS---------------//
@@ -38,7 +39,17 @@ public abstract class Map {
 		board[lin][col] = symbol;
 	}
 	
-	//builds external map walls
+	public Hero getHero(){
+		Hero h = new Hero();
+		return h;
+	};
+	
+	public Door[] getDoor(){
+		Door[] d ={};
+		
+		return d;
+	}
+	
 	public void buildExtWalls(){
 		
 		// filling off the top and bottom lines
@@ -60,5 +71,18 @@ public abstract class Map {
 		}
 	}
 	
+	public void setDoors(Door d) {
+		setBoardCell(d.getLin(), d.getCol(), d.getSymbol());
+	}
+	
 	public void buildMaze(){};
+
+	public void drawHero(){
+			
+		this.setBoardCell(this.mieic_student.getLin(), this.mieic_student.getCol(), this.mieic_student.getSymbol());
+	}
+	
+	public void eraseHero(){
+		this.setBoardCell(this.mieic_student.getLin(), this.mieic_student.getCol(), ' ');
+	}
 }

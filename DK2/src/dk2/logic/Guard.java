@@ -14,6 +14,7 @@ public class Guard extends MovingChar {
 	public Guard(){
 		super();
 		this.currentStep = 0;
+		this.setSymbol('G');
 	}
 
 }

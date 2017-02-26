@@ -7,5 +7,15 @@ public class Door extends StaticChar{
 	public Door(){
 		super();
 		this.open = false;
+		this.setSymbol('I');
 	}
+
+	public void openDoor(){
+		this.open = true;
+	}
+	
+	public boolean isOpen(){
+		return this.open;
+	}
+	
 }

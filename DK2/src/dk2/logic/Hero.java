@@ -13,6 +13,7 @@ public class Hero extends MovingChar{
 	public Hero(){
 		super();
 		this.hasKey = false;
+		this.setSymbol('H');
 	}
 	
 	public boolean getHasKey() {

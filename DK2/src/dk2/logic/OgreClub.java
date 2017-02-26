@@ -13,6 +13,7 @@ public class OgreClub extends MovingChar{
 
 	public OgreClub(){
 		super();
+		this.setSymbol('*');
 		this.onKey = false;
 	}
 
