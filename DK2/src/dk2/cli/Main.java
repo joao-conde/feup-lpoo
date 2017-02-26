@@ -11,6 +11,7 @@ public class Main {
 		
 		Game dungeon_keeper = new Game();
 		
+		//TODO: "under" variable
 		
 		while(true){
 			
@@ -29,7 +30,7 @@ public class Main {
 			switch(readUserMove()){
 			
 			case 'W':
-				dungeon_keeper.getMap().getHero().moveUp();
+				dungeon_keeper.getMap().getHero().moveUp(); 
 				dungeon_keeper.getMap().eraseHero();
 				dungeon_keeper.getMap().drawHero();
 				break;
