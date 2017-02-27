@@ -11,7 +11,7 @@ public class Main {
 		
 		Game dungeon_keeper = new Game();
 		
-		//TODO: "under" variable
+		//TODO: "under" variable atualizada conforme andam
 		
 		while(true){
 			
@@ -27,33 +27,8 @@ public class Main {
 				return;
 			}
 			
-			switch(readUserMove()){
-			
-			case 'W':
-				dungeon_keeper.getMap().getHero().moveUp(); 
-				dungeon_keeper.getMap().eraseHero();
-				dungeon_keeper.getMap().drawHero();
-				break;
+			dungeon_keeper.getMap().moveHero(readUserMove());
 				
-			case 'S':
-				dungeon_keeper.getMap().getHero().moveDown();
-				dungeon_keeper.getMap().eraseHero();
-				dungeon_keeper.getMap().drawHero();
-				break;
-				
-			case 'A':
-				dungeon_keeper.getMap().getHero().moveLeft();
-				dungeon_keeper.getMap().eraseHero();
-				dungeon_keeper.getMap().drawHero();
-				break;
-				
-			case 'D':
-				dungeon_keeper.getMap().getHero().moveRight();
-				dungeon_keeper.getMap().eraseHero();
-				dungeon_keeper.getMap().drawHero();
-				break;
-			
-			}
 			
 		}
 	}

@@ -31,8 +31,8 @@ public class Map1 extends Map {
 		
 	}
 
-	public Hero getHero(){
-		return this.mieic_student;
+	public Lever getLever(){
+		return this.lever;
 	}
 	
 	//returns the level winning door

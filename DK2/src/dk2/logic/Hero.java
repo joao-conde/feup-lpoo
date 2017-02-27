@@ -22,6 +22,9 @@ public class Hero extends MovingChar{
 
 	public void setHasKey(boolean hasKey) {
 		this.hasKey = hasKey;
+		this.setSymbol('K');
 	}
+	
+	
 	
 }

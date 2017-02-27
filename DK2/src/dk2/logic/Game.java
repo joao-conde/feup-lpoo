@@ -91,4 +91,6 @@ public class Game {
 	public Map getMap(){
 		return levels[currentMap];
 	}
+
+	
 }

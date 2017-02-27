@@ -3,10 +3,17 @@ package dk2.logic;
 public abstract class MovingChar extends Character{
 	
 	
+	//-------------ATTRIBUTES-------------//
+	
+	//whatever is "underneath" this character
+	char under;
+	
+	
 	//--------------METHODS---------------//
 	
 	public MovingChar(){
 		super();
+		this.under = ' ';
 	}
 	
 	public void moveTo(int lin, int col){

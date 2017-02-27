@@ -18,8 +18,10 @@ public class Map2 extends Map {
 		this.ogre = new Ogre();
 	}
 
-	public Hero getHero(){
-		return this.mieic_student;
+
+	
+	public Key getKey(){
+		return this.key;
 	}
 	
 	public void buildMaze() {
