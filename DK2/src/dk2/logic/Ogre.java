@@ -17,6 +17,10 @@ public class Ogre extends MovingChar {
 		this.club = new OgreClub();
 		this.onKey = false;
 	}
+	
+	public OgreClub getClub(){
+		return this.club;
+	}
 
 	public void moveNW(char[][] b) {
 		this.moveUp(b);

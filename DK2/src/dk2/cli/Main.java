@@ -28,6 +28,17 @@ public class Main {
 			
 			dungeon_keeper.getMap().moveHero(readUserMove());
 			dungeon_keeper.heroReachedKey();
+
+			if(dungeon_keeper.getMap() instanceof Map1){
+				
+			}
+			
+			
+			if(dungeon_keeper.getMap() instanceof Map2){
+				
+				((Map2)dungeon_keeper.getMap()).moveOgre();
+				
+			}
 				
 			
 		}

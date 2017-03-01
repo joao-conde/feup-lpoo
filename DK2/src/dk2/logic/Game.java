@@ -17,7 +17,8 @@ public class Game {
 		levels[0] = map1;
 		levels[1] = map2;
 
-		this.currentMap = 0;
+		this.currentMap = 1;
+		
 	}
 
 	public boolean hasHeroWon() {
@@ -27,6 +28,36 @@ public class Game {
 
 		for (int i = 0; i < nextLvLDoors.length; i++) {
 
+			if (levels[currentMap] instanceof Map1) {
+				if (((Map1) levels[currentMap]).isOnLever()) {
+					for (int j = 0; j < nextLvLDoors.length; j++) {
+						nextLvLDoors[j].openDoor();
+						levels[currentMap].setBoardCell(nextLvLDoors[j].getLin(), nextLvLDoors[j].getCol(),
+								nextLvLDoors[j].getSymbol());
+					}
+				}
+
+				if (nextLvLDoors[i].getLin() == h.getLin() && nextLvLDoors[i].getCol() == (h.getCol() - 1)) {
+					currentMap++;
+					return false;
+				}
+
+			}
+			
+			
+			if (levels[currentMap] instanceof Map2) {
+				
+								
+				if(h.getHasKey() && h.getLin() == nextLvLDoors[i].getLin() && h.getCol()+1 == nextLvLDoors[i].getCol()){
+					nextLvLDoors[i].openDoor();
+					levels[currentMap].setBoardCell(nextLvLDoors[i].getLin(), nextLvLDoors[i].getCol(), nextLvLDoors[i].getSymbol());
+				}
+				
+				
+			}
+			
+						
+				
 			if (nextLvLDoors[i].getLin() == h.getLin() && nextLvLDoors[i].getCol() == h.getCol())
 				if (currentMap == levels.length - 1)
 					return true;
@@ -35,16 +66,6 @@ public class Game {
 					return false;
 				}
 
-			if (currentMap == 0) {
-				if (((Map1) levels[0]).isOnLever()) {
-					for (int j = 0; j < nextLvLDoors.length; j++) {
-						nextLvLDoors[j].openDoor();
-						levels[0].setBoardCell(nextLvLDoors[j].getLin(), nextLvLDoors[j].getCol(),
-								nextLvLDoors[j].getSymbol());
-					}
-				}
-
-			}
 		}
 
 		return false;
@@ -123,8 +144,13 @@ public class Game {
 		if (levels[currentMap] instanceof Map2) {
 
 			if (levels[currentMap].getHero().getLin() == ((Map2) levels[currentMap]).getKey().getLin()
-					&& levels[currentMap].getHero().getCol() == ((Map2) levels[currentMap]).getKey().getCol())
+					&& levels[currentMap].getHero().getCol() == ((Map2) levels[currentMap]).getKey().getCol()) {
+				
 				levels[currentMap].getHero().setHasKey(true);
+				((Map2)levels[currentMap]).getKey().setSymbol(' ');
+				((Map2)levels[currentMap]).getHero().setUnder(' ');
+				((Map2)levels[currentMap]).setBoardCell(((Map2)levels[currentMap]).getKey().getLin(),((Map2)levels[currentMap]).getKey().getCol(), 'K'); 
+			}
 
 			return;
 		}

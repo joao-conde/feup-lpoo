@@ -24,6 +24,52 @@ public class Map2 extends Map {
 		return this.key;
 	}
 	
+	public Ogre getOgre(){
+		return this.ogre;
+	}
+	
+	public void moveOgre(){
+		
+		int tempLin_ogre = ogre.getLin(), tempCol_ogre = ogre.getCol();
+		int tempLin_club = ogre.getClub().getLin(), tempCol_club = ogre.getClub().getCol();
+		
+		this.ogre.randomMove(this.getBoard());
+		
+		if(this.getBoard()[ogre.getLin()][ogre.getCol()] == 'X' || this.getBoard()[ogre.getLin()][ogre.getCol()] == 'I'){
+			this.ogre.setLin(tempLin_ogre);
+			this.ogre.setCol(tempCol_ogre);
+			return;
+		}
+		
+		if(this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()] == 'X' || this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()] == 'I'){
+			this.ogre.setLin(tempLin_ogre);
+			this.ogre.setCol(tempCol_ogre);
+			this.ogre.getClub().setLin(tempLin_club);
+			this.ogre.getClub().setCol(tempCol_club);
+			return;
+		}
+		
+		
+		if(this.getBoard()[ogre.getLin()][ogre.getCol()] == 'k'){
+			
+			ogre.setUnder('k');
+			ogre.setSymbol('$');
+		}
+		
+		if(this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()] == 'k'){
+			
+			ogre.getClub().setUnder('k');
+			ogre.getClub().setSymbol('$');
+		}
+		
+		
+		this.setBoardCell(tempLin_ogre, tempLin_ogre, ' ');
+		this.setBoardCell(tempLin_club, tempCol_club, ' ');
+		
+		this.setBoardCell(ogre.getLin(), ogre.getCol(), ogre.getSymbol());
+		this.setBoardCell(tempLin_club, tempCol_club, ogre.getClub().getSymbol());
+	}
+	
 	public void buildMaze() {
 
 		this.buildExtWalls();
