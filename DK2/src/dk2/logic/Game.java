@@ -29,6 +29,7 @@ public class Game {
 		Hero h = levels[currentMap].getHero();
 		Door[] nextLvLDoors = levels[currentMap].getDoor();
 		
+
 		for(int i = 0; i < nextLvLDoors.length; i++){
 			
 			if(nextLvLDoors[i].getLin() == h.getLin() && nextLvLDoors[i].getCol() == h.getCol())
@@ -39,8 +40,34 @@ public class Game {
 					return false;
 				}
 			
+
+	
+		if (currentMap == 0){
+			if (((Map1) levels[0]).isOnLever()){
+				for (int i = 0; i < nextLvLDoors.length;i++){
+					nextLvLDoors[i].openDoor();
+					levels[0].setBoardCell(nextLvLDoors[i].getLin(), nextLvLDoors[i].getCol(), nextLvLDoors[i].getSymbol());
+				}	
+			}
+
 		}
 		
+		for(int i = 0; i < nextLvLDoors.length; i++){
+			if (nextLvLDoors[i].isOpen()){
+				if(currentMap == levels.length - 1){
+					if (h.getCol() == nextLvLDoors[i].getCol() && h.getLin() == nextLvLDoors[i].getLin())
+						return true;
+					}
+					
+					else {
+						if (h.getCol() == nextLvLDoors[i].getCol() && h.getLin() == nextLvLDoors[i].getLin()){
+							currentMap++;
+							return false;
+						}
+							
+					}
+			}
+		}
 		return false;		
 	}
 	

@@ -6,6 +6,7 @@ public class Hero extends MovingChar{
 	//-------------ATTRIBUTES-------------//
 	
 	private boolean hasKey;
+	Lever l;
 	
 	
 	//--------------METHODS---------------//
@@ -24,6 +25,7 @@ public class Hero extends MovingChar{
 		this.hasKey = hasKey;
 		this.setSymbol('K');
 	}
+	
 	
 	
 	

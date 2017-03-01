@@ -44,6 +44,7 @@ public class Map1 extends Map {
 		return nextLvLDoors;
 	}
 	
+	
 	public void buildMaze() {
 
 		this.buildExtWalls();
@@ -113,6 +114,14 @@ public class Map1 extends Map {
 
 
 
+	}
+	
+	public boolean isOnLever(){
+		if (mieic_student.getLin() == lever.getLin() && mieic_student.getCol() == lever.getCol()){
+			lever.setActive(true);
+			return true;
+		}
+		return false;
 	}
 
 }
