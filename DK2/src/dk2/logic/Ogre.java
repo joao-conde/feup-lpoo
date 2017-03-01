@@ -18,28 +18,28 @@ public class Ogre extends MovingChar {
 		this.onKey = false;
 	}
 
-	public void moveNW() {
-		this.moveUp();
-		this.moveLeft();
+	public void moveNW(char[][] b) {
+		this.moveUp(b);
+		this.moveLeft(b);
 	}
 
-	public void moveNE() {
-		this.moveUp();
-		this.moveRight();
+	public void moveNE(char[][] b) {
+		this.moveUp(b);
+		this.moveRight(b);
 	}
 
-	public void moveSW() {
-		this.moveDown();
-		this.moveLeft();
+	public void moveSW(char[][] b) {
+		this.moveDown(b);
+		this.moveLeft(b);
 	}
 
-	public void moveSE() {
-		this.moveDown();
-		this.moveRight();
+	public void moveSE(char[][] b) {
+		this.moveDown(b);
+		this.moveRight(b);
 	}
 
 	// moves both the ogre and his massive club
-	public void randomMove() {
+	public void randomMove(char[][] b) {
 
 		Random randomGen = new Random();
 
@@ -47,74 +47,74 @@ public class Ogre extends MovingChar {
 		switch (randomGen.nextInt(8)) {
 
 		case 0:
-			this.moveUp();
+			this.moveUp(b);
 			break;
 
 		case 1:
-			this.moveNE();
+			this.moveNE(b);
 			break;
 
 		case 2:
-			this.moveRight();
+			this.moveRight(b);
 			break;
 
 		case 3:
-			this.moveSE();
+			this.moveSE(b);
 			break;
 
 		case 4:
-			this.moveDown();
+			this.moveDown(b);
 			break;
 
 		case 5:
-			this.moveSW();
+			this.moveSW(b);
 			break;
 
 		case 6:
-			this.moveLeft();
+			this.moveLeft(b);
 			break;
 
 		case 7:
-			this.moveNW();
+			this.moveNW(b);
 			break;
-			
+
 		}
 
 		// moving ogre's club randomly AROUND him
 		switch (randomGen.nextInt(8)) {
-		
+
 		case 0:
-			this.club.moveTo(this.getLin()-1, this.getCol());
+			this.club.moveTo(this.getLin() - 1, this.getCol(), b);
 			break;
-		
+
 		case 1:
-			this.club.moveTo(this.getLin()-1, this.getCol()+1);
+			this.club.moveTo(this.getLin() - 1, this.getCol() + 1, b);
 			break;
-			
+
 		case 2:
-			this.club.moveTo(this.getLin(), this.getCol()+1);
+			this.club.moveTo(this.getLin(), this.getCol() + 1, b);
 			break;
-			
+
 		case 3:
-			this.club.moveTo(this.getLin()+1, this.getCol()+1);
+			this.club.moveTo(this.getLin() + 1, this.getCol() + 1, b);
 			break;
-			
+
 		case 4:
-			this.club.moveTo(this.getLin()+1, this.getCol());
+			this.club.moveTo(this.getLin() + 1, this.getCol(), b);
 			break;
-			
+
 		case 5:
-			this.club.moveTo(this.getLin()+1, this.getCol()-1);
+			this.club.moveTo(this.getLin() + 1, this.getCol() - 1, b);
 			break;
-			
+
 		case 6:
-			this.club.moveTo(this.getLin(), this.getCol()-1);
+			this.club.moveTo(this.getLin(), this.getCol() - 1, b);
 			break;
-			
+
 		case 7:
-			this.club.moveTo(this.getLin()-1, this.getCol()-1);
+			this.club.moveTo(this.getLin() - 1, this.getCol() - 1, b);
 			break;
-			
+
 		}
 	}
 

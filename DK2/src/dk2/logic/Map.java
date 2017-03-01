@@ -24,7 +24,7 @@ public abstract class Map {
 		this.board = b;
 	}
 
-	// Getters
+	
 	public char[][] getBoard() {
 		return board;
 	}
@@ -48,6 +48,17 @@ public abstract class Map {
 		return d;
 	}
 
+	
+	public void openDoors(){
+		
+		Door[] d = this.getDoor();
+		
+		for(int i = 0; i < d.length; i++){
+			d[i].openDoor();
+		}
+		
+	}
+	
 	public void buildExtWalls() {
 
 		// filling off the top and bottom lines
@@ -95,7 +106,7 @@ public abstract class Map {
 			if((board[h.getLin()-1][h.getCol()] == 'X') | (board[h.getLin()-1][h.getCol()] == 'I'))
 				return false;
 			else
-				this.getHero().under = board[h.getLin()-1][h.getCol()];
+				this.getHero().setUnder(board[h.getLin()-1][h.getCol()]);
 			
 			break;
 
@@ -103,7 +114,7 @@ public abstract class Map {
 			if((board[h.getLin()+1][h.getCol()] == 'X') | (board[h.getLin()+1][h.getCol()] == 'I'))
 				return false;
 			else
-				this.getHero().under = board[h.getLin()+1][h.getCol()];
+				this.getHero().setUnder(board[h.getLin()+1][h.getCol()]);
 			
 			break;
 
@@ -111,7 +122,7 @@ public abstract class Map {
 			if((board[h.getLin()][h.getCol()-1] == 'X') | (board[h.getLin()][h.getCol()-1] == 'I'))
 				return false;
 			else
-				this.getHero().under = board[h.getLin()][h.getCol()-1];
+				this.getHero().setUnder(board[h.getLin()][h.getCol()-1]);
 			
 			break;
 
@@ -119,7 +130,7 @@ public abstract class Map {
 			if((board[h.getLin()][h.getCol()+1] == 'X') | (board[h.getLin()][h.getCol()+1] == 'I'))
 				return false;
 			else
-				this.getHero().under = board[h.getLin()][h.getCol()+1];
+				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);
 			
 			break;
 
@@ -130,42 +141,53 @@ public abstract class Map {
 
 	}
 
+	
+	
 	public void moveHero(char direction) {
 
+		
+		char[][] b = this.getBoard();
+		
+		if(!canHeroMove(direction))
+			return;
+					
+		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(),this.getHero().getUnder());
+		
 		switch (direction) {
 
 		case 'W':
-			if(!canHeroMove(direction))
-				return;
-			this.eraseHero();
-			this.getHero().moveUp();
+			
+			//this.eraseHero();
+			this.getHero().moveUp(b);
 			this.drawHero();
 			break;
 
 		case 'S':
-			if(!canHeroMove(direction))
-				return;
-			this.eraseHero();
-			this.getHero().moveDown();
+			
+			//this.eraseHero();
+			this.getHero().moveDown(b);
 			this.drawHero();
 			break;
 
 		case 'A':
-			if(!canHeroMove(direction))
-				return;
-			this.eraseHero();
-			this.getHero().moveLeft();
+			
+			//this.eraseHero();
+			this.getHero().moveLeft(b);
 			this.drawHero();
 			break;
 
 		case 'D':
-			if(!canHeroMove(direction))
-				return;
-			this.eraseHero();
-			this.getHero().moveRight();
+			
+			//this.eraseHero();
+			this.getHero().moveRight(b);
 			this.drawHero();
 			break;
 
 		}
+		
+		
+		
 	}
+
+	
 }

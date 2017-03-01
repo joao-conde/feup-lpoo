@@ -25,13 +25,13 @@ public class Game {
 
 	public boolean hasHeroWon() {
 		
-		char b[][] = levels[currentMap].getBoard();
+		
 		Hero h = levels[currentMap].getHero();
 		Door[] nextLvLDoors = levels[currentMap].getDoor();
 		
 		for(int i = 0; i < nextLvLDoors.length; i++){
 			
-			if(nextLvLDoors[i].isOpen())
+			if(nextLvLDoors[i].getLin() == h.getLin() && nextLvLDoors[i].getCol() == h.getCol())
 				if(currentMap == levels.length - 1)
 					return true;
 				else {
@@ -92,5 +92,31 @@ public class Game {
 		return levels[currentMap];
 	}
 
-	
+	public void heroReachedKey(){
+		
+				
+		if(levels[currentMap] instanceof Map1){
+			 
+			
+			if(levels[currentMap].getHero().getLin() == ((Map1)levels[currentMap]).getLever().getLin() && levels[currentMap].getHero().getCol() == ((Map1)levels[currentMap]).getLever().getCol()){
+				
+				levels[currentMap].openDoors();
+				
+			}
+				
+			
+			return;			
+		}
+		
+		if(levels[currentMap] instanceof Map2){
+			
+			
+			if(levels[currentMap].getHero().getLin() == ((Map2)levels[currentMap]).getKey().getLin() && levels[currentMap].getHero().getCol() == ((Map2)levels[currentMap]).getKey().getCol())
+				levels[currentMap].getHero().setHasKey(true);
+			
+			
+			return;
+		}
+			
+	}
 }

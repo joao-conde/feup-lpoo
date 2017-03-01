@@ -12,6 +12,7 @@ public class Door extends StaticChar{
 
 	public void openDoor(){
 		this.open = true;
+		this.setSymbol('S');
 	}
 	
 	public boolean isOpen(){

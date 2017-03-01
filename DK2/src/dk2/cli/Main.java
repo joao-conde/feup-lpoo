@@ -9,10 +9,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		
 		Game dungeon_keeper = new Game();
-		
-		//TODO: "under" variable atualizada conforme andam
-		
+				
 		while(true){
 			
 			printMaze(dungeon_keeper);
@@ -28,6 +27,7 @@ public class Main {
 			}
 			
 			dungeon_keeper.getMap().moveHero(readUserMove());
+			dungeon_keeper.heroReachedKey();
 				
 			
 		}
