@@ -17,7 +17,7 @@ public class Game {
 		levels[0] = map1;
 		levels[1] = map2;
 
-		this.currentMap = 0;
+		this.currentMap = 1;
 		
 	}
 
@@ -48,9 +48,8 @@ public class Game {
 			if (levels[currentMap] instanceof Map2) {
 				
 								
-				if(h.getHasKey() && h.getLin() == nextLvLDoors[i].getLin() && h.getCol()+1 == nextLvLDoors[i].getCol()){
+				if(h.getHasKey() && h.getLin() == nextLvLDoors[i].getLin() && h.getCol() == nextLvLDoors[i].getCol()+1){
 					nextLvLDoors[i].openDoor();
-					levels[currentMap].setBoardCell(nextLvLDoors[i].getLin(), nextLvLDoors[i].getCol(), nextLvLDoors[i].getSymbol());
 				}
 				
 				

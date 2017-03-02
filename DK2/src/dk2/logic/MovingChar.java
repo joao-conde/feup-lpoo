@@ -35,5 +35,25 @@ public abstract class MovingChar extends Character {
 	public void moveDown(char[][] b) {
 		moveTo(this.getLin() + 1, this.getCol(), b);
 	}
+	
+	public void moveNW(char[][] b) {
+		this.moveUp(b);
+		this.moveLeft(b);
+	}
+
+	public void moveNE(char[][] b) {
+		this.moveUp(b);
+		this.moveRight(b);
+	}
+
+	public void moveSW(char[][] b) {
+		this.moveDown(b);
+		this.moveLeft(b);
+	}
+
+	public void moveSE(char[][] b) {
+		this.moveDown(b);
+		this.moveRight(b);
+	}
 
 }

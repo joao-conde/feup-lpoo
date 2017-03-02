@@ -95,14 +95,13 @@ public abstract class Map {
 		this.setBoardCell(this.mieic_student.getLin(), this.mieic_student.getCol(), ' ');
 	}
 
-	public boolean canHeroMove(char direction) {
+	public boolean canMove(char direction, MovingChar obj) {
 
-		Hero h = this.getHero();
 		
 		switch (direction) {
 
 		case 'W':
-			if((board[h.getLin()-1][h.getCol()] == 'X') | (board[h.getLin()-1][h.getCol()] == 'I'))
+			if((board[obj.getLin()-1][obj.getCol()] == 'X') || (board[obj.getLin()-1][obj.getCol()] == 'I'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()-1][h.getCol()]);*/
@@ -110,7 +109,7 @@ public abstract class Map {
 			break;
 
 		case 'S':
-			if((board[h.getLin()+1][h.getCol()] == 'X') | (board[h.getLin()+1][h.getCol()] == 'I'))
+			if((board[obj.getLin()+1][obj.getCol()] == 'X') || (board[obj.getLin()+1][obj.getCol()] == 'I'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()+1][h.getCol()]);*/
@@ -118,7 +117,7 @@ public abstract class Map {
 			break;
 
 		case 'A':
-			if((board[h.getLin()][h.getCol()-1] == 'X') | (board[h.getLin()][h.getCol()-1] == 'I'))
+			if((board[obj.getLin()][obj.getCol()-1] == 'X') || (board[obj.getLin()][obj.getCol()-1] == 'I'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()][h.getCol()-1]);*/
@@ -126,13 +125,45 @@ public abstract class Map {
 			break;
 
 		case 'D':
-			if((board[h.getLin()][h.getCol()+1] == 'X') | (board[h.getLin()][h.getCol()+1] == 'I'))
+			if((board[obj.getLin()][obj.getCol()+1] == 'X') || (board[obj.getLin()][obj.getCol()+1] == 'I'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
 			
 			break;
-
+			
+		case 'Q':
+			if((board[obj.getLin()-1][obj.getCol()-1] == 'X') || (board[obj.getLin()-1][obj.getCol()-1] == 'I'))
+				return false;
+			/*else
+				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
+			
+			break;
+			
+		case 'E':
+			if((board[obj.getLin()-1][obj.getCol()+1] == 'X') || (board[obj.getLin()-1][obj.getCol()+1] == 'I'))
+				return false;
+			/*else
+				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
+			
+			break;
+			
+		case 'C':
+			if((board[obj.getLin()+1][obj.getCol()+1] == 'X') || (board[obj.getLin()+1][obj.getCol()+1] == 'I'))
+				return false;
+			/*else
+				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
+			
+			break;
+			
+		case 'Z':
+			if((board[obj.getLin()+1][obj.getCol()-1] == 'X') || (board[obj.getLin()+1][obj.getCol()-1] == 'I'))
+				return false;
+			/*else
+				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
+			
+			break;
+			
 		}
 		
 					
@@ -145,7 +176,7 @@ public abstract class Map {
 		
 		char[][] b = this.getBoard();
 		
-		if(!canHeroMove(direction))
+		if(!canMove(direction,this.mieic_student))
 			return;
 					
 		//this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(),this.getHero().getUnder());
