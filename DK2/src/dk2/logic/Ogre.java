@@ -45,6 +45,8 @@ public class Ogre extends MovingChar {
 	// moves both the ogre and his massive club
 	public void randomMove(char[][] b) {
 
+		
+		
 		Random randomGen = new Random();
 
 		// moving the ogre randomly

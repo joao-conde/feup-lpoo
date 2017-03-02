@@ -17,7 +17,7 @@ public class Game {
 		levels[0] = map1;
 		levels[1] = map2;
 
-		this.currentMap = 1;
+		this.currentMap = 0;
 		
 	}
 

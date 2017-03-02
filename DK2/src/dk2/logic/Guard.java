@@ -1,11 +1,13 @@
 package dk2.logic;
 
-public class Guard extends MovingChar {
+public abstract class Guard extends MovingChar {
 	
 	
 	//-------------ATTRIBUTES-------------//
 	
-	private char[] patrolPath;
+	private char[] patrolPath = { 'A', 'S', 'S', 'S', 'S', 'A', 'A', 'A', 'A', 'A', 'A', 'S', 'D', 'D', 'D', 'D', 'D',
+			'D', 'D', 'W', 'W', 'W', 'W', 'W' };
+	
 	private int currentStep;
 		
 		
@@ -16,5 +18,15 @@ public class Guard extends MovingChar {
 		this.currentStep = 0;
 		this.setSymbol('G');
 	}
+
+	public char getNextMove(){
+
+		char c = patrolPath[currentStep];
+		this.currentStep++;
+		
+		return c;
+	}
+	
+	public void move(){};
 
 }

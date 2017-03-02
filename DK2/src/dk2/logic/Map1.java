@@ -1,5 +1,7 @@
 package dk2.logic;
 
+import java.util.Random;
+
 public class Map1 extends Map {
 
 	//-------------ATTRIBUTES-------------//
@@ -18,7 +20,25 @@ public class Map1 extends Map {
 						
 		this.mieic_student = new Hero();
 		
-		this.guard = new Guard();		
+		
+		Random ranGen = new Random();
+		
+		switch(0/*ranGen.nextInt(3)*/){
+		
+		case 0:
+			this.guard = new Rookie();
+			break;
+		/*	
+		case 1:
+			this.guard = new Drunken();
+			break;
+			
+		case 2:
+			this.guard = new Suspicious();
+			break;*/
+		}
+		
+				
 		
 		this.d1 = new Door();
 		this.d2 = new Door();
@@ -44,6 +64,14 @@ public class Map1 extends Map {
 		return nextLvLDoors;
 	}
 	
+	public void moveGuard(){
+		
+		//this.setBoardCell(this.guard.getLin(), this.guard.getCol(), ' ');
+		
+		if(guard instanceof Rookie)
+			((Rookie)this.guard).move();
+		
+	}
 	
 	public void buildMaze() {
 

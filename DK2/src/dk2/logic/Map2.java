@@ -30,12 +30,16 @@ public class Map2 extends Map {
 	
 	public void moveOgre(){
 		
+		this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()] = ' ';
+		
 		int tempLin_ogre = ogre.getLin(), tempCol_ogre = ogre.getCol();
 		int tempLin_club = ogre.getClub().getLin(), tempCol_club = ogre.getClub().getCol();
 		
 		this.ogre.randomMove(this.getBoard());
 		
 		if(this.getBoard()[ogre.getLin()][ogre.getCol()] == 'X' || this.getBoard()[ogre.getLin()][ogre.getCol()] == 'I'){
+			this.getBoard()[ogre.getLin()][ogre.getCol()] = 'X';
+			
 			this.ogre.setLin(tempLin_ogre);
 			this.ogre.setCol(tempCol_ogre);
 			return;
