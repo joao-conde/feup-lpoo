@@ -37,7 +37,7 @@ public class Game {
 					}
 				}
 
-				if (nextLvLDoors[i].getLin() == h.getLin() && nextLvLDoors[i].getCol() == (h.getCol() - 1)) {
+				if (nextLvLDoors[i].getLin() == h.getLin() && nextLvLDoors[i].getCol() == (h.getCol() - 1) && nextLvLDoors[i].isOpen()) {
 					currentMap++;
 					return false;
 				}

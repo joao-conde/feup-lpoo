@@ -14,6 +14,8 @@ public abstract class MovingChar extends Character {
 
 	public void moveTo(int lin, int col, char[][] b) {
 		
+		b[this.getLin()][this.getCol()] = ' ';
+		
 		this.setLin(lin);
 		this.setCol(col);
 	}

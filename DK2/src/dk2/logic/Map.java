@@ -24,6 +24,7 @@ public abstract class Map {
 		this.board = b;
 	}
 
+
 	public char[][] getBoard() {
 		return board;
 	}
@@ -153,28 +154,28 @@ public abstract class Map {
 
 		case 'W':
 			
-			this.eraseHero();
+			//this.eraseHero();
 			this.getHero().moveUp(b);
 			this.drawHero();
 			break;
 
 		case 'S':
 			
-			this.eraseHero();
+			//this.eraseHero();
 			this.getHero().moveDown(b);
 			this.drawHero();
 			break;
 
 		case 'A':
 			
-			this.eraseHero();
+			//this.eraseHero();
 			this.getHero().moveLeft(b);
 			this.drawHero();
 			break;
 
 		case 'D':
 			
-			this.eraseHero();
+			//this.eraseHero();
 			this.getHero().moveRight(b);
 			this.drawHero();
 			break;
