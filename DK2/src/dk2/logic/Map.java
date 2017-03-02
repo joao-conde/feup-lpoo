@@ -147,34 +147,34 @@ public abstract class Map {
 		if(!canHeroMove(direction))
 			return;
 					
-		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(),this.getHero().getUnder());
+		//this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(),this.getHero().getUnder());
 		
 		switch (direction) {
 
 		case 'W':
 			
-			//this.eraseHero();
+			this.eraseHero();
 			this.getHero().moveUp(b);
 			this.drawHero();
 			break;
 
 		case 'S':
 			
-			//this.eraseHero();
+			this.eraseHero();
 			this.getHero().moveDown(b);
 			this.drawHero();
 			break;
 
 		case 'A':
 			
-			//this.eraseHero();
+			this.eraseHero();
 			this.getHero().moveLeft(b);
 			this.drawHero();
 			break;
 
 		case 'D':
 			
-			//this.eraseHero();
+			this.eraseHero();
 			this.getHero().moveRight(b);
 			this.drawHero();
 			break;
@@ -185,5 +185,5 @@ public abstract class Map {
 		
 	}
 
-	
+	public void placeChars(){};
 }

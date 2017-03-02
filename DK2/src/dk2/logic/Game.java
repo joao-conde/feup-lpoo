@@ -148,7 +148,7 @@ public class Game {
 				
 				levels[currentMap].getHero().setHasKey(true);
 				((Map2)levels[currentMap]).getKey().setSymbol(' ');
-				((Map2)levels[currentMap]).getHero().setUnder(' ');
+				
 				((Map2)levels[currentMap]).setBoardCell(((Map2)levels[currentMap]).getKey().getLin(),((Map2)levels[currentMap]).getKey().getCol(), 'K'); 
 			}
 

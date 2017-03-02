@@ -151,5 +151,13 @@ public class Map1 extends Map {
 		}
 		return false;
 	}
+	
+	public void placeChars(){
+		
+		this.setBoardCell(this.guard.getLin(), this.guard.getCol(), this.guard.getSymbol());
+		this.setBoardCell(this.lever.getLin(), this.lever.getCol(), this.lever.getSymbol());
+		this.setBoardCell(this.mieic_student.getLin(), this.mieic_student.getCol(), this.mieic_student.getSymbol());
+		
+	}
 
 }

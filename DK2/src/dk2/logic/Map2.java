@@ -56,13 +56,13 @@ public class Map2 extends Map {
 		
 		if(this.getBoard()[ogre.getLin()][ogre.getCol()] == 'k'){
 			
-			ogre.setUnder('k');
+			
 			ogre.setSymbol('$');
 		}
 		
 		if(this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()] == 'k'){
 			
-			ogre.getClub().setUnder('k');
+		
 			ogre.getClub().setSymbol('$');
 		}
 		

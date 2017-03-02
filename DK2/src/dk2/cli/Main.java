@@ -14,6 +14,8 @@ public class Main {
 				
 		while(true){
 			
+			dungeon_keeper.getMap().placeChars();
+			
 			printMaze(dungeon_keeper);
 			
 			if(dungeon_keeper.hasHeroWon()){
