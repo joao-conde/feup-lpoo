@@ -69,7 +69,7 @@ public class Map1 extends Map {
 		//this.setBoardCell(this.guard.getLin(), this.guard.getCol(), ' ');
 		
 		if(guard instanceof Rookie)
-			((Rookie)this.guard).move();
+			((Rookie)this.guard).move(this.getBoard());
 		
 	}
 	

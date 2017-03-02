@@ -27,6 +27,6 @@ public abstract class Guard extends MovingChar {
 		return c;
 	}
 	
-	public void move(){};
+	public void move(char[][] b){};
 
 }
