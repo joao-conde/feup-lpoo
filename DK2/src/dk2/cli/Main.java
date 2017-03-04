@@ -32,10 +32,8 @@ public class Main {
 			dungeon_keeper.heroReachedKey();
 
 			if(dungeon_keeper.getMap() instanceof Map1){
-				
+				((Map1) dungeon_keeper.getMap()).moveGuard();
 			}
-			
-			
 			if(dungeon_keeper.getMap() instanceof Map2){
 				
 				((Map2)dungeon_keeper.getMap()).moveOgre();

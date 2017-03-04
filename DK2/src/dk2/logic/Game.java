@@ -17,7 +17,7 @@ public class Game {
 		levels[0] = map1;
 		levels[1] = map2;
 
-		this.currentMap = 1;
+		this.currentMap = 0;
 		
 	}
 
@@ -82,40 +82,40 @@ public class Game {
 
 		// check 3 positions above hero
 
-		if ((b[h.getLin() - 1][h.getCol() - 1] == 'G') | (b[h.getLin() - 1][h.getCol() - 1] == 'O')
-				| (b[h.getLin() - 1][h.getCol() - 1] == '*'))
+		if ((b[h.getLin() - 1][h.getCol() - 1] == 'G') || (b[h.getLin() - 1][h.getCol() - 1] == 'O')
+				|| (b[h.getLin() - 1][h.getCol() - 1] == '*'))
 			return true;
 
-		if ((b[h.getLin() - 1][h.getCol()] == 'G') | (b[h.getLin() - 1][h.getCol()] == 'O')
-				| (b[h.getLin() - 1][h.getCol()] == '*'))
+		if ((b[h.getLin() - 1][h.getCol()] == 'G') || (b[h.getLin() - 1][h.getCol()] == 'O')
+				|| (b[h.getLin() - 1][h.getCol()] == '*'))
 			return true;
 
-		if ((b[h.getLin() - 1][h.getCol() + 1] == 'G') | (b[h.getLin() - 1][h.getCol() + 1] == 'O')
-				| (b[h.getLin() - 1][h.getCol() + 1] == '*'))
+		if ((b[h.getLin() - 1][h.getCol() + 1] == 'G') || (b[h.getLin() - 1][h.getCol() + 1] == 'O')
+				|| (b[h.getLin() - 1][h.getCol() + 1] == '*'))
 			return true;
 
 		// check 3 positions below hero
 
-		if ((b[h.getLin() + 1][h.getCol() - 1] == 'G') | (b[h.getLin() + 1][h.getCol() - 1] == 'O')
-				| (b[h.getLin() + 1][h.getCol() - 1] == '*'))
+		if ((b[h.getLin() + 1][h.getCol() - 1] == 'G') || (b[h.getLin() + 1][h.getCol() - 1] == 'O')
+				|| (b[h.getLin() + 1][h.getCol() - 1] == '*'))
 			return true;
 
-		if ((b[h.getLin() + 1][h.getCol()] == 'G') | (b[h.getLin() + 1][h.getCol()] == 'O')
-				| (b[h.getLin() + 1][h.getCol()] == '*'))
+		if ((b[h.getLin() + 1][h.getCol()] == 'G') || (b[h.getLin() + 1][h.getCol()] == 'O')
+				|| (b[h.getLin() + 1][h.getCol()] == '*'))
 			return true;
 
-		if ((b[h.getLin() + 1][h.getCol() + 1] == 'G') | (b[h.getLin() + 1][h.getCol() + 1] == 'O')
-				| (b[h.getLin() + 1][h.getCol() + 1] == '*'))
+		if ((b[h.getLin() + 1][h.getCol() + 1] == 'G') || (b[h.getLin() + 1][h.getCol() + 1] == 'O')
+				|| (b[h.getLin() + 1][h.getCol() + 1] == '*'))
 			return true;
 
 		// check remaining positions
 
-		if ((b[h.getLin()][h.getCol() - 1] == 'G') | (b[h.getLin()][h.getCol() - 1] == 'O')
-				| (b[h.getLin()][h.getCol() - 1] == '*'))
+		if ((b[h.getLin()][h.getCol() - 1] == 'G') || (b[h.getLin()][h.getCol() - 1] == 'O')
+				|| (b[h.getLin()][h.getCol() - 1] == '*'))
 			return true;
 
-		if ((b[h.getLin()][h.getCol() + 1] == 'G') | (b[h.getLin()][h.getCol() + 1] == 'O')
-				| (b[h.getLin()][h.getCol() + 1] == '*'))
+		if ((b[h.getLin()][h.getCol() + 1] == 'G') || (b[h.getLin()][h.getCol() + 1] == 'O')
+				|| (b[h.getLin()][h.getCol() + 1] == '*'))
 			return true;
 
 		return false;

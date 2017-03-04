@@ -23,19 +23,19 @@ public class Map1 extends Map {
 		
 		Random ranGen = new Random();
 		
-		switch(0/*ranGen.nextInt(3)*/){
+		switch(2/*ranGen.nextInt(2)*/){
 		
 		case 0:
 			this.guard = new Rookie();
 			break;
-		/*	
+			
 		case 1:
 			this.guard = new Drunken();
 			break;
-			
+		
 		case 2:
 			this.guard = new Suspicious();
-			break;*/
+			break;
 		}
 		
 				
@@ -65,11 +65,45 @@ public class Map1 extends Map {
 	}
 	
 	public void moveGuard(){
+		char dir;
+		if(guard instanceof Rookie){
+			dir = this.guard.getNextMove(false);
+			this.guard.move(this.getBoard(), dir);
+		}
 		
-		//this.setBoardCell(this.guard.getLin(), this.guard.getCol(), ' ');
+		if (guard instanceof Drunken){
+			dir = this.guard.getNextMove(false);
+			Random nowSleep = new Random();
+			if (nowSleep.nextBoolean()==true){
+				((Drunken)this.guard).sleep();
+			}
+			else{
+				this.guard.setSymbol('G');
+				this.guard.move(this.getBoard(),dir);
+			}
+				
+		}
 		
-		if(guard instanceof Rookie)
-			((Rookie)this.guard).move(this.getBoard());
+		if (guard instanceof Suspicious){
+			Random changeDir = new Random();
+			switch(changeDir.nextInt(2)){
+			case 0:
+				dir = this.guard.getNextMove(false);
+				if (!canMove(dir, this.guard))
+					return;
+				this.guard.move(this.getBoard(), dir);
+				break;
+			case 1:
+				dir = this.guard.getNextMove(true);
+				if (!canMove(dir, this.guard)){
+					
+				}
+				((Suspicious)this.guard).turnBack();
+				this.guard.move(this.getBoard(), dir);
+				break;
+			
+			}
+		}
 		
 	}
 	
