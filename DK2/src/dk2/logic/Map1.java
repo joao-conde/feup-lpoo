@@ -68,7 +68,8 @@ public class Map1 extends Map {
 		char dir;
 		if(guard instanceof Rookie){
 			dir = this.guard.getNextMove(false);
-			this.guard.move(this.getBoard(), dir);
+			if (this.canMove(dir, this.guard))
+				this.guard.move(this.getBoard(), dir);
 		}
 		
 		if (guard instanceof Drunken){
@@ -79,7 +80,8 @@ public class Map1 extends Map {
 			}
 			else{
 				this.guard.setSymbol('G');
-				this.guard.move(this.getBoard(),dir);
+				if (this.canMove(dir, this.guard))
+					this.guard.move(this.getBoard(), dir);
 			}
 				
 		}
@@ -96,7 +98,7 @@ public class Map1 extends Map {
 			case 1:
 				dir = this.guard.getNextMove(true);
 				if (!canMove(dir, this.guard)){
-					
+					return;
 				}
 				((Suspicious)this.guard).turnBack();
 				this.guard.move(this.getBoard(), dir);

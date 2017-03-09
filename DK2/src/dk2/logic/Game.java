@@ -1,4 +1,5 @@
 package dk2.logic;
+import java.util.Random;
 
 public class Game {
 
@@ -6,9 +7,12 @@ public class Game {
 	private int currentMap;
 
 	public Game() {
-
+		
+//		Random nGen = new Random();
+//		int n = nGen.nextInt(4);
+		
 		Map1 map1 = new Map1(10);
-		Map2 map2 = new Map2(10);
+		Map2 map2 = new Map2(10, 2);
 
 		map1.buildMaze();
 		map2.buildMaze();
