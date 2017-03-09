@@ -5,7 +5,7 @@ public abstract class Map {
 	// -------------ATTRIBUTES-------------//
 	private char[][] board;
 	private int size;
-	Hero mieic_student;
+	private Hero mieic_student;
 
 	// --------------METHODS---------------//
 
@@ -22,6 +22,7 @@ public abstract class Map {
 		}
 
 		this.board = b;
+		this.mieic_student = new Hero();
 	}
 
 
@@ -32,6 +33,7 @@ public abstract class Map {
 	public int getSize() {
 		return this.size;
 	}
+	
 
 	public void setBoardCell(int lin, int col, char symbol) {
 

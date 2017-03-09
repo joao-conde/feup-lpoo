@@ -5,9 +5,9 @@ public class Map2 extends Map {
 
 	// -------------ATTRIBUTES-------------//
 
-	Door d1;
-	Key key;
-	Ogre[] ogres;
+	private Door d1;
+	private Key key;
+	private Ogre[] ogres;
 
 	// --------------METHODS---------------//
 
@@ -15,7 +15,6 @@ public class Map2 extends Map {
 		super(size);
 		this.d1 = new Door();
 		this.key = new Key();
-		this.mieic_student = new Hero();
 		this.ogres = new Ogre[nOgres];
 		for (int i = 0; i < nOgres; i++){
 			Ogre o = new Ogre();
@@ -42,7 +41,10 @@ public class Map2 extends Map {
 //	}
 	
 	public void moveOgre(int index){
-		
+		if (ogres[index].getStunned()){
+			ogres[index].increaseTurns();
+			return;
+		}
 		char direction = ogres[index].calculateRandomMove();
 		boolean re_calculate = true;
 		
@@ -169,28 +171,47 @@ public class Map2 extends Map {
 		
 	}
 	
+	public void stunOgres(){
+		for (Ogre o: ogres){
+			if (this.getBoard()[o.getLin()-1][o.getCol()-1] == 'A' ||
+				this.getBoard()[o.getLin()-1][o.getCol()] == 'A' ||
+				this.getBoard()[o.getLin()-1][o.getCol()+1] == 'A')
+				o.setStunned(true);
+			
+			if (this.getBoard()[o.getLin()][o.getCol()-1] == 'A' ||
+				this.getBoard()[o.getLin()][o.getCol()+1] == 'A')
+				o.setStunned(true);
+			
+			if (this.getBoard()[o.getLin()+1][o.getCol()-1] == 'A' ||
+				this.getBoard()[o.getLin()+1][o.getCol()] == 'A' ||
+				this.getBoard()[o.getLin()+1][o.getCol()+1] == 'A')
+				o.setStunned(true);
+			
+		}
+	}
+	
 	public void placeChars(){
 		for (Ogre o: ogres){
 			this.setBoardCell(o.getLin(), o.getCol(), o.getSymbol());
+			if (!o.getStunned())
+				this.setBoardCell(o.getClub().getLin(), o.getClub().getCol(), o.getClub().getSymbol());
 			
-			this.setBoardCell(o.getClub().getLin(), o.getClub().getCol(), o.getClub().getSymbol());
-			
-			if(o.getLin() == key.getLin() && o.getCol() == key.getCol() && !mieic_student.getHasKey()){
+			if(o.getLin() == key.getLin() && o.getCol() == key.getCol() && !this.getHero().getHasKey()){
 				this.setBoardCell(o.getLin(), o.getCol(), '$');
 			}
 			
-			if(o.getClub().getLin() == key.getLin() && o.getClub().getCol() == key.getCol() && !mieic_student.getHasKey()){
-				this.setBoardCell(o.getLin(), o.getCol(), '$');
+			if(o.getClub().getLin() == key.getLin() && o.getClub().getCol() == key.getCol() && !this.getHero().getHasKey()){
+				this.setBoardCell(o.getClub().getLin(), o.getClub().getCol(), '$');
 			}
 		}
-		if(!mieic_student.getHasKey())
+		if(!this.getHero().getHasKey())
 		 this.setBoardCell(this.key.getLin(), this.key.getCol(), this.key.getSymbol());
 		
 		
 		
 		this.setBoardCell(d1.getLin(), d1.getCol(), d1.getSymbol());
-		
-		this.setBoardCell(this.mieic_student.getLin(), this.mieic_student.getCol(), this.mieic_student.getSymbol());
+		this.getHero().setSymbol('A');
+		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 		
 	}
 	
@@ -207,9 +228,9 @@ public class Map2 extends Map {
 		this.setBoardCell(key.getLin(), key.getCol(), key.getSymbol());
 
 		// set Hero initial location
-		mieic_student.setLin(8);
-		mieic_student.setCol(1);
-		this.setBoardCell(mieic_student.getLin(), mieic_student.getCol(), mieic_student.getSymbol());
+		this.getHero().setLin(8);
+		this.getHero().setCol(1);
+		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 		int li = 1;
 		int	co = 4;
 		// set Ogres initial locations
@@ -226,7 +247,7 @@ public class Map2 extends Map {
 		}
 		
 		
-
+		// set Hero Club position
 		// set Doors
 		d1.setLin(1);
 		d1.setCol(0);

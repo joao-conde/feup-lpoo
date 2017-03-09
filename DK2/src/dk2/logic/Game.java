@@ -2,7 +2,7 @@ package dk2.logic;
 import java.util.Random;
 
 public class Game {
-
+	private int nOgres = 4;
 	private Map[] levels;
 	private int currentMap;
 
@@ -12,7 +12,7 @@ public class Game {
 //		int n = nGen.nextInt(4);
 		
 		Map1 map1 = new Map1(10);
-		Map2 map2 = new Map2(10, 3);
+		Map2 map2 = new Map2(10, nOgres);
 
 		map1.buildMaze();
 		map2.buildMaze();
@@ -23,6 +23,9 @@ public class Game {
 
 		this.currentMap = 1;
 		
+	}
+	public int getNOgres(){
+		return nOgres;
 	}
 
 	public boolean hasHeroWon() {
@@ -90,7 +93,7 @@ public class Game {
 				|| (b[h.getLin() - 1][h.getCol() - 1] == '*'))
 			return true;
 
-		if ((b[h.getLin() - 1][h.getCol()] == 'G') || (b[h.getLin() - 1][h.getCol()] == 'O')
+		if ((b[h.getLin() - 1][h.getCol()] == 'G') || (b[h.getLin() - 1][h.getCol()] == 'O') 
 				|| (b[h.getLin() - 1][h.getCol()] == '*'))
 			return true;
 

@@ -37,10 +37,11 @@ public class Main {
 			
 			if(dungeon_keeper.getMap() instanceof Map2){
 				int n = 0;
-				while(n<3){
+				while(n< dungeon_keeper.getNOgres()){
 					((Map2)dungeon_keeper.getMap()).moveOgre(n);
 					n++;
 				}
+				((Map2)dungeon_keeper.getMap()).stunOgres();
 			}
 				
 			

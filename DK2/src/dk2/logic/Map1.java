@@ -6,9 +6,9 @@ public class Map1 extends Map {
 
 	//-------------ATTRIBUTES-------------//
 
-	Door d1, d2, d3, d4, d5, d6, d7;
-	Lever lever;
-	Guard guard;
+	private Door d1, d2, d3, d4, d5, d6, d7;
+	private Lever lever;
+	private Guard guard;
 
 	//--------------METHODS---------------//
 
@@ -17,8 +17,6 @@ public class Map1 extends Map {
 		super(size);
 		
 		this.lever = new Lever();
-						
-		this.mieic_student = new Hero();
 		
 		
 		Random ranGen = new Random();
@@ -141,8 +139,8 @@ public class Map1 extends Map {
 		this.setBoardCell(lever.getLin(), lever.getCol(), lever.getSymbol());
 
 		// set Hero initial location
-		mieic_student.setLin(1);
-		mieic_student.setCol(1);
+		this.getHero().setLin(1);
+		this.getHero().setCol(1);
 		drawHero();
 
 		// set Guard initial location
@@ -180,7 +178,7 @@ public class Map1 extends Map {
 	}
 	
 	public boolean isOnLever(){
-		if (mieic_student.getLin() == lever.getLin() && mieic_student.getCol() == lever.getCol()){
+		if (this.getHero().getLin() == lever.getLin() && this.getHero().getCol() == lever.getCol()){
 			lever.setActive(true);
 			return true;
 		}
@@ -191,7 +189,7 @@ public class Map1 extends Map {
 		
 		this.setBoardCell(this.guard.getLin(), this.guard.getCol(), this.guard.getSymbol());
 		this.setBoardCell(this.lever.getLin(), this.lever.getCol(), this.lever.getSymbol());
-		this.setBoardCell(this.mieic_student.getLin(), this.mieic_student.getCol(), this.mieic_student.getSymbol());
+		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 		
 	}
 

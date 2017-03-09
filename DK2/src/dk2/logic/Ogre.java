@@ -6,8 +6,9 @@ public class Ogre extends MovingChar {
 
 	// -------------ATTRIBUTES-------------//
 
-	private boolean onKey;
+	private boolean onKey, stunned;
 	private OgreClub club;
+	private int turnsStunned;
 
 	// --------------METHODS---------------//
 
@@ -17,6 +18,8 @@ public class Ogre extends MovingChar {
 		this.club = new OgreClub();
 		
 		this.onKey = false;
+		this.stunned = false;
+		this.turnsStunned = 0;
 	}
 	
 	public OgreClub getClub(){
@@ -24,7 +27,14 @@ public class Ogre extends MovingChar {
 	}
 
 
-
+	public void increaseTurns(){
+		this.turnsStunned++;
+		if (this.turnsStunned == 2){
+			this.turnsStunned = 0;
+			this.setSymbol('O');
+			this.stunned = false;
+		}
+	}
 	
 	public char calculateRandomMove() {
 
@@ -64,5 +74,15 @@ public class Ogre extends MovingChar {
 
 		
 	}
+	
+	public void setStunned(boolean stun){
+		this.stunned = stun;
+		this.setSymbol('8');
+	}
+	
+	public boolean getStunned(){
+		return stunned;
+	}
+	
 
 }
