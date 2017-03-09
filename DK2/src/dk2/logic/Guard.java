@@ -19,7 +19,9 @@ public abstract class Guard extends MovingChar {
 	}
 
 	public char getNextMove(boolean info){
+		
 		char c;
+		
 		if (info == false){
 			c = patrolPath[currentStep];
 			if (currentStep == patrolPath.length - 1)
