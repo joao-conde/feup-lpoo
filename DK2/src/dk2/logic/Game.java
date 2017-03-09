@@ -12,7 +12,7 @@ public class Game {
 //		int n = nGen.nextInt(4);
 		
 		Map1 map1 = new Map1(10);
-		Map2 map2 = new Map2(10, 2);
+		Map2 map2 = new Map2(10, 3);
 
 		map1.buildMaze();
 		map2.buildMaze();
@@ -21,7 +21,7 @@ public class Game {
 		levels[0] = map1;
 		levels[1] = map2;
 
-		this.currentMap = 0;
+		this.currentMap = 1;
 		
 	}
 

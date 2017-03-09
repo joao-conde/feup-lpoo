@@ -175,11 +175,11 @@ public class Map2 extends Map {
 			
 			this.setBoardCell(o.getClub().getLin(), o.getClub().getCol(), o.getClub().getSymbol());
 			
-			if(o.getLin() == key.getLin() && o.getCol() == key.getCol()){
+			if(o.getLin() == key.getLin() && o.getCol() == key.getCol() && !mieic_student.getHasKey()){
 				this.setBoardCell(o.getLin(), o.getCol(), '$');
 			}
 			
-			if(o.getClub().getLin() == key.getLin() && o.getClub().getCol() == key.getCol()){
+			if(o.getClub().getLin() == key.getLin() && o.getClub().getCol() == key.getCol() && !mieic_student.getHasKey()){
 				this.setBoardCell(o.getLin(), o.getCol(), '$');
 			}
 		}

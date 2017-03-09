@@ -37,7 +37,7 @@ public class Main {
 			
 			if(dungeon_keeper.getMap() instanceof Map2){
 				int n = 0;
-				while(n<4){
+				while(n<3){
 					((Map2)dungeon_keeper.getMap()).moveOgre(n);
 					n++;
 				}
