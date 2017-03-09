@@ -21,7 +21,7 @@ public class Map1 extends Map {
 		
 		Random ranGen = new Random();
 		
-		switch(1/*ranGen.nextInt(2)*/){
+		switch(ranGen.nextInt(2)){
 		
 		case 0:
 			this.guard = new Rookie();

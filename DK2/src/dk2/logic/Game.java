@@ -1,5 +1,6 @@
 package dk2.logic;
-import java.util.Random;
+
+import dk2.test.*;
 
 public class Game {
 	private int nOgres = 4;
@@ -13,15 +14,18 @@ public class Game {
 		
 		Map1 map1 = new Map1(10);
 		Map2 map2 = new Map2(10, nOgres);
+		MapTest_DungeonLvL test_map = new MapTest_DungeonLvL(5);
 
 		map1.buildMaze();
 		map2.buildMaze();
+		test_map.buildMaze();
 
-		this.levels = new Map[2];
+		this.levels = new Map[3];
 		levels[0] = map1;
 		levels[1] = map2;
+		levels[2] = test_map;
 
-		this.currentMap = 1;
+		this.currentMap = 2;
 		
 	}
 	public int getNOgres(){
