@@ -34,6 +34,7 @@ public class Main {
 			if(dungeon_keeper.getMap() instanceof Map1){
 				((Map1) dungeon_keeper.getMap()).moveGuard();
 			}
+			
 			if(dungeon_keeper.getMap() instanceof Map2){
 				
 				((Map2)dungeon_keeper.getMap()).moveOgre();

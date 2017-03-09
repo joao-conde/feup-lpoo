@@ -23,7 +23,7 @@ public class Map1 extends Map {
 		
 		Random ranGen = new Random();
 		
-		switch(2/*ranGen.nextInt(2)*/){
+		switch(1/*ranGen.nextInt(2)*/){
 		
 		case 0:
 			this.guard = new Rookie();
@@ -72,12 +72,13 @@ public class Map1 extends Map {
 		}
 		
 		if (guard instanceof Drunken){
-			dir = this.guard.getNextMove(false);
+			
 			Random nowSleep = new Random();
-			if (nowSleep.nextBoolean()==true){
+			if (nowSleep.nextBoolean()){
 				((Drunken)this.guard).sleep();
 			}
 			else{
+				dir = this.guard.getNextMove(false);
 				this.guard.setSymbol('G');
 				this.guard.move(this.getBoard(),dir);
 			}
@@ -95,9 +96,9 @@ public class Map1 extends Map {
 				break;
 			case 1:
 				dir = this.guard.getNextMove(true);
-				if (!canMove(dir, this.guard)){
-					
-				}
+				if (!canMove(dir, this.guard))
+					return;
+				
 				((Suspicious)this.guard).turnBack();
 				this.guard.move(this.getBoard(), dir);
 				break;
