@@ -20,8 +20,12 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testMoveHeroIntoFreeCell(){
 	
-		MapTest_DungeonLvL gameMap = new MapTest_DungeonLvL(5);
 		Game dungeon_keeper = new Game();
+		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
 		
 		assertEquals(1,dungeon_keeper.getMap().getHero().getLin());
 		assertEquals(1,dungeon_keeper.getMap().getHero().getCol());
@@ -37,8 +41,12 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testHeroIsCapturedByGuard(){
 		
-		MapTest_DungeonLvL gameMap = new MapTest_DungeonLvL(5);
 		Game dungeon_keeper = new Game();
+		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
 		
 		assertFalse(dungeon_keeper.isHeroDead());
 		
