@@ -1,4 +1,5 @@
 package dk2.logic;
+
 import java.util.Random;
 
 public class Map2 extends Map {
@@ -16,210 +17,218 @@ public class Map2 extends Map {
 		this.d1 = new Door();
 		this.key = new Key();
 		this.ogres = new Ogre[nOgres];
-		for (int i = 0; i < nOgres; i++){
+		for (int i = 0; i < nOgres; i++) {
 			Ogre o = new Ogre();
 			ogres[i] = o;
 		}
+		this.getHero().setSymbol('A');
 	}
 
-
-	
-	public Key getKey(){
+	public Key getKey() {
 		return this.key;
 	}
-	
-	public Door[] getDoor(){
-		
-		
-		Door[] nextLvLDoors = {d1};
-		
+
+	public Door[] getDoor() {
+
+		Door[] nextLvLDoors = { d1 };
+
 		return nextLvLDoors;
 	}
-	
-//	public Ogre getOgre(){
-//		return this.ogre;
-//	}
-	
-	public void moveOgre(int index){
-		if (ogres[index].getStunned()){
+
+	// public Ogre getOgre(){
+	// return this.ogre;
+	// }
+
+	public void moveOgre(int index) {
+		if (ogres[index].getStunned()) {
 			ogres[index].increaseTurns();
 			return;
 		}
 		char direction = ogres[index].calculateRandomMove();
 		boolean re_calculate = true;
-		
-		
-		if(!canMove(direction,ogres[index]))
+
+		if (!canMove(direction, ogres[index]))
 			return;
-		
-		
-		switch(direction){
-			case 'W':
-				ogres[index].moveUp(this.getBoard());
-				break;
-			
-			case 'E':
-				ogres[index].moveNE(this.getBoard());
-				break;
-				
-			case 'D':
-				ogres[index].moveRight(this.getBoard());
-				break;
-				
-			case 'C':
-				ogres[index].moveSE(this.getBoard());
-				break;
-				
-			case 'S':
-				ogres[index].moveDown(this.getBoard());
-				break;
-				
-			case 'Z':
-				ogres[index].moveSW(this.getBoard());
-				break;
-				
-			case 'A':
-				ogres[index].moveLeft(this.getBoard());
-				break;
-				
-			case 'Q':
-				ogres[index].moveNW(this.getBoard());
-				break;
+
+		switch (direction) {
+		case 'W':
+			ogres[index].moveUp(this.getBoard());
+			break;
+
+		case 'E':
+			ogres[index].moveNE(this.getBoard());
+			break;
+
+		case 'D':
+			ogres[index].moveRight(this.getBoard());
+			break;
+
+		case 'C':
+			ogres[index].moveSE(this.getBoard());
+			break;
+
+		case 'S':
+			ogres[index].moveDown(this.getBoard());
+			break;
+
+		case 'Z':
+			ogres[index].moveSW(this.getBoard());
+			break;
+
+		case 'A':
+			ogres[index].moveLeft(this.getBoard());
+			break;
+
+		case 'Q':
+			ogres[index].moveNW(this.getBoard());
+			break;
 		}
-		
+
 		this.getBoard()[ogres[index].getClub().getLin()][ogres[index].getClub().getCol()] = ' ';
 		ogres[index].getClub().setLin(ogres[index].getLin());
 		ogres[index].getClub().setCol(ogres[index].getCol());
-		
-		while(re_calculate){
-					
-			switch(this.ogres[index].getClub().calculateRandomMove()){
-			
+
+		while (re_calculate) {
+
+			switch (this.ogres[index].getClub().calculateRandomMove()) {
+
 			case 'W':
-				if(canMove('W',this.ogres[index].getClub())){
+				if (canMove('W', this.ogres[index].getClub())) {
 					this.ogres[index].getClub().moveUp(this.getBoard());
 					re_calculate = false;
 				}
 				break;
-				
+
 			case 'E':
-				if(canMove('E',this.ogres[index].getClub())){
+				if (canMove('E', this.ogres[index].getClub())) {
 					this.ogres[index].getClub().moveNE(this.getBoard());
 					re_calculate = false;
 				}
 				break;
-				
+
 			case 'D':
-				if(canMove('D',this.ogres[index].getClub())){
+				if (canMove('D', this.ogres[index].getClub())) {
 					this.ogres[index].getClub().moveRight(this.getBoard());
 					re_calculate = false;
 				}
 				break;
-				
+
 			case 'C':
-				if(canMove('C',this.ogres[index].getClub())){
+				if (canMove('C', this.ogres[index].getClub())) {
 					this.ogres[index].getClub().moveSE(this.getBoard());
 					re_calculate = false;
 				}
 				break;
-				
+
 			case 'S':
-				if(canMove('S',this.ogres[index].getClub())){
+				if (canMove('S', this.ogres[index].getClub())) {
 					this.ogres[index].getClub().moveDown(this.getBoard());
 					re_calculate = false;
 				}
 				break;
-				
+
 			case 'Z':
-				if(canMove('Z',this.ogres[index].getClub())){
+				if (canMove('Z', this.ogres[index].getClub())) {
 					this.ogres[index].getClub().moveSW(this.getBoard());
 					re_calculate = false;
 				}
 				break;
-				
+
 			case 'A':
-				if(canMove('A',this.ogres[index].getClub())){
+				if (canMove('A', this.ogres[index].getClub())) {
 					this.ogres[index].getClub().moveLeft(this.getBoard());
 					re_calculate = false;
 				}
 				break;
-				
+
 			case 'Q':
-				if(canMove('Q',this.ogres[index].getClub())){
+				if (canMove('Q', this.ogres[index].getClub())) {
 					this.ogres[index].getClub().moveNW(this.getBoard());
 					re_calculate = false;
 				}
 				break;
-			}			
-			
+			}
+
 		}
-		
-			
-		
-		/*if(ogre.getLin() == key.getLin() && ogre.getCol() == key.getCol()){
-						
-			ogre.setSymbol('$');
-		}
-		
-		if(this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()] == 'k'){
-			
-		
-			ogre.getClub().setSymbol('$');
-		}
-		*/
-		
-		
+
+		/*
+		 * if(ogre.getLin() == key.getLin() && ogre.getCol() == key.getCol()){
+		 * 
+		 * ogre.setSymbol('$'); }
+		 * 
+		 * if(this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()]
+		 * == 'k'){
+		 * 
+		 * 
+		 * ogre.getClub().setSymbol('$'); }
+		 */
+
 	}
-	
-	public void stunOgres(){
-		for (Ogre o: ogres){
-			if (this.getBoard()[o.getLin()-1][o.getCol()-1] == 'A' ||
-				this.getBoard()[o.getLin()-1][o.getCol()] == 'A' ||
-				this.getBoard()[o.getLin()-1][o.getCol()+1] == 'A')
+
+	public void stunOgres() {
+		for (Ogre o : ogres) {
+			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'A'
+					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'A'
+					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'A')
+				o.setStunned(true);
+
+			if (this.getBoard()[o.getLin()][o.getCol() - 1] == 'A'
+					|| this.getBoard()[o.getLin()][o.getCol() + 1] == 'A')
+				o.setStunned(true);
+
+			if (this.getBoard()[o.getLin() + 1][o.getCol() - 1] == 'A'
+					|| this.getBoard()[o.getLin() + 1][o.getCol()] == 'A'
+					|| this.getBoard()[o.getLin() + 1][o.getCol() + 1] == 'A')
 				o.setStunned(true);
 			
-			if (this.getBoard()[o.getLin()][o.getCol()-1] == 'A' ||
-				this.getBoard()[o.getLin()][o.getCol()+1] == 'A')
-				o.setStunned(true);
 			
-			if (this.getBoard()[o.getLin()+1][o.getCol()-1] == 'A' ||
-				this.getBoard()[o.getLin()+1][o.getCol()] == 'A' ||
-				this.getBoard()[o.getLin()+1][o.getCol()+1] == 'A')
-				o.setStunned(true);
 			
+			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'K'
+					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'K'
+					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'K')
+				o.setStunned(true);
+
+			if (this.getBoard()[o.getLin()][o.getCol() - 1] == 'K'
+					|| this.getBoard()[o.getLin()][o.getCol() + 1] == 'K')
+				o.setStunned(true);
+
+			if (this.getBoard()[o.getLin() + 1][o.getCol() - 1] == 'K'
+					|| this.getBoard()[o.getLin() + 1][o.getCol()] == 'K'
+					|| this.getBoard()[o.getLin() + 1][o.getCol() + 1] == 'K')
+				o.setStunned(true);
+
 		}
 	}
-	
-	public void placeChars(){
-		for (Ogre o: ogres){
+
+	public void placeChars() {
+		for (Ogre o : ogres) {
 			this.setBoardCell(o.getLin(), o.getCol(), o.getSymbol());
 			if (!o.getStunned())
 				this.setBoardCell(o.getClub().getLin(), o.getClub().getCol(), o.getClub().getSymbol());
-			
-			if(o.getLin() == key.getLin() && o.getCol() == key.getCol() && !this.getHero().getHasKey()){
+
+			if (o.getLin() == key.getLin() && o.getCol() == key.getCol() && !this.getHero().getHasKey()) {
 				this.setBoardCell(o.getLin(), o.getCol(), '$');
 			}
-			
-			if(o.getClub().getLin() == key.getLin() && o.getClub().getCol() == key.getCol() && !this.getHero().getHasKey()){
+
+			if (o.getClub().getLin() == key.getLin() && o.getClub().getCol() == key.getCol()
+					&& !this.getHero().getHasKey()) {
 				this.setBoardCell(o.getClub().getLin(), o.getClub().getCol(), '$');
 			}
 		}
-		if(!this.getHero().getHasKey())
-		 this.setBoardCell(this.key.getLin(), this.key.getCol(), this.key.getSymbol());
-		
-		
-		
+		if (!this.getHero().getHasKey())
+			this.setBoardCell(this.key.getLin(), this.key.getCol(), this.key.getSymbol());
+
 		this.setBoardCell(d1.getLin(), d1.getCol(), d1.getSymbol());
-		this.getHero().setSymbol('A');
+		this.setBoardCell(getHero().getLin(), getHero().getCol(), getHero().getSymbol());
+		// this.getHero().setSymbol('A');
 		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
-		
+
 	}
-	
+
 	public void buildMaze() {
 
 		this.buildExtWalls();
 
-		
 		// placing key elements//
 
 		// set key initial location
@@ -232,21 +241,20 @@ public class Map2 extends Map {
 		this.getHero().setCol(1);
 		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 		int li = 1;
-		int	co = 4;
+		int co = 4;
 		// set Ogres initial locations
-		for (Ogre o: ogres){
+		for (Ogre o : ogres) {
 			o.setLin(li);
 			o.setCol(co);
 			this.setBoardCell(o.getLin(), o.getCol(), o.getSymbol());
-			
-			//set club location
-			o.getClub().setLin(o.getLin()+1);
+
+			// set club location
+			o.getClub().setLin(o.getLin() + 1);
 			o.getClub().setCol(o.getCol());
-			li+=2;
-			
+			li += 2;
+
 		}
-		
-		
+
 		// set Hero Club position
 		// set Doors
 		d1.setLin(1);
@@ -254,6 +262,5 @@ public class Map2 extends Map {
 		this.setDoors(d1);
 
 	}
-	
 
 }

@@ -24,7 +24,7 @@ public class Main {
 			}
 			
 			if(dungeon_keeper.isHeroDead()){
-				System.out.println("Unlucky! Try again!");
+				System.out.println("Unlucky! Try again!"); 
 				return;
 			}
 			

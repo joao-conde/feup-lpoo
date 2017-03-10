@@ -23,7 +23,7 @@ public class Game {
 		levels.add(map2);
 		
 		
-		this.currentMap = 0;
+		this.currentMap = 1;
 		
 	}
 	public int getNOgres(){
@@ -166,12 +166,13 @@ public class Game {
 					&& levels.elementAt(currentMap).getHero().getCol() == ((Map2) levels.elementAt(currentMap)).getKey().getCol()) {
 				
 				levels.elementAt(currentMap).getHero().setHasKey(true);
+				levels.elementAt(currentMap).getHero().setSymbol('K'); 
 				((Map2)levels.elementAt(currentMap)).getKey().setSymbol(' ');
 				
 				((Map2)levels.elementAt(currentMap)).setBoardCell(((Map2)levels.elementAt(currentMap)).getKey().getLin(),((Map2)levels.elementAt(currentMap)).getKey().getCol(), 'K'); 
 			}
 
-			return;
+			return; 
 		}
 
 	}

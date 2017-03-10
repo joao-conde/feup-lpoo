@@ -1,7 +1,5 @@
 package dk2.test;
 
-import java.util.Random;
-
 import dk2.logic.*;
 
 public class MapTest_KeeperLvL extends Map {

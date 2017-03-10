@@ -11,14 +11,14 @@ public class TestDungeonGameLogic {
 					{'X','H',' ','G','X'},
 					{'I',' ',' ',' ','X'},
 					{'I','k',' ',' ','X'},
-					{'X','X','X','X','X'}};
+					{'X','X','X','X','X'}}; 
 					
 	
 	
 	//Dungeon lvl
 	
 	@Test
-	public void testMoveHeroIntoFreeCell(){
+	public void testMoveHeroIntoFreeCell_DL(){
 	
 		Game dungeon_keeper = new Game();
 		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
@@ -58,6 +58,65 @@ public class TestDungeonGameLogic {
 	
 	//Keeper lvl
 	
-
+	@Test
+	public void testMoveHeroIntoFreeCell_KL(){ 
 	
+		Game dungeon_keeper = new Game();
+		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		assertEquals(2,dungeon_keeper.getMap().getHero().getLin());
+		assertEquals(2,dungeon_keeper.getMap().getHero().getCol());
+		
+		dungeon_keeper.getMap().moveHero('W');
+		
+		assertEquals(1,dungeon_keeper.getMap().getHero().getLin());
+		assertEquals(2,dungeon_keeper.getMap().getHero().getCol());
+		
+		dungeon_keeper.getMap().moveHero('A');
+		
+		assertEquals(1,dungeon_keeper.getMap().getHero().getLin());
+		assertEquals(1,dungeon_keeper.getMap().getHero().getCol());
+		
+	}
+	
+	
+	@Test
+	public void testHeroIsCapturedByOgre(){
+		
+		Game dungeon_keeper = new Game();
+		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		assertFalse(dungeon_keeper.isHeroDead());
+		
+		dungeon_keeper.getMap().moveHero('D');
+		
+		assertTrue(dungeon_keeper.isHeroDead());
+	}
+
+	@Test
+	public void testHeroPicksUpKey(){
+		
+		Game dungeon_keeper = new Game();
+		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		assertFalse(dungeon_keeper.getMap().getHero().getHasKey());
+				
+		dungeon_keeper.getMap().moveHero('S');
+		dungeon_keeper.heroReachedKey();
+		
+		assertTrue(dungeon_keeper.getMap().getHero().getHasKey());
+		
+	}
 }
