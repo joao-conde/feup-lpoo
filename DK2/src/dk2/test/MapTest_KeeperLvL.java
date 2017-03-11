@@ -54,4 +54,22 @@ public class MapTest_KeeperLvL extends Map {
 
 	}
 	
+	public void heroReachedKey(){
+		
+		if (getHero().getLin() == getKey().getLin() && getHero().getCol() == getKey().getCol()) {
+			
+			getHero().setHasKey(true);
+			getHero().setSymbol('K'); 
+			getKey().setSymbol(' ');
+			
+			setBoardCell(getKey().getLin(),getKey().getCol(), 'K'); 
+		}
+
+		
+	}
+	
+	public Key getKey() {
+		return this.key;
+	}
+	
 }

@@ -81,4 +81,18 @@ public class MapTest_DungeonLvL extends Map{
 
 	}
 	
+	public Lever getLever(){
+		return this.lever;
+	}
+	
+	public void heroReachedKey(){
+		
+		if (getHero().getLin() == getLever().getLin() && getHero().getCol() == getLever().getCol()) {
+
+			openDoors();
+			getLever().setActive(true);
+
+		}
+	
+	}
 }

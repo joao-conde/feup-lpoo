@@ -106,6 +106,17 @@ public class Map1 extends Map {
 		
 	}
 	
+	public void heroReachedKey(){
+		
+		if (getHero().getLin() == getLever().getLin() && getHero().getCol() == getLever().getCol()) {
+
+			openDoors();
+			getLever().setActive(true);
+
+		}
+	
+	}
+	
 	public void buildMaze() {
 
 		this.buildExtWalls();

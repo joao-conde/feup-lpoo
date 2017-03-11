@@ -24,12 +24,12 @@ public class Main {
 			}
 			
 			if(dungeon_keeper.isHeroDead()){
-				System.out.println("Unlucky! Try again!"); 
+				System.out.println("Unlucky! Try again!");
 				return;
 			}
 			
 			dungeon_keeper.getMap().moveHero(readUserMove());
-			dungeon_keeper.heroReachedKey();
+			dungeon_keeper.getMap().heroReachedKey();
 
 			if(dungeon_keeper.getMap() instanceof Map1){
 				((Map1) dungeon_keeper.getMap()).moveGuard();

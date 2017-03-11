@@ -17,6 +17,7 @@ public class TestDungeonGameLogic {
 	
 	//Dungeon lvl
 	
+	
 	@Test
 	public void testMoveHeroIntoFreeCell_DL(){
 	
@@ -55,10 +56,41 @@ public class TestDungeonGameLogic {
 		assertTrue(dungeon_keeper.isHeroDead());
 	}
 	
+	//checks if lever was set active and doors open
+	@Test
+	public void testHeroTurnsLever(){
+		
+		Game dungeon_keeper = new Game();
+		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		assertFalse(((MapTest_DungeonLvL)dungeon_keeper.getMap()).getLever().isActive());
+		
+		for(int i = 0; i < dungeon_keeper.getMap().getDoor().length; i++){
+			assertFalse(dungeon_keeper.getMap().getDoor()[i].isOpen());			
+		}
+		
+		
+		dungeon_keeper.getMap().moveHero('S');
+		dungeon_keeper.getMap().moveHero('S');
+		dungeon_keeper.getMap().heroReachedKey();
+		
+		assertTrue(((MapTest_DungeonLvL)dungeon_keeper.getMap()).getLever().isActive());
+		
+		for(int i = 0; i < dungeon_keeper.getMap().getDoor().length; i++){
+			assertTrue(dungeon_keeper.getMap().getDoor()[i].isOpen());			
+		}
+		
+	}
+	
 	
 	//Keeper lvl
 	
-	@Test
+	
+    @Test
 	public void testMoveHeroIntoFreeCell_KL(){ 
 	
 		Game dungeon_keeper = new Game();
@@ -88,7 +120,7 @@ public class TestDungeonGameLogic {
 	public void testHeroIsCapturedByOgre(){
 		
 		Game dungeon_keeper = new Game();
-		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
+		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
 		dungeon_keeper.addMap(dungeon_map);
@@ -114,7 +146,7 @@ public class TestDungeonGameLogic {
 		assertFalse(dungeon_keeper.getMap().getHero().getHasKey());
 				
 		dungeon_keeper.getMap().moveHero('S');
-		dungeon_keeper.heroReachedKey();
+		dungeon_keeper.getMap().heroReachedKey();
 		
 		assertTrue(dungeon_keeper.getMap().getHero().getHasKey());
 		

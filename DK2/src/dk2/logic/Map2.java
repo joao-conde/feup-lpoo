@@ -164,6 +164,19 @@ public class Map2 extends Map {
 		 */
 
 	}
+	
+	public void heroReachedKey(){
+		if (getHero().getLin() == getKey().getLin() && getHero().getCol() == getKey().getCol()) {
+			
+			getHero().setHasKey(true);
+			getHero().setSymbol('K'); 
+			getKey().setSymbol(' ');
+			
+			setBoardCell(getKey().getLin(),getKey().getCol(), 'K'); 
+		}
+
+		
+	}
 
 	public void stunOgres() {
 		for (Ogre o : ogres) {

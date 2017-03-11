@@ -234,6 +234,8 @@ public abstract class Map {
 		
 		
 	}
-
+	
+	public void heroReachedKey(){};
+	
 	public void placeChars(){};
 }

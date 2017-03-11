@@ -146,34 +146,5 @@ public class Game {
 		return levels.elementAt(currentMap);
 	}
 
-	public void heroReachedKey() {
 
-		if (levels.elementAt(currentMap) instanceof Map1) {
-
-			if (levels.elementAt(currentMap).getHero().getLin() == ((Map1) levels.elementAt(currentMap)).getLever().getLin()
-					&& levels.elementAt(currentMap).getHero().getCol() == ((Map1) levels.elementAt(currentMap)).getLever().getCol()) {
-
-				levels.elementAt(currentMap).openDoors();
-
-			}
-
-			return;
-		}
-
-		if (levels.elementAt(currentMap) instanceof Map2) {
-
-			if (levels.elementAt(currentMap).getHero().getLin() == ((Map2) levels.elementAt(currentMap)).getKey().getLin()
-					&& levels.elementAt(currentMap).getHero().getCol() == ((Map2) levels.elementAt(currentMap)).getKey().getCol()) {
-				
-				levels.elementAt(currentMap).getHero().setHasKey(true);
-				levels.elementAt(currentMap).getHero().setSymbol('K'); 
-				((Map2)levels.elementAt(currentMap)).getKey().setSymbol(' ');
-				
-				((Map2)levels.elementAt(currentMap)).setBoardCell(((Map2)levels.elementAt(currentMap)).getKey().getLin(),((Map2)levels.elementAt(currentMap)).getKey().getCol(), 'K'); 
-			}
-
-			return; 
-		}
-
-	}
 }
