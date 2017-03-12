@@ -7,11 +7,26 @@ import dk2.logic.*;
 
 public class TestDungeonGameLogic {
 
-	char[][] map = {{'X','X','X','X','X'},
-					{'X','H',' ','G','X'},
-					{'I',' ',' ',' ','X'},
-					{'I','k',' ',' ','X'},
-					{'X','X','X','X','X'}}; 
+	/* TEST MAP'S
+	 
+	   Dungeon_map = {{'X','X','X','X','X'},
+				      {'X','H',' ','G','X'},
+					  {'I',' ',' ',' ','X'},
+					  {'I','k',' ',' ','X'},
+					  {'X','X','X','X','X'}}; 
+					  
+	   Keeper_map = {{'X','X','X','X','X','X','X'},
+	   				 {'X',' ',' ',' ',' ',' ','X'},
+	   				 {'I',' ','H',' ','O','*','X'},
+	   				 {'X',' ','k',' ',' ',' ','X'},
+	   				 {'X',' ',' ',' ',' ',' ','X'},
+	   				 {'X',' ',' ',' ',' ',' ','X'},
+	   				 {'X','X','X','X','X','X','X'}};
+		
+					 					  
+					  */
+	
+	
 					
 	
 	
@@ -86,6 +101,28 @@ public class TestDungeonGameLogic {
 		
 	}
 	
+	@Test
+	public void testHeroExits_DL(){
+		
+		/*Game dungeon_keeper = new Game();
+		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		dungeon_keeper.getMap().moveHero('S');
+		dungeon_keeper.getMap().moveHero('S');
+		
+		assertEquals(dungeon_keeper.getCurrentMap() ,  );
+		
+		dungeon_keeper.getMap().moveHero('A');
+		*/
+		
+		
+		
+	}
+	
 	
 	//Keeper lvl
 	
@@ -131,8 +168,10 @@ public class TestDungeonGameLogic {
 		dungeon_keeper.getMap().moveHero('D');
 		
 		assertTrue(dungeon_keeper.isHeroDead());
+		
 	}
 
+	
 	@Test
 	public void testHeroPicksUpKey(){
 		
@@ -151,4 +190,6 @@ public class TestDungeonGameLogic {
 		assertTrue(dungeon_keeper.getMap().getHero().getHasKey());
 		
 	}
+
+	
 }

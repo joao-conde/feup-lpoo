@@ -237,7 +237,19 @@ public class Map2 extends Map {
 		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 
 	}
-
+	
+	public void advanceTurn(){
+		
+			int n = 0;
+			while(n < ogres.length){
+				moveOgre(n);
+				n++;
+			}
+			
+			stunOgres();
+		
+	}
+	
 	public void buildMaze() {
 
 		this.buildExtWalls();

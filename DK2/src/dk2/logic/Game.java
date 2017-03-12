@@ -23,7 +23,7 @@ public class Game {
 		levels.add(map2);
 		
 		
-		this.currentMap = 1;
+		this.currentMap = 0;
 		
 	}
 	public int getNOgres(){
@@ -36,6 +36,10 @@ public class Game {
 	
 	public void setCurrentMap(int index){
 		this.currentMap = index;
+	}
+	
+	public int getCurrentMap(){
+		return this.currentMap;
 	}
 	
 	public int getNumberOfMaps(){
@@ -51,7 +55,7 @@ public class Game {
 			if (levels.elementAt(currentMap) instanceof Map1) {
 				if (((Map1) levels.elementAt(currentMap)).isOnLever()) {
 					for (int j = 0; j < nextLvLDoors.length; j++) {
-						nextLvLDoors[j].openDoor();
+						nextLvLDoors[j].openDoor(); 
 						levels.elementAt(currentMap).setBoardCell(nextLvLDoors[j].getLin(), nextLvLDoors[j].getCol(),
 								nextLvLDoors[j].getSymbol());
 					}

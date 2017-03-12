@@ -31,19 +31,8 @@ public class Main {
 			dungeon_keeper.getMap().moveHero(readUserMove());
 			dungeon_keeper.getMap().heroReachedKey();
 
-			if(dungeon_keeper.getMap() instanceof Map1){
-				((Map1) dungeon_keeper.getMap()).moveGuard();
-			}
+			dungeon_keeper.getMap().advanceTurn();
 			
-			if(dungeon_keeper.getMap() instanceof Map2){
-				int n = 0;
-				while(n< dungeon_keeper.getNOgres()){
-					((Map2)dungeon_keeper.getMap()).moveOgre(n);
-					n++;
-				}
-				((Map2)dungeon_keeper.getMap()).stunOgres();
-			}
-				
 			
 		}
 	}
@@ -55,7 +44,7 @@ public class Main {
 		System.out.println("Enter your move:");
 		
 		char move = scan.next().charAt(0);
-		move = Character.toUpperCase(move);
+		move = Character.toUpperCase(move); 
 		
 		//scan.close();
 		

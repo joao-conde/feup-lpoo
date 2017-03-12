@@ -29,7 +29,7 @@ public class MapTest_KeeperLvL extends Map {
 		key.setLin(3);
 		key.setCol(2);
 		this.setBoardCell(key.getLin(), key.getCol(), key.getSymbol());
-
+ 
 		// set Hero initial location
 		this.getHero().setLin(2);
 		this.getHero().setCol(2);

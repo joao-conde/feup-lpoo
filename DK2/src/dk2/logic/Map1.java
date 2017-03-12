@@ -117,6 +117,8 @@ public class Map1 extends Map {
 	
 	}
 	
+
+	
 	public void buildMaze() {
 
 		this.buildExtWalls();
@@ -204,4 +206,10 @@ public class Map1 extends Map {
 		
 	}
 
+	public void advanceTurn(){
+		
+		moveGuard();
+		
+				
+	}
 }

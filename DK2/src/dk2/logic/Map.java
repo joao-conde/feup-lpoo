@@ -237,5 +237,7 @@ public abstract class Map {
 	
 	public void heroReachedKey(){};
 	
+	public void advanceTurn(){};
+	
 	public void placeChars(){};
 }
