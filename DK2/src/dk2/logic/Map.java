@@ -26,6 +26,8 @@ public abstract class Map {
 	}
 
 
+	public abstract boolean hasHeroWon();
+	
 	public char[][] getBoard() {
 		return board;
 	}
@@ -44,21 +46,9 @@ public abstract class Map {
 		return this.mieic_student;
 	};
 
-	public Door[] getDoor() {
-		Door[] d = {};
+	public abstract Door[] getDoor();
 
-		return d;
-	}
-
-	public void openDoors(){
-		
-		Door[] d = this.getDoor();
-		
-		for(int i = 0; i < d.length; i++){
-			d[i].openDoor();
-		}
-		
-	}
+	public abstract void openDoors();
 	
 	public void buildExtWalls() {
 

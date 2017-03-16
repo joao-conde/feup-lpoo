@@ -6,7 +6,7 @@ public class MapTest_KeeperLvL extends Map {
 	
 	private Door d1;
 	private Key key;
-	private Ogre ogre;
+	private Ogre[] ogres;
 	
 	public MapTest_KeeperLvL(int size) {
 		
@@ -14,10 +14,19 @@ public class MapTest_KeeperLvL extends Map {
 		
 		this.key = new Key();
 			
-		this.ogre = new Ogre();				
+		Ogre o = new Ogre();
+		this.ogres = new Ogre[1];
+		this.ogres[0] = o;
 		
 		this.d1 = new Door();		
 		
+	}
+	
+	public Door[] getDoor() {
+
+		Door[] nextLvLDoors = { d1 };
+
+		return nextLvLDoors;
 	}
 	
 	public void buildMaze() {
@@ -32,18 +41,18 @@ public class MapTest_KeeperLvL extends Map {
  
 		// set Hero initial location
 		this.getHero().setLin(2);
-		this.getHero().setCol(2);
+		this.getHero().setCol(2); 
 		drawHero();
 
-		// set Ogre initial location
-		ogre.setLin(2);
-		ogre.setCol(4);
-		this.setBoardCell(ogre.getLin(), ogre.getCol(), ogre.getSymbol());
+		// set ogres[0] initial location
+		ogres[0].setLin(2);
+		ogres[0].setCol(4);
+		this.setBoardCell(ogres[0].getLin(), ogres[0].getCol(), ogres[0].getSymbol());
 		
-		// set Ogre's club initial location
-		ogre.getClub().setLin(2);
-		ogre.getClub().setCol(5);
-		this.setBoardCell(ogre.getClub().getLin(), ogre.getClub().getCol(), ogre.getClub().getSymbol());
+		// set ogres[0]'s club initial location
+		ogres[0].getClub().setLin(2);
+		ogres[0].getClub().setCol(5);
+		this.setBoardCell(ogres[0].getClub().getLin(), ogres[0].getClub().getCol(), ogres[0].getClub().getSymbol());
 
 		// set Doors
 		d1.setLin(2);
@@ -72,4 +81,66 @@ public class MapTest_KeeperLvL extends Map {
 		return this.key;
 	}
 	
+	public Ogre getOgre(){
+		return this.ogres[0];
+	}
+	
+	public void stunOgres() {
+		
+		for (Ogre o : ogres) {
+			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'A'
+					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'A'
+					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'A')
+				o.setStunned(true);
+
+			if (this.getBoard()[o.getLin()][o.getCol() - 1] == 'A'
+					|| this.getBoard()[o.getLin()][o.getCol() + 1] == 'A')
+				o.setStunned(true);
+
+			if (this.getBoard()[o.getLin() + 1][o.getCol() - 1] == 'A'
+					|| this.getBoard()[o.getLin() + 1][o.getCol()] == 'A'
+					|| this.getBoard()[o.getLin() + 1][o.getCol() + 1] == 'A')
+				o.setStunned(true);
+			
+			
+			
+			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'K'
+					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'K'
+					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'K')
+				o.setStunned(true);
+
+			if (this.getBoard()[o.getLin()][o.getCol() - 1] == 'K'
+					|| this.getBoard()[o.getLin()][o.getCol() + 1] == 'K')
+				o.setStunned(true);
+
+			if (this.getBoard()[o.getLin() + 1][o.getCol() - 1] == 'K'
+					|| this.getBoard()[o.getLin() + 1][o.getCol()] == 'K'
+					|| this.getBoard()[o.getLin() + 1][o.getCol() + 1] == 'K')
+				o.setStunned(true);
+
+		}
+	}
+
+	public void openDoors() {
+
+		for(Door d: getDoor()){
+			if(getHero().getLin() == d.getLin() && getHero().getCol() == d.getCol()+1 && getHero().getHasKey()){
+				d.openDoor();
+			}
+		}
+
+	}
+	
+	public boolean hasHeroWon() {
+
+		for(Door d: getDoor()){
+			
+			if(getHero().getLin() == d.getLin() && getHero().getCol() == d.getCol() && d.isOpen() && getHero().getHasKey()){
+				return true;
+			}
+		}
+		
+		return false;
+
+	}
 }

@@ -18,7 +18,7 @@ public class Main {
 			
 			printMaze(dungeon_keeper);
 			
-			if(dungeon_keeper.hasHeroWon()){
+			if(dungeon_keeper.advance()){
 				System.out.println("Good job you win!");
 				return;
 			}
@@ -29,13 +29,12 @@ public class Main {
 			}
 			
 			dungeon_keeper.getMap().moveHero(readUserMove());
-			dungeon_keeper.getMap().heroReachedKey();
-
+			
 			dungeon_keeper.getMap().advanceTurn();
 			
 			
 		}
-	}
+	} 
 	
 	
 	public static char readUserMove(){

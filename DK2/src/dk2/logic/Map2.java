@@ -177,6 +177,30 @@ public class Map2 extends Map {
 
 		
 	}
+	
+	
+	public void openDoors() {
+
+		for(Door d: getDoor()){
+			if(getHero().getLin() == d.getLin() && getHero().getCol() == d.getCol()+1 && getHero().getHasKey()){
+				d.openDoor();
+			}
+		}
+
+	}
+	
+	public boolean hasHeroWon() {
+
+		for(Door d: getDoor()){
+			
+			if(getHero().getLin() == d.getLin() && getHero().getCol() == d.getCol() && d.isOpen() && getHero().getHasKey()){
+				return true;
+			}
+		}
+		
+		return false;
+
+	}
 
 	public void stunOgres() {
 		for (Ogre o : ogres) {
@@ -211,9 +235,11 @@ public class Map2 extends Map {
 				o.setStunned(true);
 
 		}
-	}
+	} 
 
 	public void placeChars() {
+		if (!this.getHero().getHasKey())
+			this.setBoardCell(this.key.getLin(), this.key.getCol(), this.key.getSymbol());
 		for (Ogre o : ogres) {
 			this.setBoardCell(o.getLin(), o.getCol(), o.getSymbol());
 			if (!o.getStunned())
@@ -228,8 +254,7 @@ public class Map2 extends Map {
 				this.setBoardCell(o.getClub().getLin(), o.getClub().getCol(), '$');
 			}
 		}
-		if (!this.getHero().getHasKey())
-			this.setBoardCell(this.key.getLin(), this.key.getCol(), this.key.getSymbol());
+	
 
 		this.setBoardCell(d1.getLin(), d1.getCol(), d1.getSymbol());
 		this.setBoardCell(getHero().getLin(), getHero().getCol(), getHero().getSymbol());

@@ -86,12 +86,12 @@ public class TestDungeonGameLogic {
 		
 		for(int i = 0; i < dungeon_keeper.getMap().getDoor().length; i++){
 			assertFalse(dungeon_keeper.getMap().getDoor()[i].isOpen());			
-		}
+		} 
 		
 		
 		dungeon_keeper.getMap().moveHero('S');
 		dungeon_keeper.getMap().moveHero('S');
-		dungeon_keeper.getMap().heroReachedKey();
+		assertTrue(dungeon_map.isOnLever());
 		
 		assertTrue(((MapTest_DungeonLvL)dungeon_keeper.getMap()).getLever().isActive());
 		
@@ -104,22 +104,27 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testHeroExits_DL(){
 		
-		/*Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game();
 		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
 		
 		dungeon_map.buildMaze();
 		dungeon_keeper.addMap(dungeon_map);
 		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
 		
-		dungeon_keeper.getMap().moveHero('S');
-		dungeon_keeper.getMap().moveHero('S');
+		dungeon_map.moveHero('S');
+		dungeon_map.moveHero('S');
 		
-		assertEquals(dungeon_keeper.getCurrentMap() ,  );
+		assertTrue(dungeon_map.isOnLever());
+		
+		assertFalse(dungeon_map.hasHeroWon());
+		
+		for(int i = 0; i < dungeon_map.getDoor().length; i++){
+			assertTrue(dungeon_map.getDoor()[i].isOpen());
+		}
 		
 		dungeon_keeper.getMap().moveHero('A');
-		*/
 		
-		
+		assertTrue(dungeon_map.hasHeroWon());
 		
 	}
 	
@@ -191,5 +196,53 @@ public class TestDungeonGameLogic {
 		
 	}
 
+	
+	@Test(timeout=1000)
+	public void testOgreRandomBehaviour(){
+		
+		Game dungeon_keeper = new Game();
+		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		dungeon_keeper.getMap().advanceTurn();
+		
+		boolean expectedPos = false;
+				
+		int ogre_lin = dungeon_map.getOgre().getLin();
+		int ogre_col = dungeon_map.getOgre().getCol();
+		
+		if(ogre_lin == 1 || ogre_lin == 2 || ogre_lin == 3){
+			if(ogre_col == 3 || ogre_col == 4 || ogre_col == 5)
+				expectedPos = true;	
+		}
+		
+		assertTrue(expectedPos);	
+		
+	}
+
+	
+	@Test
+	public void testOgreStun(){
+		
+		Game dungeon_keeper = new Game();
+		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		dungeon_map.getHero().setSymbol('A');
+		
+		assertFalse(dungeon_map.getOgre().getStunned());
+		
+		dungeon_map.moveHero('D');
+		dungeon_map.stunOgres();
+		
+		assertTrue(dungeon_map.getOgre().getStunned());
+		
+	}
 	
 }

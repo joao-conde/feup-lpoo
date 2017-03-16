@@ -2,42 +2,41 @@ package dk2.logic;
 
 import java.util.Random;
 
+import dk2.test.MapTest_DungeonLvL;
+
 public class Map1 extends Map {
 
-	//-------------ATTRIBUTES-------------//
+	// -------------ATTRIBUTES-------------//
 
 	private Door d1, d2, d3, d4, d5, d6, d7;
 	private Lever lever;
 	private Guard guard;
 
-	//--------------METHODS---------------//
+	// --------------METHODS---------------//
 
 	// Map1 constructor calling Map constructor
 	public Map1(int size) {
 		super(size);
-		
+
 		this.lever = new Lever();
-		
-		
+
 		Random ranGen = new Random();
-		
-		switch(ranGen.nextInt(2)){
-		
+
+		switch (ranGen.nextInt(2)) {
+
 		case 0:
 			this.guard = new Rookie();
 			break;
-			
+
 		case 1:
 			this.guard = new Drunken();
 			break;
-		
+
 		case 2:
 			this.guard = new Suspicious();
 			break;
 		}
-		
-				
-		
+
 		this.d1 = new Door();
 		this.d2 = new Door();
 		this.d3 = new Door();
@@ -45,47 +44,44 @@ public class Map1 extends Map {
 		this.d5 = new Door();
 		this.d6 = new Door();
 		this.d7 = new Door();
-		
-		
+
 	}
 
-	public Lever getLever(){
+	public Lever getLever() {
 		return this.lever;
 	}
-	
-	//returns the level winning door
-	public Door[] getDoor(){
-		
-		
-		Door[] nextLvLDoors = {d1,d2};
-		
+
+	// returns the level winning door
+	public Door[] getDoor() {
+
+		Door[] nextLvLDoors = { d1, d2 };
+
 		return nextLvLDoors;
 	}
-	
-	public void moveGuard(){
+
+	public void moveGuard() {
 		char dir;
-		if(guard instanceof Rookie){
+		if (guard instanceof Rookie) {
 			dir = this.guard.getNextMove(false);
 			this.guard.move(this.getBoard(), dir);
 		}
-		
-		if (guard instanceof Drunken){
-			
+
+		if (guard instanceof Drunken) {
+
 			Random nowSleep = new Random();
-			if (nowSleep.nextBoolean()){
-				((Drunken)this.guard).sleep();
-			}
-			else{
+			if (nowSleep.nextBoolean()) {
+				((Drunken) this.guard).sleep();
+			} else {
 				dir = this.guard.getNextMove(false);
 				this.guard.setSymbol('G');
-				this.guard.move(this.getBoard(),dir);
+				this.guard.move(this.getBoard(), dir);
 			}
-				
+
 		}
-		
-		if (guard instanceof Suspicious){
+
+		if (guard instanceof Suspicious) {
 			Random changeDir = new Random();
-			switch(changeDir.nextInt(2)){
+			switch (changeDir.nextInt(2)) {
 			case 0:
 				dir = this.guard.getNextMove(false);
 				if (!canMove(dir, this.guard))
@@ -96,29 +92,35 @@ public class Map1 extends Map {
 				dir = this.guard.getNextMove(true);
 				if (!canMove(dir, this.guard))
 					return;
-				
-				((Suspicious)this.guard).turnBack();
+
+				((Suspicious) this.guard).turnBack();
 				this.guard.move(this.getBoard(), dir);
 				break;
+
+			}
+		}
+
+	}
+
+	public void openDoors(){
+		for (Door d: getDoor()){
+			d.openDoor();
+		}
+	}
+
+	public boolean hasHeroWon() {
+
+		for(Door d: getDoor()){
 			
+			if(getHero().getLin() == d.getLin() && getHero().getCol() == d.getCol() && d.isOpen()){
+				return true;
 			}
 		}
 		
+		return false;
+
 	}
-	
-	public void heroReachedKey(){
-		
-		if (getHero().getLin() == getLever().getLin() && getHero().getCol() == getLever().getCol()) {
 
-			openDoors();
-			getLever().setActive(true);
-
-		}
-	
-	}
-	
-
-	
 	public void buildMaze() {
 
 		this.buildExtWalls();
@@ -143,10 +145,10 @@ public class Map1 extends Map {
 		this.setBoardCell(7, 6, 'X');
 		this.setBoardCell(7, 7, 'X');
 		this.setBoardCell(8, 6, 'X');
-		
+
 		// placing key elements//
 
-		// set Lever initial location 
+		// set Lever initial location
 		lever.setLin(8);
 		lever.setCol(7);
 		this.setBoardCell(lever.getLin(), lever.getCol(), lever.getSymbol());
@@ -163,7 +165,7 @@ public class Map1 extends Map {
 
 		// set Doors
 		d1.setLin(5);
-		d1.setCol(0);		
+		d1.setCol(0);
 		d2.setLin(6);
 		d2.setCol(0);
 		d3.setLin(3);
@@ -186,30 +188,34 @@ public class Map1 extends Map {
 		this.setDoors(d6);
 		this.setDoors(d7);
 
-
-
 	}
-	
-	public boolean isOnLever(){
-		if (this.getHero().getLin() == lever.getLin() && this.getHero().getCol() == lever.getCol()){
+
+	public boolean isOnLever() {
+		if (this.getHero().getLin() == lever.getLin() && this.getHero().getCol() == lever.getCol()) {
 			lever.setActive(true);
+			openDoors();
 			return true;
 		}
 		return false;
 	}
-	
-	public void placeChars(){
-		
+
+	public void placeChars() {
+
 		this.setBoardCell(this.guard.getLin(), this.guard.getCol(), this.guard.getSymbol());
 		this.setBoardCell(this.lever.getLin(), this.lever.getCol(), this.lever.getSymbol());
+		for(Door d: getDoor()){
+			this.setBoardCell(d.getLin(),d.getCol(),d.getSymbol());
+		}
 		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 		
+		
+
 	}
 
-	public void advanceTurn(){
+	public void advanceTurn() {
 		
+		isOnLever();
 		moveGuard();
-		
-				
+
 	}
 }
