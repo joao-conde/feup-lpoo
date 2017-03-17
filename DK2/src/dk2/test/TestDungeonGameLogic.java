@@ -7,6 +7,7 @@ import dk2.logic.*;
 
 public class TestDungeonGameLogic {
 
+	
 	/* TEST MAP'S
 	 
 	   Dungeon_map = {{'X','X','X','X','X'},
@@ -26,10 +27,7 @@ public class TestDungeonGameLogic {
 					 					  
 					  */
 	
-	
-					
-	
-	
+		
 	//Dungeon lvl
 	
 	
@@ -71,6 +69,7 @@ public class TestDungeonGameLogic {
 		assertTrue(dungeon_keeper.isHeroDead());
 	}
 	
+	
 	//checks if lever was set active and doors open
 	@Test
 	public void testHeroTurnsLever(){
@@ -101,10 +100,11 @@ public class TestDungeonGameLogic {
 		
 	}
 	
+	
 	@Test
 	public void testHeroExits_DL(){
 		
-		Game dungeon_keeper = new Game();
+	/*Game dungeon_keeper = new Game();
 		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
 		
 		dungeon_map.buildMaze();
@@ -124,9 +124,10 @@ public class TestDungeonGameLogic {
 		
 		dungeon_keeper.getMap().moveHero('A');
 		
-		assertTrue(dungeon_map.hasHeroWon());
+		assertTrue(dungeon_map.hasHeroWon());*/
 		
 	}
+	
 	
 	
 	//Keeper lvl
@@ -189,15 +190,15 @@ public class TestDungeonGameLogic {
 		
 		assertFalse(dungeon_keeper.getMap().getHero().getHasKey());
 				
-		dungeon_keeper.getMap().moveHero('S');
-		dungeon_keeper.getMap().heroReachedKey();
+		dungeon_map.moveHero('S');
+		dungeon_map.heroReachedKey();
 		
-		assertTrue(dungeon_keeper.getMap().getHero().getHasKey());
-		
+		assertTrue(dungeon_map.getHero().getHasKey());
+		assertEquals(dungeon_map.getHero().getSymbol() , 'K');
 	}
 
 	
-	@Test(timeout=1000)
+	@Test
 	public void testOgreRandomBehaviour(){
 		
 		Game dungeon_keeper = new Game();
@@ -207,7 +208,7 @@ public class TestDungeonGameLogic {
 		dungeon_keeper.addMap(dungeon_map);
 		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
 		
-		dungeon_keeper.getMap().advanceTurn();
+		dungeon_map.advanceTurn();
 		
 		boolean expectedPos = false;
 				
@@ -245,4 +246,120 @@ public class TestDungeonGameLogic {
 		
 	}
 	
+
+	@Test
+	public void testOgreClubRandomBehaviour(){
+		
+		Game dungeon_keeper = new Game();
+		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		dungeon_map.advanceTurn();
+		
+		boolean expectedPos = false;
+		
+		int ogre_lin = dungeon_map.getOgre().getLin();
+		int ogre_col = dungeon_map.getOgre().getCol();
+		
+		int ogreClub_lin = dungeon_map.getOgre().getClub().getLin();
+		int ogreClub_col = dungeon_map.getOgre().getClub().getCol();
+		
+		if(ogreClub_lin == ogre_lin-1 || ogreClub_lin == ogre_lin || ogreClub_lin == ogre_lin+1){
+			if(ogreClub_col == ogre_col-1 || ogreClub_col == ogre_col || ogreClub_col == ogre_col+1)
+				expectedPos = true;	
+		}
+		
+		assertTrue(expectedPos);	
+		
+		
+	}
+
+	@Test
+	public void testOgreOnKey(){
+	
+		Game dungeon_keeper = new Game();
+		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		assertEquals(dungeon_map.getOgre().getSymbol() , 'O');
+		
+		dungeon_map.getKey().setLin(2);
+		dungeon_map.getKey().setCol(4);
+		dungeon_map.placeChars();	
+		
+		
+		int ogre_lin = dungeon_map.getOgre().getLin();
+		int ogre_col = dungeon_map.getOgre().getCol();
+		
+		assertEquals(dungeon_map.getBoard()[ogre_lin][ogre_col] , '$');
+		
+		
+		
+	}
+	
+	@Test
+	public void testOgreClubOnKey(){
+		
+		Game dungeon_keeper = new Game();
+		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
+		
+		dungeon_map.buildMaze();
+		dungeon_keeper.addMap(dungeon_map);
+		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
+		
+		assertEquals(dungeon_map.getOgre().getClub().getSymbol() , '*');
+		
+		dungeon_map.getKey().setLin(2);
+		dungeon_map.getKey().setCol(5);
+		dungeon_map.placeChars();	
+		
+		int ogreClub_lin = dungeon_map.getOgre().getClub().getLin();
+		int ogreClub_col = dungeon_map.getOgre().getClub().getCol();
+		
+		assertEquals(dungeon_map.getBoard()[ogreClub_lin][ogreClub_col] , '$');
+	}
+	
+	
+	//Map1
+	
+	@Test
+	public void testSequenceOfMoves(){
+		
+		Game dungeon_keeper = new Game();
+				
+		char moves[] = {'w','d','d','d','s','s','s','s','d','d','d','d','w','w','w'};
+		boolean heroDead = false;
+		
+		int i = 0;
+		while(i != moves.length){
+			
+			dungeon_keeper.getMap().placeChars();
+			
+			
+			if(dungeon_keeper.advance()){
+				break;
+			}
+			
+			if(dungeon_keeper.isHeroDead()){
+				heroDead = true;
+			}
+			
+			dungeon_keeper.getMap().moveHero(moves[i]);
+			
+			dungeon_keeper.getMap().advanceTurn();
+			
+			i++;
+		}
+		
+		assertFalse(heroDead);
+		
+	}
+
+
 }

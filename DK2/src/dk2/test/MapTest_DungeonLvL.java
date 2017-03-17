@@ -120,4 +120,55 @@ public class MapTest_DungeonLvL extends Map{
 			d.openDoor();
 		}
 	}
+	
+	
+	public void advanceTurn() {
+		
+		isOnLever();
+		moveGuard();
+
+	}
+	
+	public void moveGuard() {
+		char dir;
+		if (guard instanceof Rookie) {
+			dir = this.guard.getNextMove(false);
+			this.guard.move(this.getBoard(), dir);
+		}
+
+		if (guard instanceof Drunken) {
+
+			Random nowSleep = new Random();
+			if (nowSleep.nextBoolean()) {
+				((Drunken) this.guard).sleep();
+			} else {
+				dir = this.guard.getNextMove(false);
+				this.guard.setSymbol('G');
+				this.guard.move(this.getBoard(), dir);
+			}
+
+		}
+
+		if (guard instanceof Suspicious) {
+			Random changeDir = new Random();
+			switch (changeDir.nextInt(2)) {
+			case 0:
+				dir = this.guard.getNextMove(false);
+				if (!canMove(dir, this.guard))
+					return;
+				this.guard.move(this.getBoard(), dir);
+				break;
+			case 1:
+				dir = this.guard.getNextMove(true);
+				if (!canMove(dir, this.guard))
+					return;
+
+				((Suspicious) this.guard).turnBack();
+				this.guard.move(this.getBoard(), dir);
+				break;
+
+			}
+		}
+
+	}
 }

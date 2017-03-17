@@ -255,7 +255,7 @@ public class Map2 extends Map {
 			}
 		}
 	
-
+ 
 		this.setBoardCell(d1.getLin(), d1.getCol(), d1.getSymbol());
 		this.setBoardCell(getHero().getLin(), getHero().getCol(), getHero().getSymbol());
 		// this.getHero().setSymbol('A');
