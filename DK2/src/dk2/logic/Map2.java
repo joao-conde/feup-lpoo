@@ -172,7 +172,7 @@ public class Map2 extends Map {
 			getHero().setSymbol('K'); 
 			getKey().setSymbol(' ');
 			
-			setBoardCell(getKey().getLin(),getKey().getCol(), 'K'); 
+			//setBoardCell(getKey().getLin(),getKey().getCol(), 'K'); 
 		}
 
 		
@@ -182,7 +182,7 @@ public class Map2 extends Map {
 	public void openDoors() {
 
 		for(Door d: getDoor()){
-			if(getHero().getLin() == d.getLin() && getHero().getCol() == d.getCol()+1 && getHero().getHasKey()){
+			if(getHero().getLin() == d.getLin() && (getHero().getCol() == d.getCol()+1) && getHero().getHasKey()){
 				d.openDoor();
 			}
 		}
@@ -204,6 +204,9 @@ public class Map2 extends Map {
 
 	public void stunOgres() {
 		for (Ogre o : ogres) {
+			
+			//Hero with no key
+			
 			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'A'
 					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'A'
 					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'A')
@@ -219,6 +222,7 @@ public class Map2 extends Map {
 				o.setStunned(true);
 			
 			
+			//Hero with key
 			
 			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'K'
 					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'K'
@@ -259,17 +263,17 @@ public class Map2 extends Map {
 		this.setBoardCell(d1.getLin(), d1.getCol(), d1.getSymbol());
 		this.setBoardCell(getHero().getLin(), getHero().getCol(), getHero().getSymbol());
 		// this.getHero().setSymbol('A');
-		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 
 	}
 	
 	public void advanceTurn(){
-		
+			heroReachedKey();
+			openDoors();
 			int n = 0;
 			while(n < ogres.length){
 				moveOgre(n);
 				n++;
-			}
+			} 
 			
 			stunOgres();
 		

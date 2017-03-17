@@ -105,7 +105,7 @@ public abstract class Map {
 		case 'S':
 			if((board[obj.getLin()+1][obj.getCol()] == 'X') || (board[obj.getLin()+1][obj.getCol()] == 'I') ||
 					(board[obj.getLin()+1][obj.getCol()] == 'O') || (board[obj.getLin()+1][obj.getCol()] == '*') ||
-					(board[obj.getLin()+1][obj.getCol()] == '$') || (board[obj.getLin()-1][obj.getCol()] == '8'))
+					(board[obj.getLin()+1][obj.getCol()] == '$') || (board[obj.getLin()+1][obj.getCol()] == '8'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()+1][h.getCol()]);*/
@@ -115,7 +115,7 @@ public abstract class Map {
 		case 'A':
 			if((board[obj.getLin()][obj.getCol()-1] == 'X') || (board[obj.getLin()][obj.getCol()-1] == 'I') ||
 					(board[obj.getLin()][obj.getCol()-1] == 'O') || (board[obj.getLin()][obj.getCol()-1] == '*') ||
-					(board[obj.getLin()][obj.getCol()-1] == '$') || (board[obj.getLin()-1][obj.getCol()] == '8'))
+					(board[obj.getLin()][obj.getCol()-1] == '$') || (board[obj.getLin()][obj.getCol()-1] == '8'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()][h.getCol()-1]);*/
@@ -125,7 +125,7 @@ public abstract class Map {
 		case 'D':
 			if((board[obj.getLin()][obj.getCol()+1] == 'X') || (board[obj.getLin()][obj.getCol()+1] == 'I') || 
 				(board[obj.getLin()][obj.getCol()+1] == 'O') || (board[obj.getLin()][obj.getCol()+1] == '*') ||
-				(board[obj.getLin()][obj.getCol()+1] == '$') || (board[obj.getLin()-1][obj.getCol()] == '8'))
+				(board[obj.getLin()][obj.getCol()+1] == '$') || (board[obj.getLin()][obj.getCol()+1] == '8'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
@@ -135,7 +135,7 @@ public abstract class Map {
 		case 'Q':
 			if((board[obj.getLin()-1][obj.getCol()-1] == 'X') || (board[obj.getLin()-1][obj.getCol()-1] == 'I') || 
 				(board[obj.getLin()-1][obj.getCol()-1] == 'O') || (board[obj.getLin()-1][obj.getCol()-1] == '*') ||
-				(board[obj.getLin()-1][obj.getCol()-1] == '$') || (board[obj.getLin()-1][obj.getCol()] == '8'))
+				(board[obj.getLin()-1][obj.getCol()-1] == '$') || (board[obj.getLin()-1][obj.getCol()-1] == '8'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
@@ -145,7 +145,7 @@ public abstract class Map {
 		case 'E':
 			if((board[obj.getLin()-1][obj.getCol()+1] == 'X') || (board[obj.getLin()-1][obj.getCol()+1] == 'I') || 
 					(board[obj.getLin()-1][obj.getCol()]+1 == 'O') || (board[obj.getLin()-1][obj.getCol()+1] == '*') ||
-					(board[obj.getLin()-1][obj.getCol()+1] == '$') || (board[obj.getLin()-1][obj.getCol()] == '8'))
+					(board[obj.getLin()-1][obj.getCol()+1] == '$') || (board[obj.getLin()-1][obj.getCol()+1] == '8'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
@@ -155,7 +155,7 @@ public abstract class Map {
 		case 'C':
 			if((board[obj.getLin()+1][obj.getCol()+1] == 'X') || (board[obj.getLin()+1][obj.getCol()+1] == 'I') || 
 				(board[obj.getLin()+1][obj.getCol()+1] == 'O') || (board[obj.getLin()+1][obj.getCol()+1] == '*') ||
-				(board[obj.getLin()+1][obj.getCol()+1] == '$'))
+				(board[obj.getLin()+1][obj.getCol()+1] == '$') || (board[obj.getLin()+1][obj.getCol()+1] == '8'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
@@ -165,7 +165,7 @@ public abstract class Map {
 		case 'Z':
 			if((board[obj.getLin()+1][obj.getCol()-1] == 'X') || (board[obj.getLin()+1][obj.getCol()-1] == 'I') || 
 					(board[obj.getLin()+1][obj.getCol()-1] == 'O') || (board[obj.getLin()+1][obj.getCol()-1] == '*') ||
-					(board[obj.getLin()+1][obj.getCol()-1] == '$') || (board[obj.getLin()-1][obj.getCol()] == '8'))
+					(board[obj.getLin()+1][obj.getCol()-1] == '$') || (board[obj.getLin()+1][obj.getCol()-1] == '8'))
 				return false;
 			/*else
 				this.getHero().setUnder(board[h.getLin()][h.getCol()+1]);*/
