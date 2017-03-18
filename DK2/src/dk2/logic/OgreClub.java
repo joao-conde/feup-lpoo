@@ -19,17 +19,17 @@ public class OgreClub extends MovingChar{
 
 
 
-	public boolean isOnKey() {
+	/*public boolean isOnKey() {
 		return onKey;
-	}
+	}*/
 
 
 	
-	public void setOnKey(boolean onKey) {
+	/*public void setOnKey(boolean onKey) {
 		this.onKey = onKey;
-	}
+	}*/
 	
-public char calculateRandomMove() {
+	public char calculateRandomMove() {
 
 		
 		Random randomGen = new Random();

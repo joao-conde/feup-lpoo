@@ -220,7 +220,7 @@ public class TestDungeonGameLogic {
 				expectedPos = true;	
 		}
 		
-		assertTrue(expectedPos);	
+		assertTrue(expectedPos);	 
 		
 	}
 
@@ -277,6 +277,7 @@ public class TestDungeonGameLogic {
 		
 	}
 
+	
 	@Test
 	public void testOgreOnKey(){
 	
@@ -302,6 +303,7 @@ public class TestDungeonGameLogic {
 		
 		
 	}
+
 	
 	@Test
 	public void testOgreClubOnKey(){

@@ -24,9 +24,9 @@ public class Map2 extends Map {
 		this.getHero().setSymbol('A');
 	}
 
-	public Key getKey() {
+	/*public Key getKey() {
 		return this.key;
-	}
+	}*/
 
 	public Door[] getDoor() {
 
@@ -166,19 +166,18 @@ public class Map2 extends Map {
 	}
 	
 	public void heroReachedKey(){
-		if (getHero().getLin() == getKey().getLin() && getHero().getCol() == getKey().getCol()) {
+		if (getHero().getLin() == key.getLin() && getHero().getCol() == key.getCol()) {
 			
 			getHero().setHasKey(true);
 			getHero().setSymbol('K'); 
-			getKey().setSymbol(' ');
+			key.setSymbol(' ');
 			
 			//setBoardCell(getKey().getLin(),getKey().getCol(), 'K'); 
 		}
 
 		
 	}
-	
-	
+		
 	public void openDoors() {
 
 		for(Door d: getDoor()){

@@ -47,10 +47,10 @@ public class Map1 extends Map {
 
 	}
 
-	public Lever getLever() {
+	/*public Lever getLever() {
 		return this.lever;
 	}
-
+    */
 	// returns the level winning door
 	public Door[] getDoor() {
 
@@ -61,6 +61,7 @@ public class Map1 extends Map {
 
 	public void moveGuard() {
 		char dir;
+		
 		if (guard instanceof Rookie) {
 			dir = this.guard.getNextMove(false);
 			this.guard.move(this.getBoard(), dir);
