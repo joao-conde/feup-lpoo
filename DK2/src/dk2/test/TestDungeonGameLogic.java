@@ -34,7 +34,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testMoveHeroIntoFreeCell_DL(){
 	
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
 		
 		dungeon_map.buildMaze();
@@ -55,7 +55,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testHeroIsCapturedByGuard(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
 		
 		dungeon_map.buildMaze();
@@ -74,7 +74,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testHeroTurnsLever(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_DungeonLvL dungeon_map = new MapTest_DungeonLvL(5);
 		
 		dungeon_map.buildMaze();
@@ -136,7 +136,7 @@ public class TestDungeonGameLogic {
     @Test
 	public void testMoveHeroIntoFreeCell_KL(){ 
 	
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -162,7 +162,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testHeroIsCapturedByOgre(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -181,7 +181,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testHeroPicksUpKey(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -201,7 +201,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testOgreRandomBehaviour(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -228,7 +228,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testOgreStun(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -250,7 +250,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testOgreClubRandomBehaviour(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -281,7 +281,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testOgreOnKey(){
 	
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -308,7 +308,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testOgreClubOnKey(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -333,7 +333,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testSequenceOfMoves(){
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(1, "Novice");
 				
 		char moves[] = {'w','d','d','d','s','s','s','s','d','d','d','d','w','w','w'};
 		boolean heroDead = false;

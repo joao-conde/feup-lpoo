@@ -5,13 +5,25 @@ import java.util.Vector;
 
 
 public class Game {
-	private int nOgres = 1;
+	private int nOgres;
+	private Guard guard;
 	private Vector<Map> levels;
 	private int currentMap;
 
-	public Game() {
-
-		Map1 map1 = new Map1(10);
+	public Game(int n, String pers) {
+		nOgres = n;
+		switch(pers){
+		case "Novice":
+			this.guard = new Rookie();
+			break;
+		case "Drunken":
+			this.guard = new Drunken();
+			break;
+		case "Suspicious":
+			this.guard = new Suspicious();
+			break;
+		}
+		Map1 map1 = new Map1(10, guard);
 		Map2 map2 = new Map2(10, nOgres);
 
 		map1.buildMaze();
@@ -21,7 +33,7 @@ public class Game {
 		levels.add(map1);
 		levels.add(map2);
 
-		this.currentMap = 1;
+		this.currentMap = 0;
 
 	}
 

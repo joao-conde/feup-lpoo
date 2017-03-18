@@ -15,28 +15,30 @@ public class Map1 extends Map {
 	// --------------METHODS---------------//
 
 	// Map1 constructor calling Map constructor
-	public Map1(int size) {
+	public Map1(int size, Guard pers) {
 		super(size);
 
 		this.lever = new Lever();
 
-		Random ranGen = new Random();
+//		Random ranGen = new Random();
+//
+//		switch (ranGen.nextInt(2)) {
+//
+//		case 0:
+//			this.guard = new Rookie();
+//			break;
+//
+//		case 1:
+//			this.guard = new Drunken();
+//			break;
+//
+//		case 2:
+//			this.guard = new Suspicious();
+//			break;
+//		}
 
-		switch (ranGen.nextInt(2)) {
-
-		case 0:
-			this.guard = new Rookie();
-			break;
-
-		case 1:
-			this.guard = new Drunken();
-			break;
-
-		case 2:
-			this.guard = new Suspicious();
-			break;
-		}
-
+		this.guard = pers;
+		
 		this.d1 = new Door();
 		this.d2 = new Door();
 		this.d3 = new Door();

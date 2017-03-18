@@ -7,14 +7,14 @@ import dk2.logic.*;
 
 public class Main {
 	
-	public static void main(String[] args) {
+	public static void main(int n, String p) {
 		
 		
-		Game dungeon_keeper = new Game();
+		Game dungeon_keeper = new Game(n, p);
 				
 		while(true){
 			
-			dungeon_keeper.getMap().placeChars();
+			//dungeon_keeper.getMap().placeChars();
 			
 			printMaze(dungeon_keeper);
 			
@@ -36,7 +36,18 @@ public class Main {
 		}
 	} 
 	
-	
+	public static boolean gameIsOver(Game g){
+		if(g.advance()){
+			System.out.println("Good job you win!");
+			return true;
+		}
+		
+		if(g.isHeroDead()){
+			System.out.println("Unlucky! Try again!");
+			return true;
+		}
+		return false;
+	}
 	public static char readUserMove(){
 		
 		Scanner scan = new Scanner(System.in);
@@ -51,18 +62,22 @@ public class Main {
 
 	}
 	
-	public static void printMaze(Game g){
-		
+	public static String printMaze(Game g){
+		g.getMap().placeChars();
+		String res = "";
 		Map m = g.getMap();
 		char[][] board = m.getBoard();
 		
 		for(int i=0; i < m.getSize(); i++){
 			for(int j=0; j < m.getSize(); j++){
-				System.out.print(board[i][j]);
-				System.out.print(" ");
+				res += /*System.out.print(*/board[i][j];
+				res += /*System.out.print(*/" ";
 			}
-			System.out.println();
+			//System.out.println();
+			res += "\n";
 		}
+		System.out.print(res);
+		return res;
 		
 	}
 }
