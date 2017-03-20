@@ -48,6 +48,7 @@ public class Main {
 		}
 		return false;
 	}
+
 	public static char readUserMove(){
 		
 		Scanner scan = new Scanner(System.in);

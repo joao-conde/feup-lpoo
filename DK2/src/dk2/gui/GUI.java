@@ -105,7 +105,7 @@ public class GUI {
 		frmDungeonKeeper.getContentPane().add(guardsFld);
 
 		 
-		textArea.setFont(new Font("Courier New", Font.BOLD, 17));
+		textArea.setFont(new Font("Courier New", Font.BOLD, 14));
 		textArea.setEditable(false);
 		textArea.setBounds(31, 88, 283, 172);
 		frmDungeonKeeper.getContentPane().add(textArea);
@@ -124,6 +124,7 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				dungeon_keeper.getMap().moveHero('W');
 				dungeon_keeper.getMap().advanceTurn();
+				dungeon_keeper.getMap().placeChars();
 				modifyTxtArea(dungeon_keeper.getMap());
 			}
 		});
@@ -131,10 +132,11 @@ public class GUI {
 		frmDungeonKeeper.getContentPane().add(btnUp);
 
 		JButton btnLeft = new JButton("Left");
-		btnUp.addActionListener(new ActionListener() {
+		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dungeon_keeper.getMap().moveHero('A');
 				dungeon_keeper.getMap().advanceTurn();
+				dungeon_keeper.getMap().placeChars();
 				modifyTxtArea(dungeon_keeper.getMap());
 			}
 		});
@@ -142,10 +144,11 @@ public class GUI {
 		frmDungeonKeeper.getContentPane().add(btnLeft);
 
 		JButton btnRight = new JButton("Right");
-		btnUp.addActionListener(new ActionListener() {
+		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dungeon_keeper.getMap().moveHero('D');
 				dungeon_keeper.getMap().advanceTurn();
+				dungeon_keeper.getMap().placeChars();
 				modifyTxtArea(dungeon_keeper.getMap());
 			}
 		});
@@ -153,10 +156,11 @@ public class GUI {
 		frmDungeonKeeper.getContentPane().add(btnRight);
 
 		JButton btnDown = new JButton("Down");
-		btnUp.addActionListener(new ActionListener() {
+		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dungeon_keeper.getMap().moveHero('S');
 				dungeon_keeper.getMap().advanceTurn();
+				dungeon_keeper.getMap().placeChars();
 				modifyTxtArea(dungeon_keeper.getMap());
 			}
 		});
@@ -186,7 +190,7 @@ public class GUI {
 				
 				
 				dungeon_keeper.getMap().advanceTurn();
-
+				dungeon_keeper.getMap().placeChars();
 				modifyTxtArea(dungeon_keeper.getMap());
 
 			}
