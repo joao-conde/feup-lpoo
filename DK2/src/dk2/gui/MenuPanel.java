@@ -8,6 +8,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import org.imgscalr.Scalr;
+import org.imgscalr.Scalr.Mode;
+
 
 public class MenuPanel extends JPanel {
 
@@ -24,7 +27,7 @@ public class MenuPanel extends JPanel {
 	 */
 	public MenuPanel(int width, int heigth) throws IOException {
 
-		this.background = ImageIO.read(new File("/res/menu_background.png"));
+		this.background = Scalr.resize(ImageIO.read(new File("res/static/menu_background.png")),Mode.FIT_TO_WIDTH, width);
 		//this.width = width;
 		//this.heigth = heigth;
 		
