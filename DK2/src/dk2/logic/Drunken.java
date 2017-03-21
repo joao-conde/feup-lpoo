@@ -13,4 +13,8 @@ public class Drunken extends Guard{
 	public boolean isAsleep(){
 		return isAsleep;
 	}
+	
+	public void setAsleep(boolean asleep){
+		isAsleep = true;
+	}
 }

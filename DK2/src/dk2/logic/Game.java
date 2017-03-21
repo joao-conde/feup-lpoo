@@ -9,11 +9,20 @@ public class Game {
 	private Guard guard;
 	private Vector<Map> levels;
 	private int currentMap;
-	private String personality = "Novice";
+	private String personality;
 
 	public Game() {
 		
-		switch(personality){
+		this.levels = new Vector<Map>();
+
+		this.currentMap = 0;
+
+	}
+	
+	public void buildMaps(String pers, int nOgres){
+		
+		
+		switch(pers){
 		case "Novice":
 			this.guard = new Rookie();
 			break;
@@ -24,18 +33,15 @@ public class Game {
 			this.guard = new Suspicious();
 			break;
 		}
+		
 		Map1 map1 = new Map1(10, guard);
-		Map2 map2 = new Map2(10, nOgres);
+		Map2 map2 = new Map2(9, nOgres);
 
 		map1.buildMaze();
 		map2.buildMaze();
-
-		this.levels = new Vector<Map>();
+		
 		levels.add(map1);
 		levels.add(map2);
-
-		this.currentMap = 1;
-
 	}
 
 	public int getNOgres() {

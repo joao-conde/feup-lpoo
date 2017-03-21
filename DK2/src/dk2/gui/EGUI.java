@@ -9,7 +9,8 @@ import javax.swing.JFrame;
 public class EGUI {
 
 	private JFrame frame;
-	private GamePanel panel;
+	//private GamePanel panel;
+	private MenuPanel menupanel;
 
 	/**
 	 * Launch the application.
@@ -35,20 +36,24 @@ public class EGUI {
 	public EGUI() throws IOException {
 		
 		frame = new JFrame();
-		frame.setTitle("LPOO Master Race 8)");
+		frame.setTitle("LPOO Master Race");
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setBounds(300, 25, 700, 700);
 		frame.setResizable(false);
 		
-		panel = new GamePanel(700,700);
+		/*panel = new GamePanel(700,700);
 		panel.setBounds(0, 0, 700, 700);
 		panel.addKeyListener(panel);
-		panel.setFocusable(true);
+		panel.setFocusable(true);*/
 		
-		frame.getContentPane().add(panel);
+		menupanel = new MenuPanel(500,500);
+		menupanel.setBounds(0, 0, 500, 500);
 		
+		
+		frame.getContentPane().add(menupanel);
+		//frame.getContentPane().add(panel);
 		
 		
 		

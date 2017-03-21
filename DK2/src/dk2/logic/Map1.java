@@ -77,6 +77,7 @@ public class Map1 extends Map {
 			} else {
 				dir = this.guard.getNextMove(false);
 				this.guard.setSymbol('G');
+				((Drunken) this.guard).setAsleep(false);
 				this.guard.move(this.getBoard(), dir);
 			}
 

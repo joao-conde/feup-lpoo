@@ -26,9 +26,15 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			drunken, suspicious, kFloor, kWall, kOpenGate, kClosedGate, key, grave, ogre, fireball;
 
 	private int offsetW, offsetH, gridH, gridW;
+	
 
 	public GamePanel(int width, int height) throws IOException {
-
+		
+		String personality = "Drunken";
+		int nOgres = 2;
+		
+		dungeon.buildMaps(personality, nOgres);
+		
 		gridH = dungeon.getMap().getBoard()[0].length;
 		gridW = dungeon.getMap().getBoard().length;
 
