@@ -315,5 +315,12 @@ public class Map2 extends Map {
 		this.setDoors(d1);
 
 	}
+	
+	@Override
+	public Door[] getAllDoors() {
+		
+		Door[] doors = {d1};
+		return doors;
+	}
 
 }

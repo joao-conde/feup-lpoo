@@ -305,5 +305,11 @@ public class MapTest_KeeperLvL extends Map {
 
 	}
 	
+	@Override
+	public Door[] getAllDoors() {
+		Door[] doors = {d1};
+		return doors;
+	}
+	
 
 }

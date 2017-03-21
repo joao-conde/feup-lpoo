@@ -48,6 +48,8 @@ public abstract class Map {
 
 	public abstract Door[] getDoor();
 
+	public abstract Door[] getAllDoors();	
+	
 	public abstract void openDoors();
 	
 	public void buildExtWalls() {

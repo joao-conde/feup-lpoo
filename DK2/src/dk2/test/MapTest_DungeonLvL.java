@@ -171,4 +171,10 @@ public class MapTest_DungeonLvL extends Map{
 		}
 
 	}
+
+	@Override
+	public Door[] getAllDoors() {
+		Door[] doors = {d1,d2};
+		return doors;
+	}
 }

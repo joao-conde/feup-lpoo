@@ -49,10 +49,10 @@ public class Map1 extends Map {
 
 	}
 
-	/*public Lever getLever() {
+	public Lever getLever() {
 		return this.lever;
 	}
-    */
+    
 	// returns the level winning door
 	public Door[] getDoor() {
 
@@ -221,4 +221,16 @@ public class Map1 extends Map {
 		moveGuard();
 
 	}
+
+	@Override
+	public Door[] getAllDoors() {
+		
+		Door[] doors = {d1,d2,d3,d4,d5,d6,d7};
+		return doors;
+	}
+
+	public Guard getGuard(){
+		return this.guard;
+	}
+
 }

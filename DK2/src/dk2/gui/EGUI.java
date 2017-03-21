@@ -35,11 +35,12 @@ public class EGUI {
 	public EGUI() throws IOException {
 		
 		frame = new JFrame();
-		frame.setTitle("Dungeon Explorer");
+		frame.setTitle("LPOO Master Race 8)");
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setBounds(300, 100, 700, 700);
+		frame.setBounds(300, 25, 700, 700);
+		frame.setResizable(false);
 		
 		panel = new GamePanel(700,700);
 		panel.setBounds(0, 0, 700, 700);
