@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -17,11 +18,12 @@ import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class GUI {
+public class GUI implements SwingConstants{
 
 	private JFrame frmDungeonKeeper;
 	private JTextField fldNOgres;
 	private JTextArea textArea = new JTextArea();
+	private JLabel lblLabel;
 	private Game dungeon_keeper;
 
 	/**
@@ -76,11 +78,25 @@ public class GUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	public void reprint(char dir){
+		
+		if(dungeon_keeper.isHeroDead()){
+			lblLabel.setText("Game over");
+			return;
+		}
+		
+		dungeon_keeper.getMap().moveHero(dir);
+		dungeon_keeper.getMap().advanceTurn();
+		dungeon_keeper.getMap().placeChars();
+				
+		modifyTxtArea(dungeon_keeper.getMap());
+	}
+	
 	private void initialize() {
 		frmDungeonKeeper = new JFrame();
 		frmDungeonKeeper.setResizable(false);
 		frmDungeonKeeper.setTitle("Dungeon Keeper");
-		frmDungeonKeeper.setBounds(100, 100, 500, 300);
+		frmDungeonKeeper.setBounds(100, 100, 500, 326);
 		frmDungeonKeeper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDungeonKeeper.getContentPane().setLayout(null);
 
@@ -107,7 +123,7 @@ public class GUI {
 		 
 		textArea.setFont(new Font("Courier New", Font.BOLD, 14));
 		textArea.setEditable(false);
-		textArea.setBounds(31, 88, 283, 172);
+		textArea.setBounds(81, 86, 151, 172);
 		frmDungeonKeeper.getContentPane().add(textArea);
 
 		JButton btnExit = new JButton("Exit");
@@ -122,10 +138,7 @@ public class GUI {
 		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dungeon_keeper.getMap().moveHero('W');
-				dungeon_keeper.getMap().advanceTurn();
-				dungeon_keeper.getMap().placeChars();
-				modifyTxtArea(dungeon_keeper.getMap());
+				reprint('W');
 			}
 		});
 		btnUp.setBounds(362, 77, 71, 39);
@@ -134,10 +147,7 @@ public class GUI {
 		JButton btnLeft = new JButton("Left");
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dungeon_keeper.getMap().moveHero('A');
-				dungeon_keeper.getMap().advanceTurn();
-				dungeon_keeper.getMap().placeChars();
-				modifyTxtArea(dungeon_keeper.getMap());
+				reprint('A');
 			}
 		});
 		btnLeft.setBounds(324, 113, 71, 39);
@@ -146,10 +156,7 @@ public class GUI {
 		JButton btnRight = new JButton("Right");
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dungeon_keeper.getMap().moveHero('D');
-				dungeon_keeper.getMap().advanceTurn();
-				dungeon_keeper.getMap().placeChars();
-				modifyTxtArea(dungeon_keeper.getMap());
+				reprint('D');
 			}
 		});
 		btnRight.setBounds(394, 113, 71, 39);
@@ -158,18 +165,16 @@ public class GUI {
 		JButton btnDown = new JButton("Down");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dungeon_keeper.getMap().moveHero('S');
-				dungeon_keeper.getMap().advanceTurn();
-				dungeon_keeper.getMap().placeChars();
-				modifyTxtArea(dungeon_keeper.getMap());
+				reprint('S');
 			}
 		});
 		btnDown.setBounds(362, 151, 71, 39);
 		frmDungeonKeeper.getContentPane().add(btnDown);
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(31, 259, 283, 16);
-		frmDungeonKeeper.getContentPane().add(lblNewLabel);
+		lblLabel = new JLabel("");
+		lblLabel.setBounds(41, 270, 225, 16);
+		lblLabel.setHorizontalAlignment(CENTER);
+		frmDungeonKeeper.getContentPane().add(lblLabel);
 
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
@@ -182,14 +187,15 @@ public class GUI {
 				if (tmpOgres > 5 || tmpOgres < 1)
 					JOptionPane.showMessageDialog(frmDungeonKeeper, "Invalid Number of Ogres (min 1, max 5)");
 
-				dungeon_keeper = new Game(tmpOgres, tmpGuard);
+				dungeon_keeper = new Game();
 				
+				lblLabel.setText("");
 				
 				if (dungeon_keeper.isHeroDead())
-					lblNewLabel.setText("Game is Over.");
+					lblLabel.setText("Game is Over.");
 				
 				
-				dungeon_keeper.getMap().advanceTurn();
+				
 				dungeon_keeper.getMap().placeChars();
 				modifyTxtArea(dungeon_keeper.getMap());
 

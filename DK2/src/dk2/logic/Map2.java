@@ -24,9 +24,9 @@ public class Map2 extends Map {
 		this.getHero().setSymbol('A');
 	}
 
-	/*public Key getKey() {
+	public Key getKey() {
 		return this.key;
-	}*/
+	}
 
 	public Door[] getDoor() {
 
@@ -35,9 +35,9 @@ public class Map2 extends Map {
 		return nextLvLDoors;
 	}
 
-	// public Ogre getOgre(){
-	// return this.ogre;
-	// }
+	public Ogre[] getOgres(){
+		return this.ogres;
+	 }
 
 	public void moveOgre(int index) {
 		if (ogres[index].getStunned()) {

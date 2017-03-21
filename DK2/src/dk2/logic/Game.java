@@ -9,10 +9,11 @@ public class Game {
 	private Guard guard;
 	private Vector<Map> levels;
 	private int currentMap;
+	private String personality = "Novice";
 
-	public Game(int n, String pers) {
-		nOgres = n;
-		switch(pers){
+	public Game() {
+		
+		switch(personality){
 		case "Novice":
 			this.guard = new Rookie();
 			break;
@@ -33,7 +34,7 @@ public class Game {
 		levels.add(map1);
 		levels.add(map2);
 
-		this.currentMap = 0;
+		this.currentMap = 1;
 
 	}
 

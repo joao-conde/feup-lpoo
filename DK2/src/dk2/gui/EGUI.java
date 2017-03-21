@@ -44,8 +44,11 @@ public class EGUI {
 		
 		panel = new GamePanel(700,700);
 		panel.setBounds(0, 0, 700, 700);
+		panel.addKeyListener(panel);
+		panel.setFocusable(true);
 		
 		frame.getContentPane().add(panel);
+		
 		
 		
 		

@@ -7,10 +7,10 @@ import dk2.logic.*;
 
 public class Main {
 	
-	public static void main(int n, String p) {
+	public static void main(String[] args) {
 		
 		
-		Game dungeon_keeper = new Game(n, p);
+		Game dungeon_keeper = new Game();
 				
 		while(true){
 			
