@@ -219,6 +219,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			g.drawImage(fireball, offsetH*o.getClub().getCol(), offsetW*o.getClub().getLin(), this);
 		}		
 
+		
 		g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
 				dungeon.getMap().getHero().getLin() * offsetW, this);
 
