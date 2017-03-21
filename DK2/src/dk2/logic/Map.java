@@ -77,8 +77,7 @@ public abstract class Map {
 		setBoardCell(d.getLin(), d.getCol(), d.getSymbol());
 	}
 
-	public void buildMaze() {
-	};
+	public abstract void buildMaze();
 
 	public void drawHero() {
 

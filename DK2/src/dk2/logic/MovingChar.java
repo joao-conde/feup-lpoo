@@ -55,5 +55,6 @@ public abstract class MovingChar extends Character {
 		this.moveDown(b);
 		this.moveRight(b);
 	}
+	
 
 }

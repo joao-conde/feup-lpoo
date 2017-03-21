@@ -35,6 +35,7 @@ public class GUI implements SwingConstants{
 				try {
 					GUI window = new GUI();
 					window.frmDungeonKeeper.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,7 +57,8 @@ public class GUI implements SwingConstants{
 		
 		char[][] mapToParse = Arrays.copyOf(m.getBoard(), m.getBoard().length);
 		
-		mapToParse[dungeon_keeper.getMap().getHero().getLin()][dungeon_keeper.getMap().getHero().getCol()] = 'H';
+		mapToParse[dungeon_keeper.getMap().getHero().getLin()][dungeon_keeper.getMap().getHero().getCol()] = 
+				dungeon_keeper.getMap().getHero().getSymbol();
 		
 
 		for (int i = 0; i < mapToParse.length; i++) {
@@ -79,12 +81,15 @@ public class GUI implements SwingConstants{
 	 * Initialize the contents of the frame.
 	 */
 	public void reprint(char dir){
-		
-		if(dungeon_keeper.isHeroDead()){
-			lblLabel.setText("Game over");
+		if (dungeon_keeper.advance()){
+			lblLabel.setText("You win!");
 			return;
 		}
 		
+		if (dungeon_keeper.isHeroDead()){
+			lblLabel.setText("Game Over!");
+			return;
+		}
 		dungeon_keeper.getMap().moveHero(dir);
 		dungeon_keeper.getMap().advanceTurn();
 		dungeon_keeper.getMap().placeChars();
@@ -125,6 +130,7 @@ public class GUI implements SwingConstants{
 		textArea.setEditable(false);
 		textArea.setBounds(81, 86, 151, 172);
 		frmDungeonKeeper.getContentPane().add(textArea);
+		
 
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
@@ -188,14 +194,9 @@ public class GUI implements SwingConstants{
 					JOptionPane.showMessageDialog(frmDungeonKeeper, "Invalid Number of Ogres (min 1, max 5)");
 
 				dungeon_keeper = new Game();
+				dungeon_keeper.buildMaps(tmpGuard, tmpOgres);
 				
 				lblLabel.setText("");
-				
-				if (dungeon_keeper.isHeroDead())
-					lblLabel.setText("Game is Over.");
-				
-				
-				
 				dungeon_keeper.getMap().placeChars();
 				modifyTxtArea(dungeon_keeper.getMap());
 

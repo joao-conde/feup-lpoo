@@ -9,8 +9,22 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		
+		int nOgres, guard;
 		Game dungeon_keeper = new Game();
+		guard = readGuard();
+		nOgres = readOgres();
+		
+		switch(guard){
+		case 1:
+			dungeon_keeper.buildMaps("Novice", nOgres);
+			break;
+		case 2:
+			dungeon_keeper.buildMaps("Drunken", nOgres);
+			break;
+		case 3:
+			dungeon_keeper.buildMaps("Suspicious", nOgres);
+			break;
+		}
 				
 		while(true){
 			
@@ -48,7 +62,39 @@ public class Main {
 		}
 		return false;
 	}
+	public static int readGuard(){
+		String op;
+		int res;
+		Scanner scan = new Scanner(System.in);
+		while(true){
+			System.out.println("Type of guard? \n 1: Rookie\n 2: Drunken \n 3: Suspicious");
+			op = scan.next();
+			res = Integer.parseInt(op);
+			if (res < 1 || res > 3)
+				System.out.println("Invalid Option.");
+			else
+				break;
 
+		}
+		return res;
+	}
+	
+	public static int readOgres(){
+		Scanner scan = new Scanner(System.in);
+		String op;
+		int res;
+		while(true){
+			System.out.println("Number of ogres (1-5):");
+			op = scan.next();
+			res = Integer.parseInt(op);
+			if (res < 1 || res > 5)
+				System.out.println("Invalid Number");
+			else
+				break;
+		}
+		return res;
+	}
+	
 	public static char readUserMove(){
 		
 		Scanner scan = new Scanner(System.in);
@@ -71,13 +117,13 @@ public class Main {
 		
 		for(int i=0; i < m.getSize(); i++){
 			for(int j=0; j < m.getSize(); j++){
-				res += /*System.out.print(*/board[i][j];
-				res += /*System.out.print(*/" ";
+				/*res +=*/ System.out.print(board[i][j]);
+				/*res += */System.out.print(" ");
 			}
-			//System.out.println();
-			res += "\n";
+			System.out.println();
+			//res += "\n";
 		}
-		System.out.print(res);
+		//System.out.print(res);
 		return res;
 		
 	}

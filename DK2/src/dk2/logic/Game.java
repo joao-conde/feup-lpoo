@@ -15,7 +15,7 @@ public class Game {
 		
 		this.levels = new Vector<Map>();
 
-		this.currentMap = 1;
+		this.currentMap = 0;
 
 	}
 	
@@ -35,7 +35,7 @@ public class Game {
 		}
 		
 		Map1 map1 = new Map1(10, guard);
-		Map2 map2 = new Map2(9, nOgres);
+		Map2 map2 = new Map2(10, nOgres);
 
 		map1.buildMaze();
 		map2.buildMaze();
