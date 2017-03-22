@@ -110,9 +110,14 @@ public class EGUI {
                 new ActionListener() {
            
 			public void actionPerformed(ActionEvent e) {
+				if (personality != null){
 					menu_frame.dispose();
 					game_frame.setVisible(true);
-				
+				}
+				else
+					JOptionPane.showMessageDialog(menu_frame, "Select options first!");
+					
+
 			}
 		});
 		
@@ -190,18 +195,23 @@ public class EGUI {
 					public void actionPerformed(ActionEvent e){
 						personality = guardsPers.getSelectedItem().toString();
 						ogres = Integer.parseInt(nOgres.getText());
-						try {
-							game_panel = new GamePanel(700,700,ogres,personality);
-							game_panel.setBounds(0, 0, 700, 700);
-							game_panel.addKeyListener(game_panel);
-							game_panel.setFocusable(true);
-							game_frame.getContentPane().add(game_panel);
-						} catch (IOException e1) {
+						if (ogres < 1 || ogres > 5){
 							JOptionPane.showMessageDialog(options_frame, "Invalid options!");
-							e1.printStackTrace();
 						}
-						options_frame.setVisible(false);
-						menu_frame.setFocusable(true);
+						else{
+							try {
+								game_panel = new GamePanel(700,700,ogres,personality);
+								game_panel.setBounds(0, 0, 700, 700);
+								game_panel.addKeyListener(game_panel);
+								game_panel.setFocusable(true);
+								game_frame.getContentPane().add(game_panel);
+							} catch (IOException e1) {
+								JOptionPane.showMessageDialog(options_frame, "Invalid options!");
+								e1.printStackTrace();
+							}
+							options_frame.setVisible(false);
+							menu_frame.setFocusable(true);
+						}
 					}
 				});
 		
