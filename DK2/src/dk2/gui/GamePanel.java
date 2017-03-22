@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import org.imgscalr.Scalr;
 
@@ -28,12 +30,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	private int offsetW, offsetH, gridH, gridW;
 	
 
-	public GamePanel(int width, int height) throws IOException {
+	public GamePanel(int width, int height, int nOgres, String guardsPers) throws IOException {
 		
-		String personality = "Drunken";
-		int nOgres = 2;
 		
-		dungeon.buildMaps(personality, nOgres);
+		
+		
+		dungeon.buildMaps(guardsPers, nOgres);
 		
 		gridH = dungeon.getMap().getBoard()[0].length;
 		gridW = dungeon.getMap().getBoard().length;
