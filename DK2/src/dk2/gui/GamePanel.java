@@ -246,7 +246,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	public void keyPressed(KeyEvent event) {
 
 		int key = event.getKeyCode();
-
+		dungeon.getMap().advanceTurn();
+		if (dungeon.advance())
+			System.exit(0);
+		if (dungeon.isHeroDead())
+			System.exit(0);
 		switch (key) {
 
 		case KeyEvent.VK_UP:
@@ -267,12 +271,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 		}
 
-		dungeon.getMap().advanceTurn();
+		
 
-		if (dungeon.isHeroDead())
-			System.exit(0);
-
-		dungeon.advance();
+		
 
 		repaint();
 

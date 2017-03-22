@@ -15,7 +15,7 @@ public class Game {
 		
 		this.levels = new Vector<Map>();
 
-		this.currentMap = 0;
+		this.currentMap = 1;
 
 	}
 	

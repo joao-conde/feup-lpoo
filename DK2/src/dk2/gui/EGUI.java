@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.UIManager;
 
 public class EGUI {
@@ -28,7 +31,7 @@ public class EGUI {
 			public void run() {
 				try {
 					EGUI window = new EGUI();
-					window.game_frame.setVisible(true);
+					window.game_frame.setVisible(false);
 					window.menu_frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,6 +55,8 @@ public class EGUI {
 		menu_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menu_frame.setBounds(90, 25, 1200, 700);
 		menu_frame.setResizable(false);
+		
+		
 		
 		
 		
@@ -81,6 +86,17 @@ public class EGUI {
 		btnNewGame.setToolTipText("Start a new adventure");
 		btnNewGame.setBounds(497, 336, 200, 23);
 		menu_frame.getContentPane().add(btnNewGame);
+
+		
+		btnNewGame.addActionListener(
+                new ActionListener() {
+           
+			public void actionPerformed(ActionEvent e) {
+					menu_frame.dispose();
+					game_frame.setVisible(true);
+				
+			}
+		});
 		
 		JButton btnCustomLvL = new JButton("Custom LvL Editor");
 		btnCustomLvL.setForeground(Color.RED);
@@ -89,12 +105,21 @@ public class EGUI {
 		btnCustomLvL.setBounds(497, 370, 200, 23);
 		menu_frame.getContentPane().add(btnCustomLvL);
 		
-		btnExit = new JButton("EXIT",image);
+		btnExit = new JButton("EXIT");
 		btnExit.setToolTipText("Exit the game");
 		btnExit.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnExit.setForeground(Color.RED);
 		btnExit.setBounds(546, 470, 89, 23);
 		menu_frame.getContentPane().add(btnExit);
+		
+		btnExit.addActionListener(
+                new ActionListener() {
+           
+			public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				
+			}
+		});
 		
 		
 		
@@ -104,8 +129,10 @@ public class EGUI {
 		menupanel.setBounds(0, 0, 1194, 671);
 		
 		
+		
 		menu_frame.getContentPane().add(menupanel);
 		game_frame.getContentPane().add(game_panel);
 		
 	}
+
 }

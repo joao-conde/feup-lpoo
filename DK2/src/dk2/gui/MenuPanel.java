@@ -1,6 +1,9 @@
 package dk2.gui;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +15,7 @@ import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Mode;
 
 
-public class MenuPanel extends JPanel {
+public class MenuPanel extends JPanel{
 
 	
 	private BufferedImage background;
@@ -40,5 +43,7 @@ public class MenuPanel extends JPanel {
 	
 		g.drawImage(background, 0 , 0, this);
 	}
+
+	
 
 }
