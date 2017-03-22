@@ -1,6 +1,5 @@
 package dk2.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.io.IOException;
@@ -9,11 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,16 +19,19 @@ import javax.swing.UIManager;
 public class EGUI {
 
 	private JFrame game_frame, menu_frame, options_frame;
+	
 	private GamePanel game_panel;
 	private MenuPanel menupanel;
-	private JButton btnExit, btnOp;
-	private JDialog op;
-	private JTextField nOgres;
-	private JComboBox guardsPers;
-	private String personality;
-	int ogres;
 	
-	private ImageIcon image = new ImageIcon("res/static/keeper_floor.png");
+	private JButton btnExit;
+	
+	private JTextField nOgres;
+	private JComboBox<String> guardsPers;
+	
+	private String personality;
+	private int number_ogres;
+	
+	//private ImageIcon image = new ImageIcon("res/static/keeper_floor.png");
 
 	/**
 	 * Launch the application.
@@ -76,6 +75,7 @@ public class EGUI {
 		menu_frame.setBounds(90, 25, 1200, 700);
 		menu_frame.setResizable(false);
 		
+		
 		// creation of the options frame, where user selects the options of the game
 		options_frame = new JFrame();
 		options_frame.setTitle("Options");
@@ -83,9 +83,7 @@ public class EGUI {
 		options_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		options_frame.setBounds(430, 336, 450, 170);
 		options_frame.setResizable(false);
-		
-		
-		
+				
 		
 		
 		//creation of the game frame, where player plays the game
@@ -96,13 +94,21 @@ public class EGUI {
 		game_frame.setBounds(300, 25, 700, 700);
 		game_frame.setResizable(false);
 		
+		JLabel lblDevelopedByJoo = new JLabel("Developed by Jo\u00E3o Conde and Nelson Costa  - FEUP/MIEIC/LPOO");
+		lblDevelopedByJoo.setLabelFor(menu_frame);
+		lblDevelopedByJoo.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		lblDevelopedByJoo.setBackground(Color.WHITE);
+		lblDevelopedByJoo.setForeground(Color.RED);
+		lblDevelopedByJoo.setBounds(765, 646, 419, 14);
+		menu_frame.getContentPane().add(lblDevelopedByJoo);
+		
 		
 		//Button's in Menu Panel
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnNewGame.setForeground(Color.RED);
 		btnNewGame.setToolTipText("Start a new adventure");
-		btnNewGame.setBounds(497, 336, 200, 23);
+		btnNewGame.setBounds(497, 362, 200, 23);
 		menu_frame.getContentPane().add(btnNewGame);
 
 		
@@ -110,13 +116,19 @@ public class EGUI {
                 new ActionListener() {
            
 			public void actionPerformed(ActionEvent e) {
-				if (personality != null){
+				
+				
+				
+								
+			   if (personality != null){
 					menu_frame.dispose();
 					game_frame.setVisible(true);
 				}
-				else
-					JOptionPane.showMessageDialog(menu_frame, "Select options first!");
-					
+				else{
+					//JOptionPane.showMessageDialog(menu_frame, "Select options first!");
+					options_frame.setVisible(true);
+					menu_frame.setFocusable(false);
+				}
 
 			}
 		});
@@ -125,7 +137,7 @@ public class EGUI {
 		btnCustomLvL.setForeground(Color.RED);
 		btnCustomLvL.setToolTipText("Create your own magical dungeon");
 		btnCustomLvL.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnCustomLvL.setBounds(497, 404, 200, 23);
+		btnCustomLvL.setBounds(497, 411, 200, 23);
 		menu_frame.getContentPane().add(btnCustomLvL);
 		
 		btnExit = new JButton("EXIT");
@@ -144,13 +156,6 @@ public class EGUI {
 			}
 		});
 		
-		btnOp = new JButton("Game Options");
-		btnOp.setToolTipText("Options of the game");
-		btnOp.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnOp.setForeground(Color.RED);
-		btnOp.setBounds(497, 370, 200, 23);
-		menu_frame.getContentPane().add(btnOp);
-		
 		
 
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres (1-5):");
@@ -168,39 +173,29 @@ public class EGUI {
 		options_frame.getContentPane().add(nOgres);
 		nOgres.setColumns(10);
 		
-		guardsPers = new JComboBox();
+		guardsPers = new JComboBox<String>();
 		guardsPers.setBounds(196, 65, 141, 27);
 		guardsPers.addItem("Novice");
 		guardsPers.addItem("Drunken");
 		guardsPers.addItem("Suspicious");
 		options_frame.getContentPane().add(guardsPers);
 		
-		btnOp.addActionListener(
-                new ActionListener() {
-           
-			public void actionPerformed(ActionEvent e) {
-					options_frame.setVisible(true);
-					menu_frame.setFocusable(false);
-				
-			}
-		});
-		
 		JButton okBtn = new JButton("OK");
 		okBtn.setToolTipText("OK");
-		okBtn.setBounds(370, 115, 50, 23);
+		okBtn.setBounds(190, 105, 75, 23);
 		options_frame.getContentPane().add(okBtn);
 		
 		okBtn.addActionListener(
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
 						personality = guardsPers.getSelectedItem().toString();
-						ogres = Integer.parseInt(nOgres.getText());
-						if (ogres < 1 || ogres > 5){
+						number_ogres = Integer.parseInt(nOgres.getText());
+						if (number_ogres < 1 || number_ogres > 5){
 							JOptionPane.showMessageDialog(options_frame, "Invalid options!");
 						}
 						else{
 							try {
-								game_panel = new GamePanel(700,700,ogres,personality);
+								game_panel = new GamePanel(700,700,number_ogres,personality);
 								game_panel.setBounds(0, 0, 700, 700);
 								game_panel.addKeyListener(game_panel);
 								game_panel.setFocusable(true);
@@ -210,7 +205,9 @@ public class EGUI {
 								e1.printStackTrace();
 							}
 							options_frame.setVisible(false);
-							menu_frame.setFocusable(true);
+							menu_frame.setVisible(false);
+						
+							game_frame.setVisible(true);
 						}
 					}
 				});
@@ -235,6 +232,4 @@ public class EGUI {
 		
 		
 	}
-
-	
 }
