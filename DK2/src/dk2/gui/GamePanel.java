@@ -25,7 +25,7 @@ import dk2.gui.EGUI;
 
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
-	private Game dungeon = new Game();
+	protected Game dungeon = new Game();
 	private boolean gameOver = false;
 	private boolean wonLevel = false;
 
@@ -38,9 +38,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 	public GamePanel(int width, int height, int nOgres, String guardsPers) throws IOException {
 		
-		
-		
-		
+				
 		dungeon.buildMaps(guardsPers, nOgres);
 		
 		gridH = dungeon.getMap().getBoard()[0].length;
@@ -141,7 +139,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			if (gamemap.getAllDoors()[i].isOpen()){
 				g.drawImage(dOpenDoor, gamemap.getAllDoors()[i].getCol() * offsetH,
 						gamemap.getAllDoors()[i].getLin() * offsetW, this);
-				if (gamemap.getHero().distanceTo(gamemap.getAllDoors()[i]) == 0){
+				if (gamemap.getHero().distanceTo(gamemap.getAllDoors()[i]) <= 1){
 					//this.setVisible(false);
 					dungeon.setCurrentMap(1);
 					repaint(); 
@@ -245,14 +243,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			if(gamemap.getHero().distanceTo(o) <= 1 || gamemap.getHero().distanceTo(o.getClub()) <= 1){
 				g.drawImage(grave, dungeon.getMap().getHero().getCol() * offsetH,
 						dungeon.getMap().getHero().getLin() * offsetW, this);
-				JOptionPane.showMessageDialog(this.getRootPane(), "Game Over!");
-				this.getRootPane().setVisible(false);
+				this.gameOver = true;
+				//this.getRootPane().setVisible(false);
 				try {
 					ng = new EGUI();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				ng.getMenuFramel().setVisible(true);
+				
 			}	
 			else
 				g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,

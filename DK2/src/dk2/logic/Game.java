@@ -19,6 +19,10 @@ public class Game {
 
 	}
 	
+	public Vector<Map> getLevels(){
+		return this.levels;
+	}
+	
 	public void buildMaps(String pers, int nOgres){
 		
 		
