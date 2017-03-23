@@ -18,19 +18,14 @@ import javax.swing.UIManager;
 
 public class EGUI {
 
-	private JFrame game_frame, options_frame;
-	protected JFrame menu_frame;
+	private JFrame game_frame, options_frame, menu_frame, editor_frame;
 	
 	private GamePanel game_panel;
 	private MenuPanel menupanel;
+	private EditorPanel editorpanel;
+	private NGOptionsPanel ngpanel;
 	
 	private JButton btnExit;
-	
-	private JTextField nOgres;
-	private JComboBox<String> guardsPers;
-	
-	private String personality;
-	private int number_ogres;
 	
 	//private ImageIcon image = new ImageIcon("res/static/keeper_floor.png");
 
@@ -99,6 +94,15 @@ public class EGUI {
 		game_frame.setBounds(300, 25, 700, 700);
 		game_frame.setResizable(false);
 		
+		
+		//creation of the game frame, where player plays the game
+		editor_frame = new JFrame();
+		editor_frame.setTitle("Edit Keeper Level");
+		editor_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		editor_frame.getContentPane().setLayout(null);
+		editor_frame.setBounds(300, 25, 1000, 700);
+		editor_frame.setResizable(false);
+		
 		JLabel lblDevelopedByJoo = new JLabel("Developed by Jo\u00E3o Conde and Nelson Costa  - FEUP/MIEIC/LPOO");
 		lblDevelopedByJoo.setLabelFor(menu_frame);
 		lblDevelopedByJoo.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -121,19 +125,26 @@ public class EGUI {
                 new ActionListener() {
            
 			public void actionPerformed(ActionEvent e) {
+				ngpanel = new NGOptionsPanel();
+				ngpanel.setBounds(0, 0, 400, 100);
+				ngpanel.setVisible(true);
+		
+				options_frame.getContentPane().add(ngpanel);
 				
-				
-				
-								
-			   if (personality != null){
-					menu_frame.dispose();
-					game_frame.setVisible(true);
+				options_frame.setVisible(true);
+				menu_frame.setFocusable(false);
+				try {
+					game_panel = new GamePanel(700, 700, ngpanel.getNOgres(),ngpanel.getPers());
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
-				else{
-					//JOptionPane.showMessageDialog(menu_frame, "Select options first!");
-					options_frame.setVisible(true);
-					menu_frame.setFocusable(false);
-				}
+				game_panel.setBounds(0, 0, 700, 700);
+				game_panel.addKeyListener(game_panel);
+				game_panel.setFocusable(true);
+				game_frame.getContentPane().add(game_panel);
+		
+				
+				
 
 			}
 		});
@@ -143,6 +154,30 @@ public class EGUI {
 		btnCustomLvL.setToolTipText("Create your own magical dungeon");
 		btnCustomLvL.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnCustomLvL.setBounds(497, 411, 200, 23);
+		
+		btnCustomLvL.addActionListener(
+                new ActionListener() {
+           
+			public void actionPerformed(ActionEvent e) {
+			
+				try {
+					editorpanel = new EditorPanel(700,700,1,"Novice");
+					editorpanel.setBounds(0, 0, 700, 700);
+					//game_panel.addKeyListener(game_panel);
+					//game_panel.setFocusable(true);
+					
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
+				
+				editor_frame.getContentPane().add(editorpanel);
+				editor_frame.setVisible(true);
+				
+											
+			}
+		});
+		
 		menu_frame.getContentPane().add(btnCustomLvL);
 		
 		btnExit = new JButton("EXIT");
@@ -163,59 +198,8 @@ public class EGUI {
 		
 		
 
-		JLabel lblNumberOfOgres = new JLabel("Number of Ogres (1-5):");
-		lblNumberOfOgres.setBounds(67, 28, 162, 16);
-		options_frame.getContentPane().add(lblNumberOfOgres);
-		
-		JLabel lblTypeOfGuard = new JLabel("Type of Guard:");
-		lblTypeOfGuard.setBounds(67, 65, 134, 25);
-		options_frame.getContentPane().add(lblTypeOfGuard);
 		
 		
-		
-		nOgres = new JTextField();
-		nOgres.setBounds(241, 23, 37, 26);
-		options_frame.getContentPane().add(nOgres);
-		nOgres.setColumns(10);
-		
-		guardsPers = new JComboBox<String>();
-		guardsPers.setBounds(196, 65, 141, 27);
-		guardsPers.addItem("Novice");
-		guardsPers.addItem("Drunken");
-		guardsPers.addItem("Suspicious");
-		options_frame.getContentPane().add(guardsPers);
-		
-		JButton okBtn = new JButton("OK");
-		okBtn.setToolTipText("OK");
-		okBtn.setBounds(190, 105, 75, 23);
-		options_frame.getContentPane().add(okBtn);
-		
-		okBtn.addActionListener(
-				new ActionListener(){
-					public void actionPerformed(ActionEvent e){
-						personality = guardsPers.getSelectedItem().toString();
-						number_ogres = Integer.parseInt(nOgres.getText());
-						if (number_ogres < 1 || number_ogres > 5){
-							JOptionPane.showMessageDialog(options_frame, "Invalid options!");
-						}
-						else{
-							try {
-								game_panel = new GamePanel(700,700,number_ogres,personality);
-								game_panel.setBounds(0, 0, 700, 700);
-								game_panel.addKeyListener(game_panel);
-								game_panel.setFocusable(true);
-								game_frame.getContentPane().add(game_panel);
-							} catch (IOException e1) {
-								JOptionPane.showMessageDialog(options_frame, "Invalid options!");
-								e1.printStackTrace();
-							}
-							options_frame.setVisible(false);
-							menu_frame.setVisible(false);
-						
-							game_frame.setVisible(true);
-						}
-					}
-				});
 		
 		
 		

@@ -25,7 +25,7 @@ import dk2.gui.EGUI;
 
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
-	private Game dungeon = new Game();
+	protected Game dungeon = new Game();
 	private boolean gameOver = false;
 	private boolean wonLevel = false;
 
@@ -290,6 +290,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		
 		if (gameOver){
 			JOptionPane.showMessageDialog(this.getRootPane(), "Game Over!");
+			//this.getRootPane().setVisible(false);
 			try {
 				ng = new EGUI();
 			} catch (IOException e) {
