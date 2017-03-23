@@ -18,7 +18,8 @@ import javax.swing.UIManager;
 
 public class EGUI {
 
-	private JFrame game_frame, menu_frame, options_frame;
+	private JFrame game_frame, options_frame;
+	protected JFrame menu_frame;
 	
 	private GamePanel game_panel;
 	private MenuPanel menupanel;
@@ -60,6 +61,10 @@ public class EGUI {
 //		return this.ogres;
 //	}
 	
+	
+	public JFrame getMenuFramel(){
+		return this.menu_frame;
+	}
 	/**
 	 * Create the application.
 	 * @throws IOException 
@@ -214,7 +219,10 @@ public class EGUI {
 		
 		
 		
-		
+//		if (game_panel.getGameOver()){
+//			this.game_frame.setVisible(false);
+//			this.menu_frame.setVisible(true);
+//		}
 		menupanel = new MenuPanel(1200,700);
 		menupanel.setBorder(UIManager.getBorder("ComboBox.border"));
 		menupanel.setBackground(Color.WHITE);

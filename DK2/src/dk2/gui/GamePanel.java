@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -20,15 +21,20 @@ import org.imgscalr.Scalr;
 
 import dk2.logic.*;
 
+import dk2.gui.EGUI;
+
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
 	private Game dungeon = new Game();
+	private boolean gameOver = false;
+	private boolean wonLevel = false;
 
 	private BufferedImage bruceLee, dFloor, dWall, dOpenDoor, dClosedDoor, leverOff, leverOn, rookie, drunken_asleep,
 			drunken, suspicious, kFloor, kWall, kOpenGate, kClosedGate, key, grave, ogre, fireball;
 
 	private int offsetW, offsetH, gridH, gridW;
 	
+	private EGUI ng;
 
 	public GamePanel(int width, int height, int nOgres, String guardsPers) throws IOException {
 		
@@ -100,7 +106,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	}
 
 	public void paintDungeonLvL(Graphics g) {
-
+//		if (dungeon.advance()){
+//			wonLevel = true;
+//		}
 		Map gamemap = dungeon.getMap();
 
 		// covering all floor
@@ -130,9 +138,15 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		// drawing doors
 		for (int i = 0; i < gamemap.getAllDoors().length; i++) {
 
-			if (gamemap.getAllDoors()[i].isOpen())
+			if (gamemap.getAllDoors()[i].isOpen()){
 				g.drawImage(dOpenDoor, gamemap.getAllDoors()[i].getCol() * offsetH,
 						gamemap.getAllDoors()[i].getLin() * offsetW, this);
+				if (gamemap.getHero().distanceTo(gamemap.getAllDoors()[i]) == 0){
+					//this.setVisible(false);
+					dungeon.setCurrentMap(1);
+					repaint(); 
+				}
+			}
 			else
 				g.drawImage(dClosedDoor, gamemap.getAllDoors()[i].getCol() * offsetH,
 						gamemap.getAllDoors()[i].getLin() * offsetW, this);
@@ -161,9 +175,16 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			else
 				g.drawImage(drunken, offsetH * guard.getCol(), offsetW * guard.getLin(), this);
 		}
-
-		g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
-				dungeon.getMap().getHero().getLin() * offsetW, this);
+		
+		if(gamemap.getHero().distanceTo(guard) <= 1){
+			g.drawImage(grave, dungeon.getMap().getHero().getCol() * offsetH,
+					dungeon.getMap().getHero().getLin() * offsetW, this);
+			this.gameOver = true;
+		}
+		else
+			g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
+					dungeon.getMap().getHero().getLin() * offsetW, this);
+		
 
 	}
 
@@ -219,11 +240,27 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		for(Ogre o: ogres){
 			g.drawImage(ogre, offsetH*o.getCol(), offsetW*o.getLin(), this);
 			g.drawImage(fireball, offsetH*o.getClub().getCol(), offsetW*o.getClub().getLin(), this);
-		}		
+			
+			
+			if(gamemap.getHero().distanceTo(o) <= 1 || gamemap.getHero().distanceTo(o.getClub()) <= 1){
+				g.drawImage(grave, dungeon.getMap().getHero().getCol() * offsetH,
+						dungeon.getMap().getHero().getLin() * offsetW, this);
+				JOptionPane.showMessageDialog(this.getRootPane(), "Game Over!");
+				this.getRootPane().setVisible(false);
+				try {
+					ng = new EGUI();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				ng.getMenuFramel().setVisible(true);
+			}	
+			else
+				g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
+						dungeon.getMap().getHero().getLin() * offsetW, this);
+		}
 
 		
-		g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
-				dungeon.getMap().getHero().getLin() * offsetW, this);
+		
 
 	}
 
@@ -251,12 +288,19 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		
 		dungeon.getMap().advanceTurn();
 		
-		if (dungeon.advance())
-			System.exit(0);
+		if (gameOver){
+			JOptionPane.showMessageDialog(this.getRootPane(), "Game Over!");
+			try {
+				ng = new EGUI();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			ng.getMenuFramel().setVisible(true);
+		}
 		
-		if (dungeon.isHeroDead())
-			System.exit(0);
-		
+		if (wonLevel){
+			JOptionPane.showMessageDialog(this.getRootPane(), "You Won!");
+		}
 		
 		switch (key) {
 
@@ -278,11 +322,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 		}
 
-		
-
-		
-
 		repaint();
+		
 
 	}
 
@@ -338,6 +379,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public boolean getGameOver(){
+		return this.gameOver;
 	}
 
 }

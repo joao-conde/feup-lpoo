@@ -56,5 +56,14 @@ public abstract class MovingChar extends Character {
 		this.moveRight(b);
 	}
 	
+	public int distanceTo(Character mc) {
+		int dx = Math.abs(this.getLin()
+				- mc.getLin());
+		int dy = Math.abs(this.getCol()
+				- mc.getCol());
+
+		return (int) Math.round(Math.sqrt(dx * dx + dy * dy));
+	}
+	
 
 }
