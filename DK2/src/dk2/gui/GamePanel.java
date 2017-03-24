@@ -58,6 +58,90 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		loadKeeperImages();
 	}
 
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+
+	public void setWonLevel(boolean wonLevel) {
+		this.wonLevel = wonLevel;
+	}
+
+	public void setBruceLee(BufferedImage bruceLee) {
+		this.bruceLee = bruceLee;
+	}
+
+	public void setdFloor(BufferedImage dFloor) {
+		this.dFloor = dFloor;
+	}
+
+	public void setdWall(BufferedImage dWall) {
+		this.dWall = dWall;
+	}
+
+	public void setdOpenDoor(BufferedImage dOpenDoor) {
+		this.dOpenDoor = dOpenDoor;
+	}
+
+	public void setdClosedDoor(BufferedImage dClosedDoor) {
+		this.dClosedDoor = dClosedDoor;
+	}
+
+	public void setLeverOff(BufferedImage leverOff) {
+		this.leverOff = leverOff;
+	}
+
+	public void setLeverOn(BufferedImage leverOn) {
+		this.leverOn = leverOn;
+	}
+
+	public void setRookie(BufferedImage rookie) {
+		this.rookie = rookie;
+	}
+
+	public void setDrunken_asleep(BufferedImage drunken_asleep) {
+		this.drunken_asleep = drunken_asleep;
+	}
+
+	public void setDrunken(BufferedImage drunken) {
+		this.drunken = drunken;
+	}
+
+	public void setSuspicious(BufferedImage suspicious) {
+		this.suspicious = suspicious;
+	}
+
+	public void setkFloor(BufferedImage kFloor) {
+		this.kFloor = kFloor;
+	}
+
+	public void setkWall(BufferedImage kWall) {
+		this.kWall = kWall;
+	}
+
+	public void setkOpenGate(BufferedImage kOpenGate) {
+		this.kOpenGate = kOpenGate;
+	}
+
+	public void setkClosedGate(BufferedImage kClosedGate) {
+		this.kClosedGate = kClosedGate;
+	}
+
+	public void setKey(BufferedImage key) {
+		this.key = key;
+	}
+
+	public void setGrave(BufferedImage grave) {
+		this.grave = grave;
+	}
+
+	public void setOgre(BufferedImage ogre) {
+		this.ogre = ogre;
+	}
+
+	public void setFireball(BufferedImage fireball) {
+		this.fireball = fireball;
+	}
+
 	public void loadDungeonImages() throws IOException {
 
 		this.bruceLee = Scalr.resize(ImageIO.read(new File("res/mchar/hero_bruceLee.png")), offsetW);
@@ -261,6 +345,132 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		
 
 	}
+
+	public Game getDungeon() {
+		return dungeon;
+	}
+
+	public boolean isWonLevel() {
+		return wonLevel;
+	}
+
+	public BufferedImage getBruceLee() {
+		return bruceLee;
+	}
+
+	public BufferedImage getdFloor() {
+		return dFloor;
+	}
+
+	public BufferedImage getdWall() {
+		return dWall;
+	}
+
+	public BufferedImage getdOpenDoor() {
+		return dOpenDoor;
+	}
+
+	public BufferedImage getdClosedDoor() {
+		return dClosedDoor;
+	}
+
+	public BufferedImage getLeverOff() {
+		return leverOff;
+	}
+
+	public BufferedImage getLeverOn() {
+		return leverOn;
+	}
+
+	public BufferedImage getRookie() {
+		return rookie;
+	}
+
+	public BufferedImage getDrunken_asleep() {
+		return drunken_asleep;
+	}
+
+	public BufferedImage getDrunken() {
+		return drunken;
+	}
+
+	public BufferedImage getSuspicious() {
+		return suspicious;
+	}
+
+	public BufferedImage getkFloor() {
+		return kFloor;
+	}
+
+	public BufferedImage getkWall() {
+		return kWall;
+	}
+
+	public BufferedImage getkOpenGate() {
+		return kOpenGate;
+	}
+
+	public BufferedImage getkClosedGate() {
+		return kClosedGate;
+	}
+
+	public BufferedImage getKey() {
+		return key;
+	}
+
+	public BufferedImage getGrave() {
+		return grave;
+	}
+
+	public BufferedImage getOgre() {
+		return ogre;
+	}
+
+	public BufferedImage getFireball() {
+		return fireball;
+	}
+
+	public EGUI getNg() {
+		return ng;
+	}
+
+	public int getOffsetW() {
+		return offsetW;
+	}
+
+	public void setOffsetW(int offsetW) {
+		this.offsetW = offsetW;
+	}
+
+	public int getOffsetH() {
+		return offsetH;
+	}
+
+	public void setOffsetH(int offsetH) {
+		this.offsetH = offsetH;
+	}
+
+	public int getGridH() {
+		return gridH;
+	}
+
+	public void setGridH(int gridH) {
+		this.gridH = gridH;
+	}
+
+	public int getGridW() {
+		return gridW;
+	}
+
+	public void setGridW(int gridW) {
+		this.gridW = gridW;
+	}
+	
+	public boolean getGameover(){
+		return gameOver;
+	}
+	
+	
 
 	@Override
 	public void paintComponent(Graphics g) {

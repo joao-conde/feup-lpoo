@@ -7,10 +7,13 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,6 +35,11 @@ public class EGUI {
 
 	private String personality;
 	private int number_ogres;
+	
+	private char element;
+	private int size, nDoors;
+	
+	private ImageIcon hero, kFloor, kWall, kOpenGate, kClosedGate, key, ogre;
 
 	// private ImageIcon image = new ImageIcon("res/static/keeper_floor.png");
 
@@ -95,7 +103,7 @@ public class EGUI {
 		edit_frame.setTitle("Custom Level");
 		edit_frame.getContentPane().setLayout(null);
 		edit_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		edit_frame.setBounds(175, 25, 1000, 700);
+		edit_frame.setBounds(175, 25, 1300, 700);
 		edit_frame.setResizable(false);
 
 		// creation of the game frame, where player plays the game
@@ -233,32 +241,197 @@ public class EGUI {
 		
 		menu_frame.getContentPane().add(menupanel);
 		
-		/*editorpanel = new EditorPanel(700,700,this.number_ogres,this.personality);
-		editorpanel.setBorder(UIManager.getBorder("ComboBox.border"));
-		editorpanel.setBackground(Color.WHITE);
-		editorpanel.setBounds(0,0,700,700);
-		editorpanel.setFocusable(true);
 		
-		edit_frame.getContentPane().add(editorpanel);*/
+		createInterface();
+//		editingOpts = new EditingOptPanel();
+//		editingOpts.setBounds(700,0,1200,700);
+//		editingOpts.setFocusable(true);
 		
-		// if (ogres == ""){
-		// if(personality == "")
-		// game_panel = new GamePanel
-		// }
-		
-		editingOpts = new EditingOptPanel();
-		editingOpts.setBounds(700,0,300,700);
-		editingOpts.setFocusable(true);
-		
-		editorpanel = new EditorPanel(700,700,this.number_ogres,"Novice", editingOpts.getBoardSize());
-		editorpanel.setBounds(0,0,700,700);
-		editorpanel.setFocusable(true);
+//		editorpanel = new EditorPanel(700,700,0,"Novice",editingOpts.getBoardSize(), 0);
+//		editorpanel.setBounds(0,0,700,700);
+//		editorpanel.setFocusable(true);
+//		editorpanel.setVisible(true);
+//	
 		
 		
 		
-		
-		edit_frame.getContentPane().add(editingOpts);
-		edit_frame.getContentPane().add(editorpanel);
+	//	edit_frame.getContentPane().add(editingOpts);
+	//	edit_frame.getContentPane().add(editorpanel);
 
 	}
+	
+	public void createInterface(){
+		
+		edit_frame.setLayout(null);
+		loadImages();
+		scaleImages();
+		JLabel lblSize = new JLabel("Insert Map size:");
+		lblSize.setBounds(6,34,99, 16);
+		edit_frame.add(lblSize);
+		
+		JTextField insertSize = new JTextField();
+		insertSize.setBounds(117, 29, 34, 26);
+		edit_frame.add(insertSize);
+		insertSize.setColumns(10);
+		
+		
+		JButton btnFloor = new JButton(kFloor);
+		btnFloor.setBounds(16, 102, 100, 100);
+		btnFloor.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			element = ' ';
+		}
+	});
+		edit_frame.add(btnFloor);
+		
+		JButton btnWall = new JButton(kWall);
+		btnWall.setBounds(146, 102, 100, 100);
+		edit_frame.add(btnWall);
+		btnWall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element = 'X';
+			}
+		});
+		
+		JButton btnHero = new JButton(hero);
+		btnHero.setBounds(16, 219, 100, 100);
+		btnHero.setBorderPainted(false);
+		btnHero.setContentAreaFilled(false);
+		btnHero.setFocusPainted(false); 
+		btnHero.setOpaque(false);
+		edit_frame.add(btnHero);
+		btnHero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element = 'H';
+			}
+		});
+		
+		JButton btnCGate = new JButton(kClosedGate);
+		btnCGate.setBounds(146, 219, 100, 100);
+		btnCGate.setBorderPainted(false);
+		btnCGate.setContentAreaFilled(false);
+		btnCGate.setFocusPainted(false); 
+		btnCGate.setOpaque(false);
+		edit_frame.add(btnCGate);
+		btnCGate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//element = 'I';
+				nDoors++;
+			}
+		});
+		
+		JButton btnOGate = new JButton(kOpenGate);
+		btnOGate.setBounds(16, 342, 100, 100);
+		btnOGate.setBorderPainted(false);
+		btnOGate.setContentAreaFilled(false);
+		btnOGate.setFocusPainted(false); 
+		btnOGate.setOpaque(false);
+		edit_frame.add(btnOGate);
+		btnOGate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element = 'S';
+			}
+		});
+		
+		JButton btnKey = new JButton(key);
+		btnKey.setBounds(146, 342, 100, 100);
+		btnKey.setBorderPainted(false);
+		btnKey.setContentAreaFilled(false);
+		btnKey.setFocusPainted(false); 
+		btnKey.setOpaque(false);
+		edit_frame.add(btnKey);
+		btnKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//element = 'k';
+			}
+		});
+		
+		JButton btnOgre = new JButton(ogre);
+		btnOgre.setBounds(16, 465, 100, 100);
+		btnOgre.setBorderPainted(false);
+		btnOgre.setContentAreaFilled(false);
+		btnOgre.setFocusPainted(false); 
+		btnOgre.setOpaque(false);
+		edit_frame.add(btnOgre);
+		
+		
+		btnOgre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//element = 'O';
+				number_ogres++;
+			}
+		});
+		
+		JButton btnOK = new JButton("OK");
+		btnOK.setBounds(129, 581, 117, 29);
+		btnOK.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.exit(0);
+			}
+		});
+		edit_frame.add(btnOK);
+		 
+		JButton btnSet = new JButton("Set");
+		btnSet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int size;
+				
+					size = Integer.parseInt(insertSize.getText());
+				try {
+					editorpanel = new EditorPanel(300,300,0,"Novice",size, 0);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				editorpanel.setBounds(300,0,700,700);
+				editorpanel.setFocusable(true);
+				editorpanel.setVisible(true);
+				edit_frame.add(editorpanel);
+			}
+			
+		});
+		
+		btnSet.setBounds(160, 29, 64, 29);
+		edit_frame.add(btnSet);
+		btnOK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+				
+			}
+		});
+		
+
+//		
+	}
+	public JFrame getEditorFrame(){
+		return this.edit_frame;
+	}
+	
+
+	
+	public void loadImages(){
+		hero = new ImageIcon("res/mchar/hero_bruceLee.png");
+		kFloor = new ImageIcon("res/static/keeper_floor.png");
+		kWall = new ImageIcon("res/static/keeper_wall.jpg");
+		kOpenGate = new ImageIcon("res/static/gate_open.png");
+		kClosedGate = new ImageIcon("res/static/gate_closed.png");
+		key = new ImageIcon("res/static/Key.png");
+		ogre = new ImageIcon("res/mchar/ogre.png");
+		
+		
+	}
+	
+	public void scaleImages(){
+		
+		hero = new ImageIcon(hero.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+		kFloor = new ImageIcon(kFloor.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+		kWall = new ImageIcon(kWall.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+		//kOpenGate = new ImageIcon(kOpenGate.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+		kClosedGate = new ImageIcon(kClosedGate.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+		key = new ImageIcon(key.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+		ogre = new ImageIcon(ogre.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+		
+		
+	}
+	
 }

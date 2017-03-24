@@ -39,7 +39,7 @@ public class Game {
 		}
 		
 		Map1 map1 = new Map1(10, guard);
-		Map2 map2 = new Map2(10, nOgres);
+		Map2 map2 = new Map2(10, nOgres, 1);
 
 		map1.buildMaze();
 		map2.buildMaze();

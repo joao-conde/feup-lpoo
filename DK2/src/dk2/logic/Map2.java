@@ -6,16 +6,23 @@ public class Map2 extends Map {
 
 	// -------------ATTRIBUTES-------------//
 
-	private Door d1;
+	private Door[] d1;
 	private Key key;
 	private Ogre[] ogres;
 
 	// --------------METHODS---------------//
 
-	public Map2(int size, int nOgres) {
+	public Map2(int size, int nOgres, int nDoors) {
 		super(size);
-		this.d1 = new Door();
+		d1 = new Door[nDoors];
+		
 		this.key = new Key();
+		
+		for (int i = 0; i < nDoors; i++) {
+			Door d = new Door();
+			d1[i] = d;
+		}
+		
 		this.ogres = new Ogre[nOgres];
 		for (int i = 0; i < nOgres; i++) {
 			Ogre o = new Ogre();
@@ -29,10 +36,8 @@ public class Map2 extends Map {
 	}
 
 	public Door[] getDoor() {
-
-		Door[] nextLvLDoors = { d1 };
-
-		return nextLvLDoors;
+		
+		return d1;
 	}
 
 	public Ogre[] getOgres(){
@@ -180,9 +185,9 @@ public class Map2 extends Map {
 		
 	public void openDoors() {
 
-		for(Door d: getDoor()){
-			if(getHero().getLin() == d.getLin() && (getHero().getCol() == d.getCol()+1) && getHero().getHasKey()){
-				d.openDoor();
+		for (int i = 0; i < d1.length; i++){
+			if(getHero().getLin() == d1[i].getLin() && (getHero().getCol() == d1[i].getCol()+1) && getHero().getHasKey()){
+				d1[i].openDoor();
 			}
 		}
 
@@ -190,9 +195,9 @@ public class Map2 extends Map {
 	
 	public boolean hasHeroWon() {
 
-		for(Door d: getDoor()){
-			
-			if(getHero().getLin() == d.getLin() && getHero().getCol() == d.getCol() && d.isOpen() && getHero().getHasKey()){
+	
+		for (int i = 0; i < d1.length; i++){	
+			if(getHero().getLin() == d1[i].getLin() && getHero().getCol() == d1[i].getCol() && d1[i].isOpen() && getHero().getHasKey()){
 				return true;
 			}
 		}
@@ -258,8 +263,10 @@ public class Map2 extends Map {
 			}
 		}
 	
- 
-		this.setBoardCell(d1.getLin(), d1.getCol(), d1.getSymbol());
+		
+		for (int i = 0; i < d1.length; i++){
+			this.setBoardCell(d1[i].getLin(), d1[i].getCol(), d1[i].getSymbol());
+		}
 		this.setBoardCell(getHero().getLin(), getHero().getCol(), getHero().getSymbol());
 		// this.getHero().setSymbol('A');
 
@@ -310,17 +317,21 @@ public class Map2 extends Map {
 
 		// set Hero Club position
 		// set Doors
-		d1.setLin(1);
-		d1.setCol(0);
-		this.setDoors(d1);
+		for (int i = 0; i < d1.length; i++){
+			d1[i].setLin(1);
+			d1[i].setCol(0);
+			this.setDoors(d1[i]);
+		
+		}
+		
 
 	}
 	
 	@Override
 	public Door[] getAllDoors() {
 		
-		Door[] doors = {d1};
-		return doors;
+		
+		return d1;
 	}
 
 }
