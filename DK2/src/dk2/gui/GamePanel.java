@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 	private boolean wonLevel = false;
 
 	private BufferedImage bruceLee, dFloor, dWall, dOpenDoor, dClosedDoor, leverOff, leverOn, rookie, drunken_asleep,
-			drunken, suspicious, kFloor, kWall, kOpenGate, kClosedGate, key, grave, ogre, fireball;
+			drunken, suspicious, kFloor, kWall, kOpenGate, kClosedGate, key, grave, ogre, ogreStunned, fireball;
 
 	protected int offsetW, offsetH, gridH, gridW;
 	
@@ -169,29 +169,24 @@ public class GamePanel extends JPanel implements  KeyListener {
 
 	public void loadKeeperImages() throws IOException {
 
-		// this.bruceLee = Scalr.resize(ImageIO.read(new
-		// File("res/mchar/hero_bruceLee.png")), offsetW);
-
 		this.kFloor = Scalr.resize(ImageIO.read(new File("res/static/keeper_floor.png")), Scalr.Mode.FIT_EXACT,
 				offsetW);
 		this.kWall = Scalr.resize(ImageIO.read(new File("res/static/keeper_wall.jpg")), Scalr.Mode.FIT_EXACT, offsetW);
 
-		this.kOpenGate = Scalr.resize(ImageIO.read(new File("res/static/gate_open.png")), Scalr.Mode.FIT_TO_HEIGHT,
-				offsetW);
-		this.kClosedGate = Scalr.resize(ImageIO.read(new File("res/static/gate_closed.png")), Scalr.Mode.FIT_TO_HEIGHT,
-				offsetW);
+		this.kOpenGate = Scalr.resize(ImageIO.read(new File("res/static/gate_open.png")), Scalr.Mode.FIT_TO_HEIGHT,	offsetW);
+		this.kClosedGate = Scalr.resize(ImageIO.read(new File("res/static/gate_closed.png")), Scalr.Mode.FIT_TO_HEIGHT,	offsetW);
 
 		this.key = Scalr.resize(ImageIO.read(new File("res/static/Key.png")), offsetW);
 
 		this.ogre = Scalr.resize(ImageIO.read(new File("res/mchar/ogre.png")), offsetW);
+		this.ogreStunned = Scalr.resize(ImageIO.read(new File("res/mchar/ogreStunned.png")), offsetW);
+		
 		this.fireball = Scalr.resize(ImageIO.read(new File("res/mchar/FIREBALL.png")), offsetW);
 
 	}
 
 	public void paintDungeonLvL(Graphics g) {
-//		if (dungeon.advance()){
-//			wonLevel = true;
-//		}
+
 		Map gamemap = dungeon.getMap();
 
 		// covering all floor
@@ -319,17 +314,22 @@ public class GamePanel extends JPanel implements  KeyListener {
 		
 		// drawing ogre
 		Ogre[] ogres = ((Map2)gamemap).getOgres();
+		((Map2)gamemap).stunOgres();
 		
 		for(Ogre o: ogres){
-			g.drawImage(ogre, offsetH*o.getCol(), offsetW*o.getLin(), this);
+			if(!o.getStunned())
+				g.drawImage(ogre, offsetH*o.getCol(), offsetW*o.getLin(), this);
+			else
+				g.drawImage(ogreStunned, offsetH*o.getCol(), offsetW*o.getLin(), this);
+			
 			g.drawImage(fireball, offsetH*o.getClub().getCol(), offsetW*o.getClub().getLin(), this);
 			
 			
-			if(gamemap.getHero().distanceTo(o) <= 1 || gamemap.getHero().distanceTo(o.getClub()) <= 1){
+			if((gamemap.getHero().distanceTo(o) <= 1 && !o.getStunned())|| gamemap.getHero().distanceTo(o.getClub()) <= 1){
 				g.drawImage(grave, dungeon.getMap().getHero().getCol() * offsetH,
 						dungeon.getMap().getHero().getLin() * offsetW, this);
 				this.gameOver = true;
-				//this.getRootPane().setVisible(false);
+				
 				try {
 					ng = new EGUI();
 				} catch (IOException e) {

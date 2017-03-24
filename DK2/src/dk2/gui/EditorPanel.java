@@ -1,16 +1,13 @@
 package dk2.gui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
-import dk2.logic.Door;
 import dk2.logic.Map;
 import dk2.logic.Map2;
-import dk2.logic.Ogre;
 
 
 public class EditorPanel extends GamePanel implements MouseListener{

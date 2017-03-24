@@ -7,13 +7,10 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -167,7 +164,6 @@ public class EGUI {
 			         
 			         
 			         g = (Game)in.readObject();
-			         g.getNOgres();
 			         game_panel.setGame(g);
 			         
 			         in.close();
@@ -450,9 +446,36 @@ public class EGUI {
 							Hero h = new Hero();
 							h.setLin(i);
 							h.setCol(j);
+							h.setSymbol('A');
 							game_panel.dungeon.getMap().setHero(h);
-						
-						
+							break;
+							
+						case 'O':
+							Ogre o = new Ogre();
+							o.setLin(i);
+							o.setCol(j);
+							((Map2)game_panel.dungeon.getMap()).addOgre(o);
+							break;
+							
+						case 'I':
+							Door l = new Door();
+							l.setLin(i);
+							l.setCol(j);
+							l.setSymbol('I');
+							((Map2)game_panel.dungeon.getMap()).addDoor(l);
+							
+						case 'S':
+							Door s = new Door();
+							s.setLin(i);
+							s.setCol(j);
+							s.setSymbol('S');
+							((Map2)game_panel.dungeon.getMap()).addDoor(s);
+							
+						case 'k':
+							Key k = new Key();
+							k.setLin(i);
+							k.setCol(j);
+							((Map2)game_panel.dungeon.getMap()).setKey(k);
 						
 						}
 					}
@@ -461,15 +484,24 @@ public class EGUI {
 				edit_frame.setVisible(false);
 				game_frame.setVisible(true);
 				game_panel.setVisible(true);
+				game_panel.requestFocus();
+				System.out.println("exited handler");
 			}
 		});
+		
 		edit_frame.getContentPane().add(btnOK);
 		 
 		JButton btnSet = new JButton("Set");
 		btnSet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-						
+				
 				size = Integer.parseInt(insertSize.getText());
+				
+				if(size < 0 || size > 10){
+					JOptionPane.showMessageDialog(editorpanel, "Invalid map size: must be between 0 and 10", "Invalid Map Size", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
 				System.out.println("entered set");
 				try {
 					editorpanel = new EditorPanel(500,500,0,"Novice",size, 0, element);
@@ -477,7 +509,7 @@ public class EGUI {
 					e1.printStackTrace();
 				}
 				editorpanel.setBackground(edit_frame.getBackground());
-				editorpanel.setBounds(300,0,500,500);
+				editorpanel.setBounds(400,50,500,500);
 				editorpanel.setFocusable(true);
 				editorpanel.setVisible(true);
 				editorpanel.requestFocus();

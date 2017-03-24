@@ -6,6 +6,7 @@ import java.util.Vector;
 
 
 public class Game implements Serializable{
+	
 	private int nOgres;
 	private Guard guard;
 	private Vector<Map> levels;
