@@ -29,7 +29,7 @@ public class EGUI {
 	private MenuPanel menupanel;
 	private EditorPanel editorpanel;
 
-	private JButton btnExit, btnSaveGame, btnNewGame, btnLoadGame, btnCustomLvL;
+	private JButton btnExit, btnSaveGame, btnNewGame, btnLoadGame, btnCustomLvL, btnUp, btnDown, btnLeft, btnRight;
 
 	private JTextField nOgres;
 	private JComboBox<String> guardsPers;
@@ -148,7 +148,6 @@ public class EGUI {
 				try {
 					game_panel = new GamePanel(700, 700, 0, "Novice");
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
@@ -225,7 +224,12 @@ public class EGUI {
 
 			}
 		});
-
+		
+		
+		createMoveBtns();
+		
+		
+		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres (1-5):");
 		lblNumberOfOgres.setBounds(67, 28, 162, 16);
 		options_frame.getContentPane().add(lblNumberOfOgres);
@@ -288,6 +292,9 @@ public class EGUI {
 		menu_frame.setIconImage(logo.getImage());
 		
 		
+		JButton
+		
+		
 		
 		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -320,22 +327,78 @@ public class EGUI {
 
 			}
 		});
-		
-	/*	editorpanel = new EditorPanel(700,700,0,"Novice", 10 , 0, element);
-		editorpanel.setBounds(300,0,700,700);
-		editorpanel.setFocusable(true);
-		editorpanel.setVisible(true);
-		editorpanel.requestFocus();
-		*/
-		
-	//	edit_frame.getContentPane().add(editingOpts);
-		edit_frame.setIconImage(logo.getImage());
-		//edit_frame.getContentPane().add(editorpanel);
 
+	}
+	
+	public void createMoveBtns(){
+		
+		btnUp = new JButton("W");
+		btnUp.setToolTipText("Move Hero Up");
+		btnUp.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btnUp.setBounds(775, 250, 50, 50);
+		btnUp.setVisible(true);
+		game_frame.getContentPane().add(btnUp);
+		
+		btnUp.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				game_panel.dungeon.getMap().moveHero('W');
+				game_panel.dungeon.getMap().advanceTurn();
+				game_panel.repaint();
+				game_panel.requestFocus();
+			}
+		});
+		
+		btnDown = new JButton("S");
+		btnDown.setToolTipText("Move Hero Down");
+		btnDown.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btnDown.setBounds(775, 300, 50, 50);
+		game_frame.getContentPane().add(btnDown);
+		
+		btnDown.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				game_panel.dungeon.getMap().moveHero('S');
+				game_panel.dungeon.getMap().advanceTurn();
+				game_panel.repaint();
+				game_panel.requestFocus();
+			}
+		});
+		
+		btnLeft = new JButton("A");
+		btnLeft.setToolTipText("Move Hero Left");
+		btnLeft.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btnLeft.setBounds(725, 300, 50, 50);
+		game_frame.getContentPane().add(btnLeft);
+		
+		btnLeft.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				game_panel.dungeon.getMap().moveHero('A');
+				game_panel.dungeon.getMap().advanceTurn();
+				game_panel.repaint();
+				game_panel.requestFocus();
+			}
+		});
+		
+		
+		btnRight = new JButton("D");
+		btnRight.setToolTipText("Move Hero Right");
+		btnRight.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btnRight.setBounds(825, 300, 50, 50);
+		game_frame.getContentPane().add(btnRight);
+		
+		btnRight.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				game_panel.dungeon.getMap().moveHero('D');
+				game_panel.dungeon.getMap().advanceTurn();
+				game_panel.repaint();
+				game_panel.requestFocus();
+			}
+		});
+		
 	}
 	
 	public void createEditingInterface(){
 		
+				
 		edit_frame.getContentPane().setLayout(null);
 		loadImages();
 		scaleImages();
