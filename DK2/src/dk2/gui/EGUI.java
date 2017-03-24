@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,7 +25,6 @@ public class EGUI {
 	private GamePanel game_panel;
 	private MenuPanel menupanel;
 	private EditorPanel editorpanel;
-	private EditingOptPanel editingOpts;
 
 	private JButton btnExit;
 
@@ -103,7 +101,7 @@ public class EGUI {
 		edit_frame.setTitle("Custom Level");
 		edit_frame.getContentPane().setLayout(null);
 		edit_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		edit_frame.setBounds(175, 25, 1300, 700);
+		edit_frame.setBounds(175, 25, 1000, 700);
 		edit_frame.setResizable(false);
 
 		// creation of the game frame, where player plays the game
@@ -242,29 +240,28 @@ public class EGUI {
 		menu_frame.getContentPane().add(menupanel);
 		
 		
-		createInterface();
+		createEditingInterface();
 //		editingOpts = new EditingOptPanel();
 //		editingOpts.setBounds(700,0,1200,700);
 //		editingOpts.setFocusable(true);
 		
-//		editorpanel = new EditorPanel(700,700,0,"Novice",editingOpts.getBoardSize(), 0);
-//		editorpanel.setBounds(0,0,700,700);
-//		editorpanel.setFocusable(true);
-//		editorpanel.setVisible(true);
-//	
-		
+		editorpanel = new EditorPanel(700,700,0,"Novice", 10 , 0, element);
+		editorpanel.setBounds(300,0,700,700);
+		editorpanel.setFocusable(true);
+		editorpanel.setVisible(true);
 		
 		
 	//	edit_frame.getContentPane().add(editingOpts);
-	//	edit_frame.getContentPane().add(editorpanel);
+		edit_frame.getContentPane().add(editorpanel);
 
 	}
 	
-	public void createInterface(){
+	public void createEditingInterface(){
 		
 		edit_frame.setLayout(null);
 		loadImages();
 		scaleImages();
+		
 		JLabel lblSize = new JLabel("Insert Map size:");
 		lblSize.setBounds(6,34,99, 16);
 		edit_frame.add(lblSize);
@@ -274,6 +271,7 @@ public class EGUI {
 		edit_frame.add(insertSize);
 		insertSize.setColumns(10);
 		
+				
 		
 		JButton btnFloor = new JButton(kFloor);
 		btnFloor.setBounds(16, 102, 100, 100);
@@ -282,6 +280,7 @@ public class EGUI {
 			element = ' ';
 		}
 	});
+		
 		edit_frame.add(btnFloor);
 		
 		JButton btnWall = new JButton(kWall);
@@ -374,19 +373,20 @@ public class EGUI {
 		JButton btnSet = new JButton("Set");
 		btnSet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int size;
+						
+				size = Integer.parseInt(insertSize.getText());
 				
-					size = Integer.parseInt(insertSize.getText());
 				try {
-					editorpanel = new EditorPanel(300,300,0,"Novice",size, 0);
+					editorpanel = new EditorPanel(300,300,0,"Novice",size, 0, element);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
 				editorpanel.setBounds(300,0,700,700);
 				editorpanel.setFocusable(true);
 				editorpanel.setVisible(true);
 				edit_frame.add(editorpanel);
+				
 			}
 			
 		});
@@ -403,11 +403,10 @@ public class EGUI {
 
 //		
 	}
+	
 	public JFrame getEditorFrame(){
 		return this.edit_frame;
 	}
-	
-
 	
 	public void loadImages(){
 		hero = new ImageIcon("res/mchar/hero_bruceLee.png");

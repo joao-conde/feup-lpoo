@@ -52,29 +52,29 @@ public class MapTest_DungeonLvL extends Map{
 		this.buildExtWalls();
 
 		
-		// set Lever initial location 
+		
 		lever.setLin(3);
 		lever.setCol(1);
 		this.setBoardCell(lever.getLin(), lever.getCol(), lever.getSymbol());
 
-		// set Hero initial location
+		
 		this.getHero().setLin(1);
 		this.getHero().setCol(1);
 		drawHero();
 
-		// set Guard initial location
+		
 		guard.setLin(1);
 		guard.setCol(3);
 		this.setBoardCell(guard.getLin(), guard.getCol(), guard.getSymbol());
 
-		// set Doors
+		
 		d1.setLin(2);
 		d1.setCol(0);		
 		d2.setLin(3);
 		d2.setCol(0);
 		
 
-		// Placing doors in map1
+		
 		this.setDoors(d1);
 		this.setDoors(d2);
 

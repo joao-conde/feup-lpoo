@@ -2,10 +2,7 @@ package dk2.logic;
 
 public abstract class MovingChar extends Character {
 
-	// -------------ATTRIBUTES-------------//
-
 	
-	// --------------METHODS---------------//
 
 	public MovingChar() {
 		super();

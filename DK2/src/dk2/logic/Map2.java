@@ -1,16 +1,14 @@
 package dk2.logic;
 
-import java.util.Random;
-
 public class Map2 extends Map {
 
-	// -------------ATTRIBUTES-------------//
+
 
 	private Door[] d1;
 	private Key key;
 	private Ogre[] ogres;
 
-	// --------------METHODS---------------//
+	
 
 	public Map2(int size, int nOgres, int nDoors) {
 		super(size);
@@ -156,18 +154,6 @@ public class Map2 extends Map {
 
 		}
 
-		/*
-		 * if(ogre.getLin() == key.getLin() && ogre.getCol() == key.getCol()){
-		 * 
-		 * ogre.setSymbol('$'); }
-		 * 
-		 * if(this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()]
-		 * == 'k'){
-		 * 
-		 * 
-		 * ogre.getClub().setSymbol('$'); }
-		 */
-
 	}
 	
 	public void heroReachedKey(){
@@ -176,8 +162,7 @@ public class Map2 extends Map {
 			getHero().setHasKey(true);
 			getHero().setSymbol('K'); 
 			key.setSymbol(' ');
-			
-			//setBoardCell(getKey().getLin(),getKey().getCol(), 'K'); 
+		
 		}
 
 		
@@ -268,8 +253,7 @@ public class Map2 extends Map {
 			this.setBoardCell(d1[i].getLin(), d1[i].getCol(), d1[i].getSymbol());
 		}
 		this.setBoardCell(getHero().getLin(), getHero().getCol(), getHero().getSymbol());
-		// this.getHero().setSymbol('A');
-
+		
 	}
 	
 	public void advanceTurn(){
@@ -291,32 +275,33 @@ public class Map2 extends Map {
 
 		// placing key elements//
 
-		// set key initial location
+		
 		key.setLin(1);
 		key.setCol(8);
 		this.setBoardCell(key.getLin(), key.getCol(), key.getSymbol());
 
-		// set Hero initial location
+		
 		this.getHero().setLin(8);
 		this.getHero().setCol(1);
 		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 		int li = 1;
 		int co = 4;
-		// set Ogres initial locations
+
+
+		
 		for (Ogre o : ogres) {
 			o.setLin(li);
 			o.setCol(co);
 			this.setBoardCell(o.getLin(), o.getCol(), o.getSymbol());
 
-			// set club location
+			
 			o.getClub().setLin(o.getLin() + 1);
 			o.getClub().setCol(o.getCol());
 			li += 2;
 
 		}
 
-		// set Hero Club position
-		// set Doors
+		
 		for (int i = 0; i < d1.length; i++){
 			d1[i].setLin(1);
 			d1[i].setCol(0);

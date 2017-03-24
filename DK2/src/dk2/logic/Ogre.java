@@ -4,20 +4,19 @@ import java.util.Random;
 
 public class Ogre extends MovingChar {
 
-	// -------------ATTRIBUTES-------------//
+	
 
-	private boolean onKey, stunned;
+	private boolean stunned;
 	private OgreClub club;
 	private int turnsStunned;
 
-	// --------------METHODS---------------//
+	
 
 	public Ogre() {
 		super();
 		this.setSymbol('O');
 		this.club = new OgreClub();
 		
-		this.onKey = false;
 		this.stunned = false;
 		this.turnsStunned = 0;
 	}

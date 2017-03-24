@@ -33,31 +33,31 @@ public class MapTest_KeeperLvL extends Map {
 
 		this.buildExtWalls();
 
-		// set Key initial location
+		
 		key.setLin(3);
 		key.setCol(2);
 		this.setBoardCell(key.getLin(), key.getCol(), key.getSymbol());
 
-		// set Hero initial location
+		
 		this.getHero().setLin(2);
 		this.getHero().setCol(2);
 		drawHero();
 
-		// set ogres[0] initial location
+		
 		ogres[0].setLin(2);
 		ogres[0].setCol(4);
 		this.setBoardCell(ogres[0].getLin(), ogres[0].getCol(), ogres[0].getSymbol());
 
-		// set ogres[0]'s club initial location
+	
 		ogres[0].getClub().setLin(2);
 		ogres[0].getClub().setCol(5);
 		this.setBoardCell(ogres[0].getClub().getLin(), ogres[0].getClub().getCol(), ogres[0].getClub().getSymbol());
 
-		// set Doors
+		
 		d1.setLin(2);
 		d1.setCol(0);
 
-		// Placing doors in map1
+		
 		this.setDoors(d1);
 
 	}
@@ -265,18 +265,6 @@ public class MapTest_KeeperLvL extends Map {
 
 		}
 
-		/*
-		 * if(ogre.getLin() == key.getLin() && ogre.getCol() == key.getCol()){
-		 * 
-		 * ogre.setSymbol('$'); }
-		 * 
-		 * if(this.getBoard()[ogre.getClub().getLin()][ogre.getClub().getCol()]
-		 * == 'k'){
-		 * 
-		 * 
-		 * ogre.getClub().setSymbol('$'); }
-		 */
-
 	}
 
 	public void placeChars() {
@@ -300,7 +288,7 @@ public class MapTest_KeeperLvL extends Map {
  
 		this.setBoardCell(d1.getLin(), d1.getCol(), d1.getSymbol());
 		this.setBoardCell(getHero().getLin(), getHero().getCol(), getHero().getSymbol());
-		// this.getHero().setSymbol('A');
+		
 		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
 
 	}

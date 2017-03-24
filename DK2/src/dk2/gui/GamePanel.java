@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	private BufferedImage bruceLee, dFloor, dWall, dOpenDoor, dClosedDoor, leverOff, leverOn, rookie, drunken_asleep,
 			drunken, suspicious, kFloor, kWall, kOpenGate, kClosedGate, key, grave, ogre, fireball;
 
-	private int offsetW, offsetH, gridH, gridW;
+	protected int offsetW, offsetH, gridH, gridW;
 	
 	private EGUI ng;
 
@@ -249,7 +249,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			g.drawImage(rookie, offsetH * guard.getCol(), offsetW * guard.getLin(), this);
 
 		if (guard instanceof Suspicious)
-			g.drawImage(suspicious, offsetH * guard.getCol(), gridW * guard.getLin(), this);
+			g.drawImage(suspicious, offsetH * guard.getCol(), offsetW * guard.getLin(), this);
 
 		if (guard instanceof Drunken) {
 			if (((Drunken) guard).isAsleep())

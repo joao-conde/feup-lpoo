@@ -3,13 +3,10 @@ package dk2.logic;
 public class Hero extends MovingChar{
 	
 	
-	//-------------ATTRIBUTES-------------//
-	
+
 	private boolean hasKey;
-	Lever l;
+	private Lever l;
 	
-	
-	//--------------METHODS---------------//
 	
 	public Hero(){
 		super();

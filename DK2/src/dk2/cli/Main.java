@@ -28,8 +28,6 @@ public class Main {
 				
 		while(true){
 			
-			//dungeon_keeper.getMap().placeChars();
-			
 			printMaze(dungeon_keeper);
 			
 			if(dungeon_keeper.advance()){
@@ -65,6 +63,7 @@ public class Main {
 	public static int readGuard(){
 		String op;
 		int res;
+		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		while(true){
 			System.out.println("Type of guard? \n 1: Rookie\n 2: Drunken \n 3: Suspicious");
@@ -80,6 +79,7 @@ public class Main {
 	}
 	
 	public static int readOgres(){
+		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		String op;
 		int res;
@@ -97,14 +97,13 @@ public class Main {
 	
 	public static char readUserMove(){
 		
+		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Enter your move:");
 		
 		char move = scan.next().charAt(0);
 		move = Character.toUpperCase(move); 
-		
-		//scan.close();
-		
+			
 		return move;
 
 	}
@@ -117,13 +116,11 @@ public class Main {
 		
 		for(int i=0; i < m.getSize(); i++){
 			for(int j=0; j < m.getSize(); j++){
-				/*res +=*/ System.out.print(board[i][j]);
-				/*res += */System.out.print(" ");
+				System.out.print(board[i][j]);
+				System.out.print(" ");
 			}
 			System.out.println();
-			//res += "\n";
 		}
-		//System.out.print(res);
 		return res;
 		
 	}

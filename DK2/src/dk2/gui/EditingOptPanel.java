@@ -1,4 +1,4 @@
-package dk2.gui;
+/*package dk2.gui;
 
 import java.awt.Component;
 import java.awt.Image;
@@ -177,7 +177,7 @@ public class EditingOptPanel extends JPanel implements MouseListener{
 				if(insertSize.getText() != null)
 					size = Integer.parseInt(insertSize.getText());
 				try {
-					editorpanel = new EditorPanel(700,700,0,"Novice",size, 0);
+					editorpanel = new EditorPanel(700,700,0,"Novice",size, 0, element);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -267,4 +267,4 @@ public class EditingOptPanel extends JPanel implements MouseListener{
 	public JPanel getPanel(){
 		return this.editorpanel;
 	}
-}
+}*/

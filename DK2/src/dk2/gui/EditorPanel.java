@@ -1,16 +1,12 @@
 package dk2.gui;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-import javax.swing.JComboBox;
-
-import dk2.logic.Key;
 import dk2.logic.Map;
 import dk2.logic.Map2;
-import dk2.logic.Ogre;
-
-import dk2.gui.EditingOptPanel;
 
 
 public class EditorPanel extends GamePanel{
@@ -20,12 +16,13 @@ public class EditorPanel extends GamePanel{
 	private int size;
 	
 	
-	public EditorPanel(int width, int height, int nOgres, String guardsPers, int mapSize, int nDoors) throws IOException {
+	public EditorPanel(int width, int height, int nOgres, String guardsPers, int mapSize, int nDoors, char toDraw)  throws IOException  {
 		
 		super(width, height, nOgres, guardsPers);
 		super.dungeon.setCurrentMap(1);
 		buildCustomMap(mapSize, nDoors);
 		this.size = mapSize;
+		this.element = toDraw;
 		
 							
 	}
@@ -42,7 +39,6 @@ public class EditorPanel extends GamePanel{
 		
 		
 	}
-	
 	
 	
 	@Override
@@ -118,6 +114,25 @@ public class EditorPanel extends GamePanel{
 //		}
 
 		
+		
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent event) {};
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		int lin = e.getX() / this.offsetW;
+		int col = e.getY() / this.offsetH;
+		
+		switch(element){
+		case 'X':
+			dungeon.getMap().setBoardCell(lin, col, 'X');
+			break;
+		}
 		
 	}
 

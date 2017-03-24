@@ -2,40 +2,19 @@ package dk2.logic;
 
 import java.util.Random;
 
-import dk2.test.MapTest_DungeonLvL;
-
 public class Map1 extends Map {
 
-	// -------------ATTRIBUTES-------------//
+	
 
 	private Door d1, d2, d3, d4, d5, d6, d7;
 	private Lever lever;
 	private Guard guard;
 
-	// --------------METHODS---------------//
-
-	// Map1 constructor calling Map constructor
+	
 	public Map1(int size, Guard pers) {
 		super(size);
 
 		this.lever = new Lever();
-
-//		Random ranGen = new Random();
-//
-//		switch (ranGen.nextInt(2)) {
-//
-//		case 0:
-//			this.guard = new Rookie();
-//			break;
-//
-//		case 1:
-//			this.guard = new Drunken();
-//			break;
-//
-//		case 2:
-//			this.guard = new Suspicious();
-//			break;
-//		}
 
 		this.guard = pers;
 		
@@ -53,7 +32,7 @@ public class Map1 extends Map {
 		return this.lever;
 	}
     
-	// returns the level winning door
+	// returns the level winning doors
 	public Door[] getDoor() {
 
 		Door[] nextLvLDoors = { d1, d2 };
@@ -152,22 +131,22 @@ public class Map1 extends Map {
 
 		// placing key elements//
 
-		// set Lever initial location
+		
 		lever.setLin(8);
 		lever.setCol(7);
 		this.setBoardCell(lever.getLin(), lever.getCol(), lever.getSymbol());
 
-		// set Hero initial location
+		
 		this.getHero().setLin(1);
 		this.getHero().setCol(1);
 		drawHero();
 
-		// set Guard initial location
+		
 		guard.setLin(1);
 		guard.setCol(8);
 		this.setBoardCell(guard.getLin(), guard.getCol(), guard.getSymbol());
 
-		// set Doors
+		
 		d1.setLin(5);
 		d1.setCol(0);
 		d2.setLin(6);
@@ -183,7 +162,7 @@ public class Map1 extends Map {
 		d7.setLin(8);
 		d7.setCol(4);
 
-		// Placing doors in map1
+		
 		this.setDoors(d1);
 		this.setDoors(d2);
 		this.setDoors(d3);

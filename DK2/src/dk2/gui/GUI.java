@@ -118,7 +118,7 @@ public class GUI implements SwingConstants{
 		lblGuardsPersonality.setBounds(31, 47, 138, 16);
 		frmDungeonKeeper.getContentPane().add(lblGuardsPersonality);
 
-		JComboBox guardsFld = new JComboBox();
+		JComboBox<String> guardsFld = new JComboBox<String>();
 		guardsFld.addItem("Novice");
 		guardsFld.addItem("Drunken");
 		guardsFld.addItem("Suspicious");

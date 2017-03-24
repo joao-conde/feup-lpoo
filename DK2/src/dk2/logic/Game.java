@@ -9,8 +9,8 @@ public class Game {
 	private Guard guard;
 	private Vector<Map> levels;
 	private int currentMap;
-	private String personality;
-
+	
+	
 	public Game() {
 		
 		this.levels = new Vector<Map>();
@@ -84,8 +84,7 @@ public class Game {
 		char b[][] = levels.elementAt(currentMap).getBoard();
 		Hero h = levels.elementAt(currentMap).getHero();
 
-		// hero never is at the boundaries of the map, except when he wins so he
-		// ain't dead
+		
 		if (h.getCol() == 0 || h.getLin() == 0)
 			return false;
 
