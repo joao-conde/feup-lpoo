@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public class Lever extends StaticChar{
+import java.io.Serializable;
+
+public class Lever extends StaticChar implements Serializable{
 	
 	private boolean active;
 	

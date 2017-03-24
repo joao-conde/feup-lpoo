@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public class Map2 extends Map {
+import java.io.Serializable;
+
+public class Map2 extends Map implements Serializable{
 
 
 

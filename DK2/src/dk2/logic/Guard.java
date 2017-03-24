@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public abstract class Guard extends MovingChar {
+import java.io.Serializable;
+
+public abstract class Guard extends MovingChar implements Serializable{
 	
 	
 	//-------------ATTRIBUTES-------------//

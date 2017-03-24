@@ -1,10 +1,11 @@
 package dk2.logic;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 
 
-public class Game {
+public class Game implements Serializable{
 	private int nOgres;
 	private Guard guard;
 	private Vector<Map> levels;

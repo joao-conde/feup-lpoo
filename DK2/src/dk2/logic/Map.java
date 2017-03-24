@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public abstract class Map {
+import java.io.Serializable;
+
+public abstract class Map implements Serializable{
 
 	
 	private char[][] board;

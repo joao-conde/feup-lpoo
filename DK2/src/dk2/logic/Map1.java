@@ -1,8 +1,9 @@
 package dk2.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Map1 extends Map {
+public class Map1 extends Map implements Serializable{
 
 	
 

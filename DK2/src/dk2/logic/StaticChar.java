@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public abstract class StaticChar extends Character{
+import java.io.Serializable;
+
+public abstract class StaticChar extends Character implements Serializable{
 
 		
 	StaticChar(){

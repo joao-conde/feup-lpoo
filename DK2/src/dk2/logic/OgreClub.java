@@ -1,8 +1,9 @@
 package dk2.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class OgreClub extends MovingChar{
+public class OgreClub extends MovingChar implements Serializable{
 			
 	
 

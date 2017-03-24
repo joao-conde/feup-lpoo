@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public class Hero extends MovingChar{
+import java.io.Serializable;
+
+public class Hero extends MovingChar implements Serializable{
 	
 	
 

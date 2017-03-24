@@ -17,6 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.UIManager;
+import java.io.*;
+
+import dk2.logic.*;
 
 public class EGUI {
 
@@ -26,7 +29,7 @@ public class EGUI {
 	private MenuPanel menupanel;
 	private EditorPanel editorpanel;
 
-	private JButton btnExit;
+	private JButton btnExit, btnSaveGame, btnNewGame, btnLoadGame, btnCustomLvL;
 
 	private JTextField nOgres;
 	private JComboBox<String> guardsPers;
@@ -39,11 +42,7 @@ public class EGUI {
 	
 	private ImageIcon hero, kFloor, kWall, kOpenGate, kClosedGate, key, ogre;
 
-	// private ImageIcon image = new ImageIcon("res/static/keeper_floor.png");
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -60,23 +59,13 @@ public class EGUI {
 		});
 	}
 
-	// public String getPersonality(){
-	// return this.personality;
-	// }
-	//
-	// public String getOgres(){
-	// return this.ogres;
-	// }
+
 
 	public JFrame getMenuFramel() {
 		return this.menu_frame;
 	}
 
-	/**
-	 * Create the application.
-	 * 
-	 * @throws IOException
-	 */
+
 	public EGUI() throws IOException {
 
 		// creation of the menu frame
@@ -87,8 +76,7 @@ public class EGUI {
 		menu_frame.setBounds(90, 25, 1200, 700);
 		menu_frame.setResizable(false);
 
-		// creation of the options frame, where user selects the options of the
-		// game
+		// creation of the options frame, where user selects the options of the game
 		options_frame = new JFrame();
 		options_frame.setTitle("Options");
 		options_frame.getContentPane().setLayout(null);
@@ -109,7 +97,7 @@ public class EGUI {
 		game_frame.setTitle("Dungeon Escape");
 		game_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game_frame.getContentPane().setLayout(null);
-		game_frame.setBounds(300, 25, 700, 700);
+		game_frame.setBounds(300, 25, 900, 700);
 		game_frame.setResizable(false);
 
 		JLabel DevelopedBy = new JLabel("Developed by Jo\u00E3o Conde and Nelson Costa - FEUP/MIEIC/LPOO");
@@ -121,7 +109,7 @@ public class EGUI {
 		menu_frame.getContentPane().add(DevelopedBy);
 
 		// Button's in Menu Panel
-		JButton btnNewGame = new JButton("New Game");
+		btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnNewGame.setForeground(Color.RED);
 		btnNewGame.setToolTipText("Start a new adventure");
@@ -144,8 +132,43 @@ public class EGUI {
 
 			}
 		});
+		
+		
+		btnLoadGame = new JButton("Load Game");
+		btnLoadGame.setForeground(Color.RED);
+		btnLoadGame.setToolTipText("Load previous game");
+		btnLoadGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btnLoadGame.setBounds(497, 511, 200, 23);
+		btnLoadGame.setVisible(true);
 
-		JButton btnCustomLvL = new JButton("Custom LvL Editor");
+		btnLoadGame.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+								
+				try {
+					
+			         FileInputStream fileIn = new FileInputStream("res/saved/game.ser");
+			         ObjectInputStream in = new ObjectInputStream(fileIn);
+			         game_panel.dungeon = (Game) in.readObject();
+			         in.close();
+			         fileIn.close();
+			         System.out.println("successfully loaded game");
+			         
+			      }catch(IOException i) {
+			         i.printStackTrace();
+			         return;
+			      }catch(ClassNotFoundException c) {
+			         c.printStackTrace();
+			         return;
+			      }
+
+			}
+
+		});
+		
+		menu_frame.getContentPane().add(btnLoadGame);
+		
+		btnCustomLvL = new JButton("Custom LvL Editor");
 		btnCustomLvL.setForeground(Color.RED);
 		btnCustomLvL.setToolTipText("Create your own magical dungeon");
 		btnCustomLvL.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -241,9 +264,34 @@ public class EGUI {
 		
 		
 		createEditingInterface();
-//		editingOpts = new EditingOptPanel();
-//		editingOpts.setBounds(700,0,1200,700);
-//		editingOpts.setFocusable(true);
+		
+		btnSaveGame = new JButton();
+		btnSaveGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btnSaveGame.setForeground(Color.RED);
+		btnSaveGame.setToolTipText("Save current game");
+		btnSaveGame.setBounds(750, 100, 100, 50);
+		btnSaveGame.setVisible(true);
+		btnSaveGame.setText("Save Game");
+		game_frame.getContentPane().add(btnSaveGame);
+
+		btnSaveGame.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				 try {
+					 
+			         FileOutputStream fileOut =   new FileOutputStream("res/saved/game.ser");
+			         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			         out.writeObject(game_panel.dungeon);
+			         out.close();
+			         fileOut.close();
+			         			         
+			      }catch(IOException i) {
+			         i.printStackTrace();
+			      }
+
+			}
+		});
 		
 		editorpanel = new EditorPanel(700,700,0,"Novice", 10 , 0, element);
 		editorpanel.setBounds(300,0,700,700);

@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public abstract class Character {
+import java.io.Serializable;
+
+public abstract class Character implements Serializable{
 	
 	
 	//-------------ATTRIBUTES-------------//

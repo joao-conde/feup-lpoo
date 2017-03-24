@@ -1,5 +1,7 @@
 package dk2.logic;
 
-public class Rookie extends Guard {
+import java.io.Serializable;
+
+public class Rookie extends Guard implements Serializable{
 
 }

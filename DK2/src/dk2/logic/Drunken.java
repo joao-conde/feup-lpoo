@@ -1,7 +1,8 @@
 package dk2.logic;
 
+import java.io.Serializable;
 
-public class Drunken extends Guard{
+public class Drunken extends Guard implements Serializable{
 
 	private boolean isAsleep;
 	

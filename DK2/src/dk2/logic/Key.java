@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public class Key extends StaticChar{
+import java.io.Serializable;
+
+public class Key extends StaticChar implements Serializable{
 
 	
 	public Key(){

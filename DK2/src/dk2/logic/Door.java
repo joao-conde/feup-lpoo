@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public class Door extends StaticChar{
+import java.io.Serializable;
+
+public class Door extends StaticChar implements Serializable{
 	
 	private boolean open;
 	

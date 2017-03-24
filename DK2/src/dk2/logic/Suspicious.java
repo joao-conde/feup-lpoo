@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public class Suspicious extends Guard {
+import java.io.Serializable;
+
+public class Suspicious extends Guard implements Serializable{
 	
 	private boolean heardSomething;
 	

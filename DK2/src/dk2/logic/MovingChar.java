@@ -1,6 +1,8 @@
 package dk2.logic;
 
-public abstract class MovingChar extends Character {
+import java.io.Serializable;
+
+public abstract class MovingChar extends Character implements Serializable {
 
 	
 
