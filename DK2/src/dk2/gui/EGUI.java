@@ -430,6 +430,7 @@ public class EGUI {
 			public void actionPerformed(ActionEvent e) {
 				editorpanel.setElement('O');
 				number_ogres++;
+				
 			}
 		});
 		

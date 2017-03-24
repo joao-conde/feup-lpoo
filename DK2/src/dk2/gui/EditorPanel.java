@@ -7,8 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
+import dk2.logic.Door;
 import dk2.logic.Map;
 import dk2.logic.Map2;
+import dk2.logic.Ogre;
 
 
 public class EditorPanel extends GamePanel implements MouseListener{
@@ -73,24 +75,39 @@ public class EditorPanel extends GamePanel implements MouseListener{
 				case 'X':
 					g.drawImage(getkWall(), j * getOffsetH(), i * getOffsetW(), this);
 					break;
-
+				case 'A':
+					g.drawImage(getBruceLee(), j * getOffsetH(), i * getOffsetW(), this);
+					break;
+				case 'O':
+					g.drawImage(getOgre(), j * getOffsetH(), i * getOffsetW(), this);
+					break;
+				case 'S':
+					g.drawImage(getkOpenGate(), j * getOffsetH(), i * getOffsetW(), this);
+					break;
+				case 'I':
+					g.drawImage(getkClosedGate(), j * getOffsetH(), i * getOffsetW(), this);
+					break;
+				case 'k':
+					g.drawImage(getKey(), j * getOffsetH(), i * getOffsetW(), this);
+					break;
 				}
 			}
 
 		}
 
-		// drawing gates
-		for (int i = 0; i < gamemap.getAllDoors().length; i++) {
-
-			if (gamemap.getAllDoors()[i].isOpen())
-				g.drawImage(getkOpenGate(), gamemap.getAllDoors()[i].getCol() * getOffsetH(),
-						gamemap.getAllDoors()[i].getLin() * getOffsetW(), this);
-			else
-				g.drawImage(getkClosedGate(), gamemap.getAllDoors()[i].getCol() * getOffsetH(),
-						gamemap.getAllDoors()[i].getLin() * getOffsetW(), this);
-		}
-
-		
+//		// drawing gates
+//		for (int i = 0; i < gamemap.getAllDoors().length; i++) {
+//
+//			if (gamemap.getAllDoors()[i].isOpen())
+//				g.drawImage(getkOpenGate(), gamemap.getAllDoors()[i].getCol() * getOffsetH(),
+//						gamemap.getAllDoors()[i].getLin() * getOffsetW(), this);
+//			else
+//				g.drawImage(getkClosedGate(), gamemap.getAllDoors()[i].getCol() * getOffsetH(),
+//						gamemap.getAllDoors()[i].getLin() * getOffsetW(), this);
+//		}
+//
+//			g.drawImage(getBruceLee(), gamemap.getHero().getCol() * offsetH,
+//				gamemap.getHero().getLin() * offsetW, this);
 	}
 
 
@@ -104,7 +121,6 @@ public class EditorPanel extends GamePanel implements MouseListener{
 		int lin = e.getX() / this.offsetW;
 		int col = e.getY() / this.offsetH;
 		
-		System.out.println(element);
 		dungeon.getMap().setBoardCell(col, lin, element);
 		
 		repaint();
