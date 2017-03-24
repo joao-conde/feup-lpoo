@@ -7,10 +7,13 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -40,7 +43,7 @@ public class EGUI {
 	private char element;
 	private int size, nDoors;
 	
-	private ImageIcon hero, kFloor, kWall, kOpenGate, kClosedGate, key, ogre;
+	private ImageIcon hero, kFloor, kWall, kOpenGate, kClosedGate, key, ogre, logo;
 
 
 	public static void main(String[] args) {
@@ -124,8 +127,6 @@ public class EGUI {
 					menu_frame.dispose();
 					game_frame.setVisible(true);
 				} else {
-					// JOptionPane.showMessageDialog(menu_frame, "Select options
-					// first!");
 					options_frame.setVisible(true);
 					menu_frame.setFocusable(false);
 				}
@@ -138,21 +139,44 @@ public class EGUI {
 		btnLoadGame.setForeground(Color.RED);
 		btnLoadGame.setToolTipText("Load previous game");
 		btnLoadGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnLoadGame.setBounds(497, 511, 200, 23);
+		btnLoadGame.setBounds(497, 411, 200, 23);
 		btnLoadGame.setVisible(true);
 
 		btnLoadGame.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-								
+			
+				Game g = new Game();
+				
+				try {
+					game_panel = new GamePanel(700, 700, 0, "Novice");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				game_panel.setBounds(0, 0, 700, 700);
+				game_panel.addKeyListener(game_panel);
+				game_panel.setFocusable(true);
+				game_frame.getContentPane().add(game_panel);
+				
 				try {
 					
 			         FileInputStream fileIn = new FileInputStream("res/saved/game.ser");
 			         ObjectInputStream in = new ObjectInputStream(fileIn);
-			         game_panel.dungeon = (Game) in.readObject();
+			         
+			         
+			         g = (Game)in.readObject();
+			         g.getNOgres();
+			         game_panel.setGame(g);
+			         
 			         in.close();
 			         fileIn.close();
-			         System.out.println("successfully loaded game");
+			         
+			         game_panel.setVisible(true);
+			         menu_frame.setFocusable(false);
+			         game_frame.requestFocus();
+			         game_frame.setVisible(true);
 			         
 			      }catch(IOException i) {
 			         i.printStackTrace();
@@ -172,13 +196,15 @@ public class EGUI {
 		btnCustomLvL.setForeground(Color.RED);
 		btnCustomLvL.setToolTipText("Create your own magical dungeon");
 		btnCustomLvL.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		btnCustomLvL.setBounds(497, 411, 200, 23);
+		btnCustomLvL.setBounds(497, 460, 200, 23);
 
 		btnCustomLvL.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 
 				edit_frame.setVisible(true);
+				edit_frame.setFocusable(true);
+				edit_frame.requestFocus();
 				
 				menu_frame.setVisible(false);
 				menu_frame.setFocusable(false);
@@ -260,19 +286,23 @@ public class EGUI {
 		menupanel.setBounds(0, 0, 1194, 671);
 		menupanel.setFocusable(true);
 		
-		menu_frame.getContentPane().add(menupanel);
-		
-		
 		createEditingInterface();
 		
-		btnSaveGame = new JButton();
+		menu_frame.getContentPane().add(menupanel);
+		menu_frame.setIconImage(logo.getImage());
+		
+		
+		
+		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnSaveGame.setForeground(Color.RED);
 		btnSaveGame.setToolTipText("Save current game");
-		btnSaveGame.setBounds(750, 100, 100, 50);
+		btnSaveGame.setBounds(725, 100, 150, 50);
 		btnSaveGame.setVisible(true);
-		btnSaveGame.setText("Save Game");
+	
+		
 		game_frame.getContentPane().add(btnSaveGame);
+		game_frame.setIconImage(logo.getImage());
 
 		btnSaveGame.addActionListener(new ActionListener() {
 
@@ -285,7 +315,9 @@ public class EGUI {
 			         out.writeObject(game_panel.dungeon);
 			         out.close();
 			         fileOut.close();
-			         			         
+			         game_panel.requestFocus();
+			         
+			   			         			         
 			      }catch(IOException i) {
 			         i.printStackTrace();
 			      }
@@ -293,30 +325,32 @@ public class EGUI {
 			}
 		});
 		
-		editorpanel = new EditorPanel(700,700,0,"Novice", 10 , 0, element);
+	/*	editorpanel = new EditorPanel(700,700,0,"Novice", 10 , 0, element);
 		editorpanel.setBounds(300,0,700,700);
 		editorpanel.setFocusable(true);
 		editorpanel.setVisible(true);
-		
+		editorpanel.requestFocus();
+		*/
 		
 	//	edit_frame.getContentPane().add(editingOpts);
-		edit_frame.getContentPane().add(editorpanel);
+		edit_frame.setIconImage(logo.getImage());
+		//edit_frame.getContentPane().add(editorpanel);
 
 	}
 	
 	public void createEditingInterface(){
 		
-		edit_frame.setLayout(null);
+		edit_frame.getContentPane().setLayout(null);
 		loadImages();
 		scaleImages();
 		
 		JLabel lblSize = new JLabel("Insert Map size:");
 		lblSize.setBounds(6,34,99, 16);
-		edit_frame.add(lblSize);
+		edit_frame.getContentPane().add(lblSize);
 		
 		JTextField insertSize = new JTextField();
 		insertSize.setBounds(117, 29, 34, 26);
-		edit_frame.add(insertSize);
+		edit_frame.getContentPane().add(insertSize);
 		insertSize.setColumns(10);
 		
 				
@@ -325,86 +359,76 @@ public class EGUI {
 		btnFloor.setBounds(16, 102, 100, 100);
 		btnFloor.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			element = ' ';
+			editorpanel.setElement(' ');
 		}
 	});
 		
-		edit_frame.add(btnFloor);
+		edit_frame.getContentPane().add(btnFloor);
 		
 		JButton btnWall = new JButton(kWall);
 		btnWall.setBounds(146, 102, 100, 100);
-		edit_frame.add(btnWall);
+		edit_frame.getContentPane().add(btnWall);
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				element = 'X';
+				editorpanel.setElement('X');
 			}
 		});
 		
 		JButton btnHero = new JButton(hero);
-		btnHero.setBounds(16, 219, 100, 100);
-		btnHero.setBorderPainted(false);
-		btnHero.setContentAreaFilled(false);
+		btnHero.setBounds(16, 342, 100, 100);
 		btnHero.setFocusPainted(false); 
 		btnHero.setOpaque(false);
-		edit_frame.add(btnHero);
+		edit_frame.getContentPane().add(btnHero);
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				element = 'H';
+				editorpanel.setElement('A');
 			}
 		});
 		
 		JButton btnCGate = new JButton(kClosedGate);
 		btnCGate.setBounds(146, 219, 100, 100);
-		btnCGate.setBorderPainted(false);
-		btnCGate.setContentAreaFilled(false);
 		btnCGate.setFocusPainted(false); 
 		btnCGate.setOpaque(false);
-		edit_frame.add(btnCGate);
+		edit_frame.getContentPane().add(btnCGate);
 		btnCGate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//element = 'I';
+				editorpanel.setElement('I');
 				nDoors++;
 			}
 		});
 		
 		JButton btnOGate = new JButton(kOpenGate);
-		btnOGate.setBounds(16, 342, 100, 100);
-		btnOGate.setBorderPainted(false);
-		btnOGate.setContentAreaFilled(false);
+		btnOGate.setBounds(16, 219, 100, 100);
 		btnOGate.setFocusPainted(false); 
 		btnOGate.setOpaque(false);
-		edit_frame.add(btnOGate);
+		edit_frame.getContentPane().add(btnOGate);
 		btnOGate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				element = 'S';
+				editorpanel.setElement('S');
 			}
 		});
 		
 		JButton btnKey = new JButton(key);
 		btnKey.setBounds(146, 342, 100, 100);
-		btnKey.setBorderPainted(false);
-		btnKey.setContentAreaFilled(false);
 		btnKey.setFocusPainted(false); 
 		btnKey.setOpaque(false);
-		edit_frame.add(btnKey);
+		edit_frame.getContentPane().add(btnKey);
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//element = 'k';
+				editorpanel.setElement('k');
 			}
 		});
 		
 		JButton btnOgre = new JButton(ogre);
-		btnOgre.setBounds(16, 465, 100, 100);
-		btnOgre.setBorderPainted(false);
-		btnOgre.setContentAreaFilled(false);
+		btnOgre.setBounds(16, 453, 100, 100);
 		btnOgre.setFocusPainted(false); 
 		btnOgre.setOpaque(false);
-		edit_frame.add(btnOgre);
+		edit_frame.getContentPane().add(btnOgre);
 		
 		
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//element = 'O';
+				editorpanel.setElement('O');
 				number_ogres++;
 			}
 		});
@@ -413,40 +437,59 @@ public class EGUI {
 		btnOK.setBounds(129, 581, 117, 29);
 		btnOK.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.exit(0);
+				
+				Map customMap = game_panel.dungeon.getMap();
+				
+				for(int i = 0; i < customMap.getBoard().length; i++){
+					for(int j = 0; j < customMap.getBoard()[i].length; j++){
+						
+						switch(customMap.getBoard()[i][j]){
+						
+						case 'A':
+							Hero h = new Hero();
+							h.setLin(i);
+							h.setCol(j);
+							game_panel.dungeon.getMap().setHero(h);
+						
+						
+						
+						}
+					}
+				}
+				
+				edit_frame.setVisible(false);
+				game_frame.setVisible(true);
+				game_panel.setVisible(true);
 			}
 		});
-		edit_frame.add(btnOK);
+		edit_frame.getContentPane().add(btnOK);
 		 
 		JButton btnSet = new JButton("Set");
 		btnSet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 						
 				size = Integer.parseInt(insertSize.getText());
-				
+				System.out.println("entered set");
 				try {
-					editorpanel = new EditorPanel(300,300,0,"Novice",size, 0, element);
+					editorpanel = new EditorPanel(500,500,0,"Novice",size, 0, element);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				
-				editorpanel.setBounds(300,0,700,700);
+				editorpanel.setBackground(edit_frame.getBackground());
+				editorpanel.setBounds(300,0,500,500);
 				editorpanel.setFocusable(true);
 				editorpanel.setVisible(true);
-				edit_frame.add(editorpanel);
+				editorpanel.requestFocus();
+				editorpanel.addMouseListener(editorpanel);
+				edit_frame.getContentPane().add(editorpanel);
+				editorpanel.repaint();
 				
 			}
 			
 		});
 		
 		btnSet.setBounds(160, 29, 64, 29);
-		edit_frame.add(btnSet);
-		btnOK.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-				
-			}
-		});
+		edit_frame.getContentPane().add(btnSet);
 		
 
 //		
@@ -457,6 +500,7 @@ public class EGUI {
 	}
 	
 	public void loadImages(){
+		
 		hero = new ImageIcon("res/mchar/hero_bruceLee.png");
 		kFloor = new ImageIcon("res/static/keeper_floor.png");
 		kWall = new ImageIcon("res/static/keeper_wall.jpg");
@@ -464,6 +508,7 @@ public class EGUI {
 		kClosedGate = new ImageIcon("res/static/gate_closed.png");
 		key = new ImageIcon("res/static/Key.png");
 		ogre = new ImageIcon("res/mchar/ogre.png");
+		logo = new ImageIcon("res/static/logo.png");
 		
 		
 	}

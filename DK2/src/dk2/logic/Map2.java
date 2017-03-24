@@ -259,15 +259,17 @@ public class Map2 extends Map implements Serializable{
 	}
 	
 	public void advanceTurn(){
-			heroReachedKey();
-			openDoors();
-			int n = 0;
-			while(n < ogres.length){
-				moveOgre(n);
-				n++;
-			} 
 			
-			stunOgres();
+		heroReachedKey();
+		openDoors();
+			
+		int n = 0;
+		while(n < ogres.length){
+			moveOgre(n);
+			n++;
+		} 
+		
+		stunOgres();
 		
 	}
 	
@@ -312,6 +314,36 @@ public class Map2 extends Map implements Serializable{
 		}
 		
 
+	}
+	
+	public void setKey(Key k){
+		this.key = k;
+	}
+	
+	
+	public void addOgre(Ogre o){
+		
+		Ogre[] newOgres = new Ogre[this.ogres.length+1];
+		
+		for(int i = 0; i < this.ogres.length; i++)
+			newOgres[i]= this.ogres[i];
+		
+		newOgres[newOgres.length-1] = o;
+		
+		this.ogres = newOgres;
+		
+	}
+	
+	public void addDoor(Door d){
+		
+		Door[] newDoors = new Door[d1.length + 1];
+		
+		for(int i = 0; i < this.ogres.length; i++)
+			newDoors[i]= this.d1[i];
+		
+		newDoors[newDoors.length-1] = d;
+		
+		this.d1 = newDoors;
 	}
 	
 	@Override

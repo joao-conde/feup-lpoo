@@ -195,9 +195,14 @@ public abstract class Map implements Serializable{
 		
 	}
 	
+	public void setHero(Hero h){
+		this.mieic_student = h;
+	}
+	
 	public void heroReachedKey(){};
 	
 	public abstract void advanceTurn();
+	
 	
 	public void placeChars(){};
 }

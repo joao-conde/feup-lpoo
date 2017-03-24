@@ -1,15 +1,17 @@
 package dk2.gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import dk2.logic.Map;
 import dk2.logic.Map2;
 
 
-public class EditorPanel extends GamePanel{
+public class EditorPanel extends GamePanel implements MouseListener{
 	
 	
 	private char element;
@@ -27,6 +29,10 @@ public class EditorPanel extends GamePanel{
 							
 	}
 	
+	
+	public void setElement(char element){
+		this.element = element;
+	}
 	
 	public void buildCustomMap(int size, int nDoors){
 		
@@ -46,9 +52,12 @@ public class EditorPanel extends GamePanel{
 
 		Map gamemap = dungeon.getMap();
 
+		
+		g.fillRect(0, 0, 500 , 500);
+		
 		// covering all floor
-		for (int i = 0; i < getGridH(); i++) {
-			for (int j = 0; j < getGridW(); j++) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
 				g.drawImage(getkFloor(), i * getOffsetW(), j * getOffsetH(), this);
 			}
 		}
@@ -82,39 +91,6 @@ public class EditorPanel extends GamePanel{
 		}
 
 		
-//		Key k = getKey();
-//
-//		if (!gamemap.getHero().getHasKey())
-//			g.drawImage(getKey(), getOffsetH() * k.getCol(), getOffsetW() * k.getLin(), this);
-//
-//		
-//		// drawing ogre
-//		Ogre[] ogres = ((Map2)gamemap).getOgres();
-//		
-//		for(Ogre o: ogres){
-//			g.drawImage(getOgre(), getOffsetH()*o.getCol(), getOffsetW()*o.getLin(), this);
-//			g.drawImage(getFireball(), getOffsetH()*o.getClub().getCol(), getOffsetW()*o.getClub().getLin(), this);
-//			
-//			
-//			if(gamemap.getHero().distanceTo(o) <= 1 || gamemap.getHero().distanceTo(o.getClub()) <= 1){
-//				g.drawImage(getGrave(), dungeon.getMap().getHero().getCol() * getOffsetH(),
-//						dungeon.getMap().getHero().getLin() * getOffsetW(), this);
-//				setGameOver(true);
-//				//this.getRootPane().setVisible(false);
-//				try {
-//					ng = new EGUI();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//				
-//			}	
-//			else
-//				g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
-//						dungeon.getMap().getHero().getLin() * offsetW, this);
-//		}
-
-		
-		
 	}
 
 
@@ -123,16 +99,42 @@ public class EditorPanel extends GamePanel{
 
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		
 		int lin = e.getX() / this.offsetW;
 		int col = e.getY() / this.offsetH;
 		
-		switch(element){
-		case 'X':
-			dungeon.getMap().setBoardCell(lin, col, 'X');
-			break;
-		}
+		System.out.println(element);
+		dungeon.getMap().setBoardCell(col, lin, element);
+		
+		repaint();
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

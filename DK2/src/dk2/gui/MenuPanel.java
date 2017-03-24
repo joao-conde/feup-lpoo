@@ -20,7 +20,7 @@ public class MenuPanel extends JPanel{
 	
 	public MenuPanel(int width, int heigth) throws IOException {
 
-		this.background = Scalr.resize(ImageIO.read(new File("res/static/menu_background.png")),Mode.FIT_TO_WIDTH, width);		
+		this.background = Scalr.resize(ImageIO.read(new File("res/static/menu_background.png")), Mode.FIT_TO_WIDTH, width);		
 	}
 	
 	@Override
@@ -28,7 +28,4 @@ public class MenuPanel extends JPanel{
 		super.paintComponent(g);
 		g.drawImage(background, 0 , 0, this);
 	}
-
-	
-
 }

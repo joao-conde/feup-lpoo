@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import org.imgscalr.Scalr;
 
@@ -23,7 +24,7 @@ import dk2.logic.*;
 
 import dk2.gui.EGUI;
 
-public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
+public class GamePanel extends JPanel implements  KeyListener {
 
 	protected Game dungeon = new Game();
 	private boolean gameOver = false;
@@ -504,9 +505,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 				e.printStackTrace();
 			}
 			ng.getMenuFramel().setVisible(true);
+			SwingUtilities.getWindowAncestor(this).setVisible(false);
+			
 		}
 		
-		if (wonLevel){
+		if (dungeon.getMap().hasHeroWon()){
 			JOptionPane.showMessageDialog(this.getRootPane(), "You Won!");
 		}
 		
@@ -547,50 +550,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 	}
 
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 	
 	public boolean getGameOver(){
 		return this.gameOver;
+	}
+	
+	public void setGame(Game g){
+		this.dungeon = g;
 	}
 
 }
