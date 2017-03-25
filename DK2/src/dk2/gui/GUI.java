@@ -194,7 +194,7 @@ public class GUI implements SwingConstants{
 					JOptionPane.showMessageDialog(frmDungeonKeeper, "Invalid Number of Ogres (min 1, max 5)");
 
 				dungeon_keeper = new Game();
-				dungeon_keeper.buildMaps(tmpGuard, tmpOgres);
+				dungeon_keeper.buildMaps(tmpGuard, tmpOgres, 0);
 				
 				lblLabel.setText("");
 				dungeon_keeper.getMap().placeChars();

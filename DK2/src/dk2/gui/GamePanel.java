@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 	private boolean gameOver = false;
 	private boolean won = false;
 
-	private BufferedImage bruceLee, dFloor, dWall, dOpenDoor, dClosedDoor, leverOff, leverOn, rookie, drunken_asleep,
+	private BufferedImage bruceLee, armedLee,  dFloor, dWall, dOpenDoor, dClosedDoor, leverOff, leverOn, rookie, drunken_asleep,
 			drunken, suspicious, kFloor, kWall, kOpenGate, kClosedGate, key, grave, ogre, ogreStunned, fireball;
 
 	protected int offsetW, offsetH, gridH, gridW;
@@ -172,6 +172,8 @@ public class GamePanel extends JPanel implements  KeyListener {
 		this.ogreStunned = Scalr.resize(ImageIO.read(new File("res/mchar/ogreStunned.png")), offsetW);
 		
 		this.fireball = Scalr.resize(ImageIO.read(new File("res/mchar/FIREBALL.png")), offsetW);
+		
+		this.armedLee = Scalr.resize(ImageIO.read(new File("res/mchar/bruceLeeArmed.png")), offsetW);
 
 	}
 
@@ -242,6 +244,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 			else
 				g.drawImage(drunken, offsetH * guard.getCol(), offsetW * guard.getLin(), this);
 		}
+		
 		if(gamemap.getHero().distanceTo(guard) <= 1){
 			g.drawImage(grave, dungeon.getMap().getHero().getCol() * offsetH,
 					dungeon.getMap().getHero().getLin() * offsetW, this);
@@ -324,7 +327,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 				return;
 			}	
 			else
-				g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
+				g.drawImage(armedLee, dungeon.getMap().getHero().getCol() * offsetH,
 						dungeon.getMap().getHero().getLin() * offsetW, this);
 		}
 
@@ -480,7 +483,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 		dungeon.getMap().advanceTurn();
 		
 		if (gameOver){
-			JOptionPane.showMessageDialog(this.getRootPane(), "Game Over!");
+			JOptionPane.showMessageDialog(this.getRootPane(), "Game Over!");			
 			try {
 				ng = new EGUI();
 			} catch (IOException e) {

@@ -242,7 +242,7 @@ public class EGUI {
 
 		btnSaveGame.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {saveGame();}
+			public void actionPerformed(ActionEvent e) {saveOptions();}
 		});
 
 	}
@@ -565,6 +565,9 @@ public class EGUI {
 	}
 	
 	public void loadGame(){
+		
+		menu_frame.setVisible(false);
+		
 		Game g = new Game();
 		
 		try {
@@ -626,6 +629,23 @@ public class EGUI {
 		}
 	}
 	
+	public void saveOptions(){
+		
+		switch(JOptionPane.showConfirmDialog(game_frame, "Game saved successfully. Do you wish to quit?")){
+					
+		case JOptionPane.NO_OPTION:
+			saveGame();
+			break;
+			
+		case JOptionPane.OK_OPTION:
+			saveGame();
+			game_frame.setVisible(false);
+			menu_frame.setVisible(true);
+			break;			
+		
+		}
+	}
+	
 	public void saveGame(){
 		try {
 			 
@@ -639,6 +659,10 @@ public class EGUI {
 	      }catch(IOException i) {
 	         i.printStackTrace();
 	      }
+		
+		
+		
+		
 	}
 	
 }

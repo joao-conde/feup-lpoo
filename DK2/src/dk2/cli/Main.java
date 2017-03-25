@@ -16,13 +16,13 @@ public class Main {
 		
 		switch(guard){
 		case 1:
-			dungeon_keeper.buildMaps("Novice", nOgres);
+			dungeon_keeper.buildMaps("Novice", nOgres,0);
 			break;
 		case 2:
-			dungeon_keeper.buildMaps("Drunken", nOgres);
+			dungeon_keeper.buildMaps("Drunken", nOgres,0);
 			break;
 		case 3:
-			dungeon_keeper.buildMaps("Suspicious", nOgres);
+			dungeon_keeper.buildMaps("Suspicious", nOgres,0);
 			break;
 		}
 				
