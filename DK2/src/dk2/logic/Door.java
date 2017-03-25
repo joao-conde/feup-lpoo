@@ -18,7 +18,7 @@ public class Door extends StaticChar implements Serializable{
 	}
 	
 	public boolean isOpen(){
-		return this.open;
+		return this.getSymbol() == 'S';
 	}
 	
 }

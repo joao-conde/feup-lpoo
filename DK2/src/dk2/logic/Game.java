@@ -25,7 +25,7 @@ public class Game implements Serializable{
 		return this.levels;
 	}
 	
-	public void buildMaps(String pers, int nOgres){
+	public void buildMaps(String pers, int nOgres, int nDoors){
 		
 		
 		switch(pers){
@@ -41,7 +41,7 @@ public class Game implements Serializable{
 		}
 		
 		Map1 map1 = new Map1(10, guard);
-		Map2 map2 = new Map2(10, nOgres, 1);
+		Map2 map2 = new Map2(10, nOgres, nDoors);
 
 		map1.buildMaze();
 		map2.buildMaze();

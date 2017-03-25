@@ -35,10 +35,12 @@ public class EGUI {
 	private JComboBox<String> guardsPers;
 
 	private String personality;
-	private int number_ogres;
+	private int number_ogres = 1;
 	
 	private char element;
-	private int size, nDoors;
+	private int size;
+	private int nDoors = 1;
+	int nHero = 0;
 	
 	private ImageIcon hero, kFloor, kWall, kOpenGate, kClosedGate, key, ogre, logo;
 
@@ -64,7 +66,6 @@ public class EGUI {
 	public JFrame getMenuFramel() {
 		return this.menu_frame;
 	}
-
 
 	public EGUI() throws IOException {
 
@@ -141,48 +142,7 @@ public class EGUI {
 
 		btnLoadGame.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-			
-				Game g = new Game();
-				
-				try {
-					game_panel = new GamePanel(700, 700, 0, "Novice");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				
-				game_panel.setBounds(0, 0, 700, 700);
-				game_panel.addKeyListener(game_panel);
-				game_panel.setFocusable(true);
-				game_frame.getContentPane().add(game_panel);
-				
-				try {
-					
-			         FileInputStream fileIn = new FileInputStream("res/saved/game.ser");
-			         ObjectInputStream in = new ObjectInputStream(fileIn);
-			         
-			         
-			         g = (Game)in.readObject();
-			         game_panel.setGame(g);
-			         
-			         in.close();
-			         fileIn.close();
-			         
-			         game_panel.setVisible(true);
-			         menu_frame.setFocusable(false);
-			         game_frame.requestFocus();
-			         game_frame.setVisible(true);
-			         
-			      }catch(IOException i) {
-			         i.printStackTrace();
-			         return;
-			      }catch(ClassNotFoundException c) {
-			         c.printStackTrace();
-			         return;
-			      }
-
-			}
-
+			public void actionPerformed(ActionEvent e) {loadGame();}
 		});
 		
 		menu_frame.getContentPane().add(btnLoadGame);
@@ -227,9 +187,7 @@ public class EGUI {
 		
 		
 		createMoveBtns();
-		
-		
-		
+
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres (1-5):");
 		lblNumberOfOgres.setBounds(67, 28, 162, 16);
 		options_frame.getContentPane().add(lblNumberOfOgres);
@@ -256,27 +214,7 @@ public class EGUI {
 		options_frame.getContentPane().add(okBtn);
 
 		okBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				personality = guardsPers.getSelectedItem().toString();
-				number_ogres = Integer.parseInt(nOgres.getText());
-				if (number_ogres < 1 || number_ogres > 5) {
-					JOptionPane.showMessageDialog(options_frame, "Invalid options!");
-				} else {
-					try {
-						game_panel = new GamePanel(700, 700, number_ogres, personality);
-						game_panel.setBounds(0, 0, 700, 700);
-						game_panel.addKeyListener(game_panel);
-						game_panel.setFocusable(true);
-						game_frame.getContentPane().add(game_panel);
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(options_frame, "Invalid options!");
-						e1.printStackTrace();
-					}
-					options_frame.setVisible(false);
-					menu_frame.setVisible(false);
-					game_frame.setVisible(true);
-				}
-			}
+			public void actionPerformed(ActionEvent e) {newGame();}
 		});
 
 
@@ -290,12 +228,7 @@ public class EGUI {
 		
 		menu_frame.getContentPane().add(menupanel);
 		menu_frame.setIconImage(logo.getImage());
-		
-		
-		JButton
-		
-		
-		
+	
 		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnSaveGame.setForeground(Color.RED);
@@ -309,23 +242,7 @@ public class EGUI {
 
 		btnSaveGame.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-
-				 try {
-					 
-			         FileOutputStream fileOut =   new FileOutputStream("res/saved/game.ser");
-			         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			         out.writeObject(game_panel.dungeon);
-			         out.close();
-			         fileOut.close();
-			         game_panel.requestFocus();
-			         
-			   			         			         
-			      }catch(IOException i) {
-			         i.printStackTrace();
-			      }
-
-			}
+			public void actionPerformed(ActionEvent e) {saveGame();}
 		});
 
 	}
@@ -398,7 +315,6 @@ public class EGUI {
 	
 	public void createEditingInterface(){
 		
-				
 		edit_frame.getContentPane().setLayout(null);
 		loadImages();
 		scaleImages();
@@ -412,10 +328,12 @@ public class EGUI {
 		edit_frame.getContentPane().add(insertSize);
 		insertSize.setColumns(10);
 		
-				
-		
 		JButton btnFloor = new JButton(kFloor);
 		btnFloor.setBounds(16, 102, 100, 100);
+		btnFloor.setOpaque(false);
+		btnFloor.setContentAreaFilled(false);
+		btnFloor.setBorderPainted(false);
+
 		btnFloor.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			editorpanel.setElement(' ');
@@ -426,6 +344,9 @@ public class EGUI {
 		
 		JButton btnWall = new JButton(kWall);
 		btnWall.setBounds(146, 102, 100, 100);
+		btnWall.setOpaque(false);
+		btnWall.setContentAreaFilled(false);
+		btnWall.setBorderPainted(false);
 		edit_frame.getContentPane().add(btnWall);
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -437,10 +358,18 @@ public class EGUI {
 		btnHero.setBounds(16, 342, 100, 100);
 		btnHero.setFocusPainted(false); 
 		btnHero.setOpaque(false);
+		btnHero.setContentAreaFilled(false);
+		btnHero.setBorderPainted(false);
 		edit_frame.getContentPane().add(btnHero);
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (nHero == 0){
 				editorpanel.setElement('A');
+				nHero++;
+				}
+				else{
+					JOptionPane.showMessageDialog(edit_frame,"Only one Hero!");
+				}
 			}
 		});
 		
@@ -448,6 +377,8 @@ public class EGUI {
 		btnCGate.setBounds(146, 219, 100, 100);
 		btnCGate.setFocusPainted(false); 
 		btnCGate.setOpaque(false);
+		btnCGate.setContentAreaFilled(false);
+		btnCGate.setBorderPainted(false);
 		edit_frame.getContentPane().add(btnCGate);
 		btnCGate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -460,10 +391,13 @@ public class EGUI {
 		btnOGate.setBounds(16, 219, 100, 100);
 		btnOGate.setFocusPainted(false); 
 		btnOGate.setOpaque(false);
+		btnOGate.setContentAreaFilled(false);
+		btnOGate.setBorderPainted(false);
 		edit_frame.getContentPane().add(btnOGate);
 		btnOGate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editorpanel.setElement('S');
+				nDoors++;
 			}
 		});
 		
@@ -471,6 +405,8 @@ public class EGUI {
 		btnKey.setBounds(146, 342, 100, 100);
 		btnKey.setFocusPainted(false); 
 		btnKey.setOpaque(false);
+		btnKey.setContentAreaFilled(false);
+		btnKey.setBorderPainted(false);
 		edit_frame.getContentPane().add(btnKey);
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -482,6 +418,8 @@ public class EGUI {
 		btnOgre.setBounds(16, 453, 100, 100);
 		btnOgre.setFocusPainted(false); 
 		btnOgre.setOpaque(false);
+		btnOgre.setContentAreaFilled(false);
+		btnOgre.setBorderPainted(false);
 		edit_frame.getContentPane().add(btnOgre);
 		
 		
@@ -497,8 +435,13 @@ public class EGUI {
 		btnOK.setBounds(129, 581, 117, 29);
 		btnOK.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
-				Map customMap = game_panel.dungeon.getMap();
+				if (number_ogres == 0)
+					JOptionPane.showMessageDialog(edit_frame,"At least one ogre!");
+				if (nDoors == 0){
+					JOptionPane.showMessageDialog(edit_frame,"At least one door!");
+				}
+				editorpanel.getGP().dungeon.setCurrentMap(1);
+				Map customMap = editorpanel.getGP().dungeon.getMap();
 				
 				for(int i = 0; i < customMap.getBoard().length; i++){
 					for(int j = 0; j < customMap.getBoard()[i].length; j++){
@@ -510,14 +453,14 @@ public class EGUI {
 							h.setLin(i);
 							h.setCol(j);
 							h.setSymbol('A');
-							game_panel.dungeon.getMap().setHero(h);
+							customMap.setHero(h);
 							break;
 							
 						case 'O':
 							Ogre o = new Ogre();
 							o.setLin(i);
 							o.setCol(j);
-							((Map2)game_panel.dungeon.getMap()).addOgre(o);
+							((Map2)customMap).addOgre(o);
 							break;
 							
 						case 'I':
@@ -525,30 +468,30 @@ public class EGUI {
 							l.setLin(i);
 							l.setCol(j);
 							l.setSymbol('I');
-							((Map2)game_panel.dungeon.getMap()).addDoor(l);
+							((Map2)customMap).addDoor(l);
 							
 						case 'S':
 							Door s = new Door();
 							s.setLin(i);
 							s.setCol(j);
 							s.setSymbol('S');
-							((Map2)game_panel.dungeon.getMap()).addDoor(s);
+							((Map2)customMap).addDoor(s);
 							
 						case 'k':
 							Key k = new Key();
 							k.setLin(i);
 							k.setCol(j);
-							((Map2)game_panel.dungeon.getMap()).setKey(k);
+							((Map2)customMap).setKey(k);
 						
 						}
 					}
 				}
-				
+				editorpanel.getGP().dungeon.setCurrentMap(0);
 				edit_frame.setVisible(false);
 				game_frame.setVisible(true);
-				game_panel.setVisible(true);
-				game_panel.requestFocus();
-				System.out.println("exited handler");
+				game_frame.getContentPane().add(editorpanel.getGP());
+				editorpanel.getGP().setVisible(true);
+				edit_frame.dispose();
 			}
 		});
 		
@@ -564,10 +507,9 @@ public class EGUI {
 					JOptionPane.showMessageDialog(editorpanel, "Invalid map size: must be between 0 and 10", "Invalid Map Size", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				
-				System.out.println("entered set");
 				try {
-					editorpanel = new EditorPanel(500,500,0,"Novice",size, 0, element);
+					editorpanel = new EditorPanel(500,500,size,element);
+					editorpanel.buildCustomMap(size,number_ogres, nDoors);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -620,6 +562,83 @@ public class EGUI {
 		ogre = new ImageIcon(ogre.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 		
 		
+	}
+	
+	public void loadGame(){
+		Game g = new Game();
+		
+		try {
+			game_panel = new GamePanel(700, 700, 0, "Novice",1);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		game_panel.setBounds(0, 0, 700, 700);
+		game_panel.addKeyListener(game_panel);
+		game_panel.setFocusable(true);
+		game_frame.getContentPane().add(game_panel);
+		
+		try {
+			
+	         FileInputStream fileIn = new FileInputStream("res/saved/game.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         
+	         
+	         g = (Game)in.readObject();
+	         game_panel.setGame(g);
+	         
+	         in.close();
+	         fileIn.close();
+	         
+	         game_panel.setVisible(true);
+	         menu_frame.setFocusable(false);
+	         game_frame.requestFocus();
+	         game_frame.setVisible(true);
+	         
+	      }catch(IOException i) {
+	         i.printStackTrace();
+	         return;
+	      }catch(ClassNotFoundException c) {
+	         c.printStackTrace();
+	         return;
+	      }
+	}
+	
+	public void newGame(){
+		personality = guardsPers.getSelectedItem().toString();
+		number_ogres = Integer.parseInt(nOgres.getText());
+		if (number_ogres < 1 || number_ogres > 5) {
+			JOptionPane.showMessageDialog(options_frame, "Invalid options!");
+		} else {
+			try {
+				game_panel = new GamePanel(700, 700, number_ogres, personality,1);
+				game_panel.setBounds(0, 0, 700, 700);
+				game_panel.addKeyListener(game_panel);
+				game_panel.setFocusable(true);
+				game_frame.getContentPane().add(game_panel);
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(options_frame, "Invalid options!");
+				e1.printStackTrace();
+			}
+			options_frame.setVisible(false);
+			menu_frame.setVisible(false);
+			game_frame.setVisible(true);
+		}
+	}
+	
+	public void saveGame(){
+		try {
+			 
+	         FileOutputStream fileOut =   new FileOutputStream("res/saved/game.ser");
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeObject(game_panel.dungeon);
+	         out.close();
+	         fileOut.close();
+	         game_panel.requestFocus();
+	       			         
+	      }catch(IOException i) {
+	         i.printStackTrace();
+	      }
 	}
 	
 }

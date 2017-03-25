@@ -1,27 +1,32 @@
 package dk2.gui;
 
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
+import javax.swing.JPanel;
+
 import dk2.logic.Map;
 import dk2.logic.Map2;
 
+import dk2.gui.GamePanel;
 
-public class EditorPanel extends GamePanel implements MouseListener{
+
+public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseListener{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private char element;
 	private int size;
+	private GamePanel gp;
 	
-	
-	public EditorPanel(int width, int height, int nOgres, String guardsPers, int mapSize, int nDoors, char toDraw)  throws IOException  {
+	public EditorPanel(int width, int height, int mapSize, char toDraw)  throws IOException  {
 		
-		super(width, height, nOgres, guardsPers);
-		super.dungeon.setCurrentMap(1);
-		buildCustomMap(mapSize, nDoors);
+		gp = new GamePanel(width, height,0,"Novice",0);
 		this.size = mapSize;
 		this.element = toDraw;
 		
@@ -33,31 +38,35 @@ public class EditorPanel extends GamePanel implements MouseListener{
 		this.element = element;
 	}
 	
-	public void buildCustomMap(int size, int nDoors){
+	public GamePanel getGP(){
+		return gp;
+	}
+	
+	public void buildCustomMap(int size, int nOgres, int nDoors){
 		
-		Map customMap = new Map2(size, 0, 0);
+		Map customMap = new Map2(size, nOgres, nDoors);
 		
 		customMap.buildExtWalls();
+		gp.dungeon.setCurrentMap(1);
+		gp.dungeon.getLevels().remove(gp.dungeon.getCurrentMap());
+		gp.dungeon.getLevels().add(customMap);
 		
-		this.dungeon.getLevels().remove(dungeon.getCurrentMap());
-		this.dungeon.getLevels().add(customMap);
-		
-		
+		repaint();
 	}
 	
 	
 	@Override
 	public void paintComponent(Graphics g){
-
-		Map gamemap = dungeon.getMap();
-
 		
+		Map gamemap = gp.dungeon.getMap();
+
+		//this.setOpaque(false);
 		g.fillRect(0, 0, 500 , 500);
 		
 		// covering all floor
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				g.drawImage(getkFloor(), i * getOffsetW(), j * getOffsetH(), this);
+				g.drawImage(gp.getkFloor(), i * gp.getOffsetW(), j * gp.getOffsetH(), this);
 			}
 		}
 
@@ -70,55 +79,36 @@ public class EditorPanel extends GamePanel implements MouseListener{
 				switch (component) {
 
 				case 'X':
-					g.drawImage(getkWall(), j * getOffsetH(), i * getOffsetW(), this);
+					g.drawImage(gp.getkWall(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
 					break;
 				case 'A':
-					g.drawImage(getBruceLee(), j * getOffsetH(), i * getOffsetW(), this);
+					g.drawImage(gp.getBruceLee(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
 					break;
 				case 'O':
-					g.drawImage(getOgre(), j * getOffsetH(), i * getOffsetW(), this);
+					g.drawImage(gp.getOgre(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
 					break;
 				case 'S':
-					g.drawImage(getkOpenGate(), j * getOffsetH(), i * getOffsetW(), this);
+					g.drawImage(gp.getkOpenGate(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
 					break;
 				case 'I':
-					g.drawImage(getkClosedGate(), j * getOffsetH(), i * getOffsetW(), this);
+					g.drawImage(gp.getkClosedGate(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
 					break;
 				case 'k':
-					g.drawImage(getKey(), j * getOffsetH(), i * getOffsetW(), this);
+					g.drawImage(gp.getKey(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
 					break;
 				}
 			}
 
 		}
-
-//		// drawing gates
-//		for (int i = 0; i < gamemap.getAllDoors().length; i++) {
-//
-//			if (gamemap.getAllDoors()[i].isOpen())
-//				g.drawImage(getkOpenGate(), gamemap.getAllDoors()[i].getCol() * getOffsetH(),
-//						gamemap.getAllDoors()[i].getLin() * getOffsetW(), this);
-//			else
-//				g.drawImage(getkClosedGate(), gamemap.getAllDoors()[i].getCol() * getOffsetH(),
-//						gamemap.getAllDoors()[i].getLin() * getOffsetW(), this);
-//		}
-//
-//			g.drawImage(getBruceLee(), gamemap.getHero().getCol() * offsetH,
-//				gamemap.getHero().getLin() * offsetW, this);
 	}
-
-
-	@Override
-	public void keyPressed(KeyEvent event) {};
-
-
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
-		int lin = e.getX() / this.offsetW;
-		int col = e.getY() / this.offsetH;
-		
-		dungeon.getMap().setBoardCell(col, lin, element);
+		int lin = e.getX() / gp.getOffsetW();
+		int col = e.getY() / gp.getOffsetH();
+		gp.dungeon.setCurrentMap(1);
+		gp.dungeon.getMap().setBoardCell(col, lin, element);
 		
 		repaint();
 		

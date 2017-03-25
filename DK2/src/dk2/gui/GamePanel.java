@@ -3,19 +3,13 @@ package dk2.gui;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImagingOpException;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import org.imgscalr.Scalr;
@@ -25,10 +19,10 @@ import dk2.logic.*;
 import dk2.gui.EGUI;
 
 public class GamePanel extends JPanel implements  KeyListener {
-
+	private static final long serialVersionUID = 1L;
 	protected Game dungeon = new Game();
 	private boolean gameOver = false;
-	private boolean wonLevel = false;
+	private boolean won = false;
 
 	private BufferedImage bruceLee, dFloor, dWall, dOpenDoor, dClosedDoor, leverOff, leverOn, rookie, drunken_asleep,
 			drunken, suspicious, kFloor, kWall, kOpenGate, kClosedGate, key, grave, ogre, ogreStunned, fireball;
@@ -37,10 +31,10 @@ public class GamePanel extends JPanel implements  KeyListener {
 	
 	private EGUI ng;
 
-	public GamePanel(int width, int height, int nOgres, String guardsPers) throws IOException {
+	public GamePanel(int width, int height, int nOgres, String guardsPers, int nDoors) throws IOException {
 		
 				
-		dungeon.buildMaps(guardsPers, nOgres);
+		dungeon.buildMaps(guardsPers, nOgres, nDoors);
 		
 		gridH = dungeon.getMap().getBoard()[0].length;
 		gridW = dungeon.getMap().getBoard().length;
@@ -61,10 +55,6 @@ public class GamePanel extends JPanel implements  KeyListener {
 
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
-	}
-
-	public void setWonLevel(boolean wonLevel) {
-		this.wonLevel = wonLevel;
 	}
 
 	public void setBruceLee(BufferedImage bruceLee) {
@@ -210,7 +200,6 @@ public class GamePanel extends JPanel implements  KeyListener {
 
 				}
 			}
-
 		}
 
 		// drawing doors
@@ -253,7 +242,6 @@ public class GamePanel extends JPanel implements  KeyListener {
 			else
 				g.drawImage(drunken, offsetH * guard.getCol(), offsetW * guard.getLin(), this);
 		}
-		
 		if(gamemap.getHero().distanceTo(guard) <= 1){
 			g.drawImage(grave, dungeon.getMap().getHero().getCol() * offsetH,
 					dungeon.getMap().getHero().getLin() * offsetW, this);
@@ -262,8 +250,6 @@ public class GamePanel extends JPanel implements  KeyListener {
 		else
 			g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
 					dungeon.getMap().getHero().getLin() * offsetW, this);
-		
-
 	}
 
 	public void paintKeeperLvL(Graphics g) {
@@ -293,17 +279,23 @@ public class GamePanel extends JPanel implements  KeyListener {
 			}
 
 		}
-
-		// drawing gates
-		for (int i = 0; i < gamemap.getAllDoors().length; i++) {
-
-			if (gamemap.getAllDoors()[i].isOpen())
-				g.drawImage(kOpenGate, gamemap.getAllDoors()[i].getCol() * offsetH,
-						gamemap.getAllDoors()[i].getLin() * offsetW, this);
-			else
-				g.drawImage(kClosedGate, gamemap.getAllDoors()[i].getCol() * offsetH,
-						gamemap.getAllDoors()[i].getLin() * offsetW, this);
-		}
+		if(gamemap.getAllDoors().length != 0){
+			// drawing gates
+			for (int i = 0; i < gamemap.getAllDoors().length; i++) {
+	
+				if (gamemap.getAllDoors()[i].isOpen()){
+					g.drawImage(kOpenGate, gamemap.getAllDoors()[i].getCol() * offsetH,
+							gamemap.getAllDoors()[i].getLin() * offsetW, this);
+					if (gamemap.getHero().distanceTo(gamemap.getAllDoors()[i]) <= 1 )
+						won = true;
+				}
+				else
+					g.drawImage(kClosedGate, gamemap.getAllDoors()[i].getCol() * offsetH,
+							gamemap.getAllDoors()[i].getLin() * offsetW, this);
+				
+				}
+			}
+		
 
 		
 		Key k = ((Map2) gamemap).getKey();
@@ -329,13 +321,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 				g.drawImage(grave, dungeon.getMap().getHero().getCol() * offsetH,
 						dungeon.getMap().getHero().getLin() * offsetW, this);
 				this.gameOver = true;
-				
-				try {
-					ng = new EGUI();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
+				return;
 			}	
 			else
 				g.drawImage(bruceLee, dungeon.getMap().getHero().getCol() * offsetH,
@@ -349,10 +335,6 @@ public class GamePanel extends JPanel implements  KeyListener {
 
 	public Game getDungeon() {
 		return dungeon;
-	}
-
-	public boolean isWonLevel() {
-		return wonLevel;
 	}
 
 	public BufferedImage getBruceLee() {
@@ -505,12 +487,15 @@ public class GamePanel extends JPanel implements  KeyListener {
 				e.printStackTrace();
 			}
 			ng.getMenuFramel().setVisible(true);
-			SwingUtilities.getWindowAncestor(this).setVisible(false);
+			SwingUtilities.getWindowAncestor(this).dispose();
 			
 		}
 		
-		if (dungeon.getMap().hasHeroWon()){
+		if (won){
 			JOptionPane.showMessageDialog(this.getRootPane(), "You Won!");
+			SwingUtilities.windowForComponent(this).dispose();
+			try{ ng = new EGUI(); } catch (IOException e) {e.printStackTrace();}
+			ng.getMenuFramel().setVisible(true);
 		}
 		
 		switch (key) {
