@@ -15,3 +15,14 @@ Nelson André Garrido da Costa - up201403128 - up201403128@fe.up.pt
 ----------BetterCodeHub Status Badge----------
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/JC13/LPOO1617_T3G13?token=252d76c53eaabcf75f441641dd28743a6ea047b8)](https://bettercodehub.com/)
+
+
+----------  EclEmma Test Results  ----------
+
+http://imgur.com/a/el1fo
+
+
+---------- PIT tool Test Results ----------
+
+http://imgur.com/a/PH3zE
+
