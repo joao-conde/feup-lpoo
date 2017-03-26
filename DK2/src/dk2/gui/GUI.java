@@ -20,6 +20,7 @@ import java.awt.Font;
 
 public class GUI implements SwingConstants{
 
+	private JComboBox<String> guardsFld;
 	private JFrame frmDungeonKeeper;
 	private JTextField fldNOgres;
 	private JTextArea textArea = new JTextArea();
@@ -97,41 +98,55 @@ public class GUI implements SwingConstants{
 		modifyTxtArea(dungeon_keeper.getMap());
 	}
 	
-	private void initialize() {
+	public void createFrame(){
 		frmDungeonKeeper = new JFrame();
 		frmDungeonKeeper.setResizable(false);
 		frmDungeonKeeper.setTitle("Dungeon Keeper");
 		frmDungeonKeeper.setBounds(100, 100, 500, 326);
 		frmDungeonKeeper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDungeonKeeper.getContentPane().setLayout(null);
-
+	}
+	
+	public void createLabels(){
+		JLabel lblGuardsPersonality = new JLabel("Guard's Personality:");
+		lblGuardsPersonality.setBounds(31, 47, 138, 16);
+		frmDungeonKeeper.getContentPane().add(lblGuardsPersonality);
+		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres:");
 		lblNumberOfOgres.setBounds(31, 19, 138, 16);
 		frmDungeonKeeper.getContentPane().add(lblNumberOfOgres);
-
+		
+		lblLabel = new JLabel("");
+		lblLabel.setBounds(41, 270, 225, 16);
+		lblLabel.setHorizontalAlignment(CENTER);
+		frmDungeonKeeper.getContentPane().add(lblLabel);
+	}
+	
+	public void createTxtField(){
 		fldNOgres = new JTextField();
 		fldNOgres.setBounds(163, 14, 27, 26);
 		frmDungeonKeeper.getContentPane().add(fldNOgres);
 		fldNOgres.setColumns(10);
+	}
+	
+	public void createComboBox(){
 
-		JLabel lblGuardsPersonality = new JLabel("Guard's Personality:");
-		lblGuardsPersonality.setBounds(31, 47, 138, 16);
-		frmDungeonKeeper.getContentPane().add(lblGuardsPersonality);
-
-		JComboBox<String> guardsFld = new JComboBox<String>();
+		guardsFld = new JComboBox<String>();
 		guardsFld.addItem("Novice");
 		guardsFld.addItem("Drunken");
 		guardsFld.addItem("Suspicious");
 		guardsFld.setBounds(163, 43, 151, 27);
 		frmDungeonKeeper.getContentPane().add(guardsFld);
-
-		 
+	}
+	
+	public void createTxtArea(){
 		textArea.setFont(new Font("Courier New", Font.BOLD, 14));
 		textArea.setEditable(false);
 		textArea.setBounds(81, 86, 151, 172);
 		frmDungeonKeeper.getContentPane().add(textArea);
-		
-
+	}
+	
+	public void createExitBtn(){
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -140,7 +155,9 @@ public class GUI implements SwingConstants{
 		});
 		btnExit.setBounds(344, 243, 100, 29);
 		frmDungeonKeeper.getContentPane().add(btnExit);
-
+	}
+	
+	public void createUpBtn(){
 		JButton btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -149,7 +166,9 @@ public class GUI implements SwingConstants{
 		});
 		btnUp.setBounds(362, 77, 71, 39);
 		frmDungeonKeeper.getContentPane().add(btnUp);
-
+	}
+	
+	public void createLeftBtn(){
 		JButton btnLeft = new JButton("Left");
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,7 +177,9 @@ public class GUI implements SwingConstants{
 		});
 		btnLeft.setBounds(324, 113, 71, 39);
 		frmDungeonKeeper.getContentPane().add(btnLeft);
-
+	}
+	
+	public void createRightBtn(){
 		JButton btnRight = new JButton("Right");
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -167,7 +188,9 @@ public class GUI implements SwingConstants{
 		});
 		btnRight.setBounds(394, 113, 71, 39);
 		frmDungeonKeeper.getContentPane().add(btnRight);
-
+	}
+	
+	public void createDownBtn(){
 		JButton btnDown = new JButton("Down");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,12 +199,9 @@ public class GUI implements SwingConstants{
 		});
 		btnDown.setBounds(362, 151, 71, 39);
 		frmDungeonKeeper.getContentPane().add(btnDown);
-
-		lblLabel = new JLabel("");
-		lblLabel.setBounds(41, 270, 225, 16);
-		lblLabel.setHorizontalAlignment(CENTER);
-		frmDungeonKeeper.getContentPane().add(lblLabel);
-
+	}
+	
+	public void createNewGameBtn(){
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -204,6 +224,27 @@ public class GUI implements SwingConstants{
 		});
 		btnNewGame.setBounds(344, 14, 100, 29);
 		frmDungeonKeeper.getContentPane().add(btnNewGame);
+	}
+	
+	public void createBtns(){
+		createExitBtn();
+		createUpBtn();
+		createLeftBtn();
+		createRightBtn();
+		createDownBtn();
+		createNewGameBtn();
+	}
+	
+	private void initialize() {
+		
+		createFrame();
+		createLabels();
+		createTxtField();
+		createComboBox();
+		createTxtArea();
+		createBtns();
+
+
 
 	}
 }
