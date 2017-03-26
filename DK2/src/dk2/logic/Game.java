@@ -3,8 +3,7 @@ package dk2.logic;
 import java.io.Serializable;
 import java.util.Vector;
 
-
-/*
+/**
  * This class contains all game data and methods to evolution of the game
  */
 public class Game implements Serializable {
@@ -14,8 +13,7 @@ public class Game implements Serializable {
 	private Vector<Map> levels;
 	private int currentMap;
 
-	
-	/*
+	/**
 	 * Game constructor: initializes game components
 	 */
 	public Game() {
@@ -26,22 +24,42 @@ public class Game implements Serializable {
 
 	}
 
-	
-	/*
-	 * Returns the vector of levels 
+	/**
+	 * Returns the vector of levels
 	 */
 	public Vector<Map> getLevels() {
 		return this.levels;
 	}
 
-	
 	/**
 	 * Builds each level components
-	 * @param pers guard personality
-	 * @param nOgres number of ogres
-	 * @param nDoors number of doors
+	 * 
+	 * @param pers
+	 *            guard personality
+	 * @param nOgres
+	 *            number of ogres
+	 * @param nDoors
+	 *            number of doors
 	 */
 	public void buildMaps(String pers, int nOgres, int nDoors) {
+
+		createGuard(pers);
+
+		Map1 map1 = new Map1(10, guard);
+		Map2 map2 = new Map2(10, nOgres, 1);
+
+		levels.add(map1);
+		levels.add(map2);
+		this.buildMazes();
+
+	}
+
+	/**
+	 * 
+	 * @param pers
+	 *            guard personality
+	 */
+	public void createGuard(String pers) {
 
 		switch (pers) {
 		case "Novice":
@@ -54,18 +72,17 @@ public class Game implements Serializable {
 			this.guard = new Suspicious();
 			break;
 		}
-
-		Map1 map1 = new Map1(10, guard);
-		Map2 map2 = new Map2(10, nOgres, 1);
-
-		map1.buildMaze();
-		map2.buildMaze();
-
-		levels.add(map1);
-		levels.add(map2);
 	}
 
-	
+	/**
+	 * Calls the buildMaze() method for each map in the game
+	 */
+	public void buildMazes() {
+		for (int i = 0; i < levels.size(); i++) {
+			levels.elementAt(i).buildMaze();
+		}
+	}
+
 	/**
 	 * @return number of ogres
 	 */
@@ -75,7 +92,8 @@ public class Game implements Serializable {
 
 	/**
 	 * 
-	 * @param m map to be add
+	 * @param m
+	 *            map to be add
 	 */
 	public void addMap(Map m) {
 		levels.add(m);
@@ -83,7 +101,8 @@ public class Game implements Serializable {
 
 	/**
 	 * 
-	 * @param index indicates current map is levels[index]
+	 * @param index
+	 *            indicates current map is levels[index]
 	 */
 	public void setCurrentMap(int index) {
 		this.currentMap = index;
@@ -105,9 +124,9 @@ public class Game implements Serializable {
 		return this.levels.size();
 	}
 
-	
 	/**
 	 * This method advances hero to next map (if there is one)
+	 * 
 	 * @return a boolean indicating if hero wins or advances level
 	 */
 	public boolean advance() {
@@ -121,20 +140,14 @@ public class Game implements Serializable {
 		return false;
 	}
 
-	
 	/**
-	 * Checks if hero lost the game (or died)
-	 * @return boolean indicating if hero died
+	 * Checks if hero is killed by an enemy above him
+	 * 
+	 * @return boolean indicating if hero is dead
 	 */
-	public boolean isHeroDead() {
-
+	public boolean enemyAbove() {
 		char b[][] = levels.elementAt(currentMap).getBoard();
 		Hero h = levels.elementAt(currentMap).getHero();
-
-		if (h.getCol() == 0 || h.getLin() == 0)
-			return false;
-
-		// check 3 positions above hero
 
 		if ((b[h.getLin() - 1][h.getCol() - 1] == 'O') || (b[h.getLin() - 1][h.getCol() - 1] == '*'))
 			return true;
@@ -146,21 +159,40 @@ public class Game implements Serializable {
 		if ((b[h.getLin() - 1][h.getCol() + 1] == 'O') || (b[h.getLin() - 1][h.getCol() + 1] == '*'))
 			return true;
 
-		// check 3 positions below hero
+		return false;
+	}
 
-		if ((b[h.getLin() + 1][h.getCol() - 1] == 'O')
-				|| (b[h.getLin() + 1][h.getCol() - 1] == '*'))
+	/**
+	 * Checks if hero is killed by an enemy below him
+	 * 
+	 * @return boolean indicating if hero is dead
+	 */
+	public boolean enemyBelow() {
+		char b[][] = levels.elementAt(currentMap).getBoard();
+		Hero h = levels.elementAt(currentMap).getHero();
+
+		if ((b[h.getLin() + 1][h.getCol() - 1] == 'O') || (b[h.getLin() + 1][h.getCol() - 1] == '*'))
 			return true;
 
 		if ((b[h.getLin() + 1][h.getCol()] == 'G') || (b[h.getLin() + 1][h.getCol()] == 'O')
 				|| (b[h.getLin() + 1][h.getCol()] == '*'))
 			return true;
 
-		if ( (b[h.getLin() + 1][h.getCol() + 1] == 'O')
-				|| (b[h.getLin() + 1][h.getCol() + 1] == '*'))
+		if ((b[h.getLin() + 1][h.getCol() + 1] == 'O') || (b[h.getLin() + 1][h.getCol() + 1] == '*'))
 			return true;
 
-		// check remaining positions
+		return false;
+	}
+
+	/**
+	 * Checks if hero is killed by an enemy side by side with him
+	 * 
+	 * @return boolean indicating if hero is dead
+	 */
+	public boolean enemySide() {
+
+		char b[][] = levels.elementAt(currentMap).getBoard();
+		Hero h = levels.elementAt(currentMap).getHero();
 
 		if ((b[h.getLin()][h.getCol() - 1] == 'G') || (b[h.getLin()][h.getCol() - 1] == 'O')
 				|| (b[h.getLin()][h.getCol() - 1] == '*'))
@@ -169,6 +201,27 @@ public class Game implements Serializable {
 		if ((b[h.getLin()][h.getCol() + 1] == 'G') || (b[h.getLin()][h.getCol() + 1] == 'O')
 				|| (b[h.getLin()][h.getCol() + 1] == '*'))
 			return true;
+
+		return false;
+	}
+
+	/**
+	 * Checks if hero lost the game (or died)
+	 * 
+	 * @return boolean indicating if hero died
+	 */
+	public boolean isHeroDead() {
+
+		char b[][] = levels.elementAt(currentMap).getBoard();
+		Hero h = levels.elementAt(currentMap).getHero();
+
+		if (h.getCol() == 0 || h.getLin() == 0)	return false;
+
+		if (enemyAbove()) return true;
+		
+		if(enemyBelow()) return true;
+		
+		if(enemySide()) return true;
 
 		return false;
 

@@ -5,13 +5,11 @@ import java.io.Serializable;
 public abstract class Character implements Serializable{
 	
 	
-	//-------------ATTRIBUTES-------------//
+	
 	private int lin, col;
 	private char symbol;
 	
-	
-	//--------------METHODS---------------//
-	
+
 	public Character(){}
 	
 	public int getLin() {

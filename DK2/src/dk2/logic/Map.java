@@ -2,14 +2,12 @@ package dk2.logic;
 
 import java.io.Serializable;
 
-public abstract class Map implements Serializable{
+public abstract class Map implements Serializable {
 
-	
 	private char[][] board;
 	private int size;
 	private Hero mieic_student;
 
-	
 	public Map(int mapSize) {
 		this.size = mapSize;
 
@@ -25,9 +23,8 @@ public abstract class Map implements Serializable{
 		this.mieic_student = new Hero();
 	}
 
-
 	public abstract boolean hasHeroWon();
-	
+
 	public char[][] getBoard() {
 		return board;
 	}
@@ -35,7 +32,6 @@ public abstract class Map implements Serializable{
 	public int getSize() {
 		return this.size;
 	}
-	
 
 	public void setBoardCell(int lin, int col, char symbol) {
 
@@ -46,18 +42,18 @@ public abstract class Map implements Serializable{
 		return this.mieic_student;
 	};
 
-	public void setBoard(char[][] b ){
+	public void setBoard(char[][] b) {
 		this.board = b;
 	}
+
 	public abstract Door[] getDoor();
 
-	public abstract Door[] getAllDoors();	
-	
+	public abstract Door[] getAllDoors();
+
 	public abstract void openDoors();
-	
+
 	public void buildExtWalls() {
 
-		// filling off the top and bottom lines
 		for (int i = 0; i < this.size; i++) {
 			board[0][i] = 'X';
 		}
@@ -66,7 +62,6 @@ public abstract class Map implements Serializable{
 			board[board.length - 1][i] = 'X';
 		}
 
-		// filling right and left column
 		for (int i = 0; i < size; i++) {
 			board[i][0] = 'X';
 		}
@@ -91,121 +86,143 @@ public abstract class Map implements Serializable{
 		this.setBoardCell(this.mieic_student.getLin(), this.mieic_student.getCol(), ' ');
 	}
 
-	public boolean canMove(char direction, MovingChar obj) {
+	public boolean canMoveUp(MovingChar obj) {
 
-		
-		switch (direction) {
+		if ((board[obj.getLin() - 1][obj.getCol()] == 'X') || (board[obj.getLin() - 1][obj.getCol()] == 'I')
+				|| (board[obj.getLin() - 1][obj.getCol()] == 'O') || (board[obj.getLin() - 1][obj.getCol()] == '*')
+				|| (board[obj.getLin() - 1][obj.getCol()] == '$') || (board[obj.getLin() - 1][obj.getCol()] == '8'))
+			return false;
 
-		case 'W':
-			if((board[obj.getLin()-1][obj.getCol()] == 'X') || (board[obj.getLin()-1][obj.getCol()] == 'I') || 
-					(board[obj.getLin()-1][obj.getCol()] == 'O') || (board[obj.getLin()-1][obj.getCol()] == '*') ||
-					(board[obj.getLin()-1][obj.getCol()] == '$') || (board[obj.getLin()-1][obj.getCol()] == '8'))
-				return false;			
-			break;
-
-		case 'S':
-			if((board[obj.getLin()+1][obj.getCol()] == 'X') || (board[obj.getLin()+1][obj.getCol()] == 'I') ||
-					(board[obj.getLin()+1][obj.getCol()] == 'O') || (board[obj.getLin()+1][obj.getCol()] == '*') ||
-					(board[obj.getLin()+1][obj.getCol()] == '$') || (board[obj.getLin()+1][obj.getCol()] == '8'))
-				return false;
-			break;
-
-		case 'A':
-			if((board[obj.getLin()][obj.getCol()-1] == 'X') || (board[obj.getLin()][obj.getCol()-1] == 'I') ||
-					(board[obj.getLin()][obj.getCol()-1] == 'O') || (board[obj.getLin()][obj.getCol()-1] == '*') ||
-					(board[obj.getLin()][obj.getCol()-1] == '$') || (board[obj.getLin()][obj.getCol()-1] == '8'))
-				return false;
-			break;
-
-		case 'D':
-			if((board[obj.getLin()][obj.getCol()+1] == 'X') || (board[obj.getLin()][obj.getCol()+1] == 'I') || 
-				(board[obj.getLin()][obj.getCol()+1] == 'O') || (board[obj.getLin()][obj.getCol()+1] == '*') ||
-				(board[obj.getLin()][obj.getCol()+1] == '$') || (board[obj.getLin()][obj.getCol()+1] == '8'))
-				return false;
-			break;
-			
-		case 'Q':
-			if((board[obj.getLin()-1][obj.getCol()-1] == 'X') || (board[obj.getLin()-1][obj.getCol()-1] == 'I') || 
-				(board[obj.getLin()-1][obj.getCol()-1] == 'O') || (board[obj.getLin()-1][obj.getCol()-1] == '*') ||
-				(board[obj.getLin()-1][obj.getCol()-1] == '$') || (board[obj.getLin()-1][obj.getCol()-1] == '8'))
-				return false;		
-			break;
-			
-		case 'E':
-			if((board[obj.getLin()-1][obj.getCol()+1] == 'X') || (board[obj.getLin()-1][obj.getCol()+1] == 'I') || 
-					(board[obj.getLin()-1][obj.getCol()]+1 == 'O') || (board[obj.getLin()-1][obj.getCol()+1] == '*') ||
-					(board[obj.getLin()-1][obj.getCol()+1] == '$') || (board[obj.getLin()-1][obj.getCol()+1] == '8'))
-				return false;		
-			break;
-			
-		case 'C':
-			if((board[obj.getLin()+1][obj.getCol()+1] == 'X') || (board[obj.getLin()+1][obj.getCol()+1] == 'I') || 
-				(board[obj.getLin()+1][obj.getCol()+1] == 'O') || (board[obj.getLin()+1][obj.getCol()+1] == '*') ||
-				(board[obj.getLin()+1][obj.getCol()+1] == '$') || (board[obj.getLin()+1][obj.getCol()+1] == '8'))
-				return false;		
-			break;
-			
-		case 'Z':
-			if((board[obj.getLin()+1][obj.getCol()-1] == 'X') || (board[obj.getLin()+1][obj.getCol()-1] == 'I') || 
-					(board[obj.getLin()+1][obj.getCol()-1] == 'O') || (board[obj.getLin()+1][obj.getCol()-1] == '*') ||
-					(board[obj.getLin()+1][obj.getCol()-1] == '$') || (board[obj.getLin()+1][obj.getCol()-1] == '8'))
-				return false;
-			break;
-			
-		}
-		
-					
 		return true;
-
 	}
 	
+	public boolean canMoveDown(MovingChar obj){
+		
+		if ((board[obj.getLin() + 1][obj.getCol()] == 'X') || (board[obj.getLin() + 1][obj.getCol()] == 'I')
+				|| (board[obj.getLin() + 1][obj.getCol()] == 'O') || (board[obj.getLin() + 1][obj.getCol()] == '*')
+				|| (board[obj.getLin() + 1][obj.getCol()] == '$') || (board[obj.getLin() + 1][obj.getCol()] == '8'))
+			return false;
+		
+		return true;
+	}
+	
+	public boolean canMoveLeft(MovingChar obj){
+		
+		if ((board[obj.getLin()][obj.getCol() - 1] == 'X') || (board[obj.getLin()][obj.getCol() - 1] == 'I')
+				|| (board[obj.getLin()][obj.getCol() - 1] == 'O') || (board[obj.getLin()][obj.getCol() - 1] == '*')
+				|| (board[obj.getLin()][obj.getCol() - 1] == '$') || (board[obj.getLin()][obj.getCol() - 1] == '8'))
+			return false;
+		return true;
+	}
+
+	public boolean canMoveRight(MovingChar obj){
+		
+		if ((board[obj.getLin()][obj.getCol() + 1] == 'X') || (board[obj.getLin()][obj.getCol() + 1] == 'I')
+				|| (board[obj.getLin()][obj.getCol() + 1] == 'O') || (board[obj.getLin()][obj.getCol() + 1] == '*')
+				|| (board[obj.getLin()][obj.getCol() + 1] == '$') || (board[obj.getLin()][obj.getCol() + 1] == '8'))
+			return false;
+		return true;
+	}
+	
+	public boolean canMoveUpperLeft(MovingChar obj){
+		
+		if ((board[obj.getLin() - 1][obj.getCol() - 1] == 'X') || (board[obj.getLin() - 1][obj.getCol() - 1] == 'I')
+				|| (board[obj.getLin() - 1][obj.getCol() - 1] == 'O')
+				|| (board[obj.getLin() - 1][obj.getCol() - 1] == '*')
+				|| (board[obj.getLin() - 1][obj.getCol() - 1] == '$')
+				|| (board[obj.getLin() - 1][obj.getCol() - 1] == '8'))
+			return false;
+		return true;
+	}
+	
+	public boolean canMoveUpperRight(MovingChar obj){
+	
+		if ((board[obj.getLin() - 1][obj.getCol() + 1] == 'X') || (board[obj.getLin() - 1][obj.getCol() + 1] == 'I')
+				|| (board[obj.getLin() - 1][obj.getCol()] + 1 == 'O')
+				|| (board[obj.getLin() - 1][obj.getCol() + 1] == '*')
+				|| (board[obj.getLin() - 1][obj.getCol() + 1] == '$')
+				|| (board[obj.getLin() - 1][obj.getCol() + 1] == '8'))
+			return false;
+		return true;
+	}
+	
+	public boolean canMoveLowerRight(MovingChar obj){
+		
+		if ((board[obj.getLin() + 1][obj.getCol() + 1] == 'X') || (board[obj.getLin() + 1][obj.getCol() + 1] == 'I')
+				|| (board[obj.getLin() + 1][obj.getCol() + 1] == 'O')
+				|| (board[obj.getLin() + 1][obj.getCol() + 1] == '*')
+				|| (board[obj.getLin() + 1][obj.getCol() + 1] == '$')
+				|| (board[obj.getLin() + 1][obj.getCol() + 1] == '8'))
+			return false;
+		
+		return true;
+	}
+	
+	public boolean canMoveLowerLeft(MovingChar obj){
+		
+		if ((board[obj.getLin() + 1][obj.getCol() - 1] == 'X') || (board[obj.getLin() + 1][obj.getCol() - 1] == 'I')
+				|| (board[obj.getLin() + 1][obj.getCol() - 1] == 'O')
+				|| (board[obj.getLin() + 1][obj.getCol() - 1] == '*')
+				|| (board[obj.getLin() + 1][obj.getCol() - 1] == '$')
+				|| (board[obj.getLin() + 1][obj.getCol() - 1] == '8'))
+			return false;
+		return true;
+	}
+	public boolean canMove(char direction, MovingChar obj) {
+
+		switch (direction) {
+		case 'W':	return canMoveUp(obj); 			
+		case 'S':	return canMoveDown(obj);
+		case 'A':	return canMoveLeft(obj);			
+		case 'D':	return canMoveRight(obj);			
+		case 'Q':	return canMoveUpperLeft(obj);			
+		case 'E': 	return canMoveUpperRight(obj);			
+		case 'C':	return canMoveLowerRight(obj);		
+		case 'Z':	return canMoveLowerLeft(obj);	
+		}
+		
+		return false;
+	}
+
 	public void moveHero(char direction) {
 
-		
 		char[][] b = this.getBoard();
-		
-		if(!canMove(direction,this.mieic_student))
+
+		if (!canMove(direction, this.mieic_student))
 			return;
-					
-		
+
 		switch (direction) {
 
 		case 'W':
 			this.getHero().moveUp(b);
-			this.drawHero();
 			break;
 
 		case 'S':
 			this.getHero().moveDown(b);
-			this.drawHero();
 			break;
 
 		case 'A':
-	
+
 			this.getHero().moveLeft(b);
-			this.drawHero();
 			break;
 
 		case 'D':
-			
+
 			this.getHero().moveRight(b);
-			this.drawHero();
 			break;
 
 		}
-		
-		
-		
 	}
-	
-	public void setHero(Hero h){
+
+	public void setHero(Hero h) {
 		this.mieic_student = h;
 	}
-	
-	public void heroReachedKey(){};
-	
+
+	public void heroReachedKey() {
+	};
+
 	public abstract void advanceTurn();
-	
-	
-	public void placeChars(){};
+
+	public void placeChars() {
+	};
 }

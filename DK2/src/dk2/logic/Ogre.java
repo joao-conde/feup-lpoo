@@ -44,32 +44,23 @@ public class Ogre extends MovingChar implements Serializable{
 		
 		switch (randomGen.nextInt(8)) {
 
-		case 0:
-			return 'W';
+		case 0:	return 'W';
 
-		case 1:
-			return 'E';
+		case 1:	return 'E';
 
-		case 2:
-			return 'D';
+		case 2:	return 'D';
 
-		case 3:
-			return 'C';
+		case 3:	return 'C';
 
-		case 4:
-			return 'S';
+		case 4:	return 'S';
 
-		case 5:
-			return 'Z';
+		case 5:	return 'Z';
 
-		case 6:
-			return 'A';
+		case 6:	return 'A';
 
-		case 7:
-			return 'Q';
+		case 7:	return 'Q';
 			
-		default:
-			return 'F';
+		default: return 'F';
 		}
 
 		

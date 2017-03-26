@@ -5,15 +5,13 @@ import java.io.Serializable;
 public abstract class Guard extends MovingChar implements Serializable{
 	
 	
-	//-------------ATTRIBUTES-------------//
-	
+
 	private char[] patrolPath = { 'A', 'S', 'S', 'S', 'S', 'A', 'A', 'A', 'A', 'A', 'A', 'S', 'D', 'D', 'D', 'D', 'D',
 			'D', 'D', 'W', 'W', 'W', 'W', 'W' };
 	
 	private int currentStep;
 		
 		
-	//--------------METHODS---------------//
 
 	public Guard(){
 		super();

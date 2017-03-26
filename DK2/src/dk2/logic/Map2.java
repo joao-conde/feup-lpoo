@@ -2,27 +2,23 @@ package dk2.logic;
 
 import java.io.Serializable;
 
-public class Map2 extends Map implements Serializable{
-
-
+public class Map2 extends Map implements Serializable {
 
 	private Door[] d1;
 	private Key key;
 	private Ogre[] ogres;
 
-	
-
 	public Map2(int size, int nOgres, int nDoors) {
 		super(size);
 		d1 = new Door[nDoors];
-		
+
 		this.key = new Key();
-		
+
 		for (int i = 0; i < nDoors; i++) {
 			Door d = new Door();
 			d1[i] = d;
 		}
-		
+
 		this.ogres = new Ogre[nOgres];
 		for (int i = 0; i < nOgres; i++) {
 			Ogre o = new Ogre();
@@ -34,22 +30,23 @@ public class Map2 extends Map implements Serializable{
 	public Key getKey() {
 		return this.key;
 	}
-	
-	public void setOgresSize(int n){
+
+	public void setOgresSize(int n) {
 		this.ogres = new Ogre[n];
 	}
 
-	public void setDoorsSize(int n){
+	public void setDoorsSize(int n) {
 		this.d1 = new Door[n];
 	}
+
 	public Door[] getDoor() {
-		
+
 		return d1;
 	}
 
-	public Ogre[] getOgres(){
+	public Ogre[] getOgres() {
 		return this.ogres;
-	 }
+	}
 
 	public void moveOgre(int index) {
 		if (ogres[index].getStunned()) {
@@ -164,47 +161,44 @@ public class Map2 extends Map implements Serializable{
 		}
 
 	}
-	
-	public void heroReachedKey(){
+
+	public void heroReachedKey() {
 		if (getHero().getLin() == key.getLin() && getHero().getCol() == key.getCol()) {
-			
+
 			getHero().setHasKey(true);
-			getHero().setSymbol('K'); 
+			getHero().setSymbol('K');
 			key.setSymbol(' ');
-		
+
 		}
 
-		
 	}
-		
+
 	public void openDoors() {
 
-		for (int i = 0; i < d1.length; i++){
-			if(getHero().getLin() == d1[i].getLin() && (getHero().getCol() == d1[i].getCol()+1) && getHero().getHasKey()){
+		for (int i = 0; i < d1.length; i++) {
+			if (getHero().getLin() == d1[i].getLin() && (getHero().getCol() == d1[i].getCol() + 1)
+					&& getHero().getHasKey()) {
 				d1[i].openDoor();
 			}
 		}
 
 	}
-	
+
 	public boolean hasHeroWon() {
 
-	
-		for (int i = 0; i < d1.length; i++){	
-			if(getHero().getLin() == d1[i].getLin() && getHero().getCol() == d1[i].getCol() && d1[i].isOpen() && getHero().getHasKey()){
+		for (int i = 0; i < d1.length; i++) {
+			if (getHero().getLin() == d1[i].getLin() && getHero().getCol() == d1[i].getCol() && d1[i].isOpen()
+					&& getHero().getHasKey()) {
 				return true;
 			}
 		}
-		
+
 		return false;
 
 	}
 
-	public void stunOgres() {
+	public void heroNoKey() {
 		for (Ogre o : ogres) {
-			
-			//Hero with no key
-			
 			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'A'
 					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'A'
 					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'A')
@@ -218,10 +212,11 @@ public class Map2 extends Map implements Serializable{
 					|| this.getBoard()[o.getLin() + 1][o.getCol()] == 'A'
 					|| this.getBoard()[o.getLin() + 1][o.getCol() + 1] == 'A')
 				o.setStunned(true);
-			
-			
-			//Hero with key
-			
+		}
+	}
+
+	public void heroWithKey() {
+		for (Ogre o : ogres) {
 			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'K'
 					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'K'
 					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'K')
@@ -237,7 +232,15 @@ public class Map2 extends Map implements Serializable{
 				o.setStunned(true);
 
 		}
-	} 
+	}
+
+	public void stunOgres() {
+
+		heroNoKey();
+		heroWithKey();
+	}
+
+	
 
 	public void placeChars() {
 		if (!this.getHero().getHasKey())
@@ -256,110 +259,109 @@ public class Map2 extends Map implements Serializable{
 				this.setBoardCell(o.getClub().getLin(), o.getClub().getCol(), '$');
 			}
 		}
-	
-		
-		for (int i = 0; i < d1.length; i++){
+
+		for (int i = 0; i < d1.length; i++) {
 			this.setBoardCell(d1[i].getLin(), d1[i].getCol(), d1[i].getSymbol());
 		}
 		this.setBoardCell(getHero().getLin(), getHero().getCol(), getHero().getSymbol());
-		
+
 	}
-	
-	public void advanceTurn(){
-			
+
+	public void advanceTurn() {
+
 		heroReachedKey();
 		openDoors();
-			
+
 		int n = 0;
-		while(n < ogres.length){
+		while (n < ogres.length) {
 			moveOgre(n);
 			n++;
-		} 
-		
+		}
+
 		stunOgres();
-		
+
 	}
-	
-	public void buildMaze() {
 
-		this.buildExtWalls();
-
-		// placing key elements//
-
-		
-		key.setLin(1);
-		key.setCol(8);
-		this.setBoardCell(key.getLin(), key.getCol(), key.getSymbol());
-
-		
-		this.getHero().setLin(8);
-		this.getHero().setCol(1);
-		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
-		int li = 1;
-		int co = 4;
-
-
+	public void placeOgres(){
+		int li = 1, co = 4;
 		
 		for (Ogre o : ogres) {
 			o.setLin(li);
 			o.setCol(co);
 			this.setBoardCell(o.getLin(), o.getCol(), o.getSymbol());
 
-			
 			o.getClub().setLin(o.getLin() + 1);
 			o.getClub().setCol(o.getCol());
 			li += 2;
 
 		}
+	}
+	
+	public void placeKey(){
+		key.setLin(1);
+		key.setCol(8);
+		this.setBoardCell(key.getLin(), key.getCol(), key.getSymbol());
 
+	}
+	
+	public void placeHero(){
+		this.getHero().setLin(8);
+		this.getHero().setCol(1);
+		this.setBoardCell(this.getHero().getLin(), this.getHero().getCol(), this.getHero().getSymbol());
+	}
+	
+	public void buildMaze() {
+
+		this.buildExtWalls();
+
+		this.placeKey();
 		
-		for (int i = 0; i < d1.length; i++){
+		this.placeHero();
+		
+		this.placeOgres();
+
+		for (int i = 0; i < d1.length; i++) {
 			d1[i].setLin(1);
 			d1[i].setCol(0);
 			this.setDoors(d1[i]);
-		
 		}
-		
 
 	}
-	
-	public void setKey(Key k){
+
+	public void setKey(Key k) {
 		this.key = k;
 	}
-	
-	
-	public void addOgre(Ogre o){
-		if (ogres.length != 0){
-			Ogre[] newOgres = new Ogre[this.ogres.length+1];
-			for(int i = 0; i < this.ogres.length; i++)
-				newOgres[i]= this.ogres[i];
-		
-			newOgres[newOgres.length-1] = o;
+
+	public void addOgre(Ogre o) {
+		if (ogres.length != 0) {
+			Ogre[] newOgres = new Ogre[this.ogres.length + 1];
+			for (int i = 0; i < this.ogres.length; i++)
+				newOgres[i] = this.ogres[i];
+
+			newOgres[newOgres.length - 1] = o;
 			this.ogres = newOgres;
-		}
-		else ogres[0] = o;
-		
+		} else
+			ogres[0] = o;
+
 	}
-	
-	public void addDoor(Door d){
-		if (d1.length != 0){
+
+	public void addDoor(Door d) {
+		if (d1.length != 0) {
 			Door[] newDoors = new Door[d1.length + 1];
-			
-			for(int i = 0; i < this.ogres.length; i++)
-				newDoors[i]= this.d1[i];
-			
-			newDoors[newDoors.length-1] = d;
-			
+
+			for (int i = 0; i < this.ogres.length; i++)
+				newDoors[i] = this.d1[i];
+
+			newDoors[newDoors.length - 1] = d;
+
 			this.d1 = newDoors;
-		}
-		else
+		} else
 			d1[0] = d;
 	}
-	
+
 	@Override
 	public Door[] getAllDoors() {
-		
-		
+
 		return d1;
 	}
 
