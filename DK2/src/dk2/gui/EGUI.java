@@ -499,17 +499,17 @@ public class EGUI {
 							k.setCol(j);
 							((Map2)customMap).setKey(k);
 							break;
-						
 						}
 					}
 				}
 				try {
 					game_panel = new GamePanel(700, 700, number_ogres, "Novice", nDoors);
 				} catch (IOException e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 				game_panel.dungeon.getLevels().remove(1);
+				((Map2)customMap).setDoorsSize(nDoors);
+				((Map2)customMap).setOgresSize(number_ogres);
 				game_panel.dungeon.addMap(customMap);
 				game_panel.dungeon.setCurrentMap(0);
 				try {

@@ -34,7 +34,14 @@ public class Map2 extends Map implements Serializable{
 	public Key getKey() {
 		return this.key;
 	}
+	
+	public void setOgresSize(int n){
+		this.ogres = new Ogre[n];
+	}
 
+	public void setDoorsSize(int n){
+		this.d1 = new Door[n];
+	}
 	public Door[] getDoor() {
 		
 		return d1;

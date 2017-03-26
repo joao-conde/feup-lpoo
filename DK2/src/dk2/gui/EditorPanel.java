@@ -40,7 +40,6 @@ public class EditorPanel extends GamePanel implements MouseListener{
 		customMap.buildExtWalls();
 	}
 	
-	
 	public Map getMap(){
 		return customMap;
 	}
