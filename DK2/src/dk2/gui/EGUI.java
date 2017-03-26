@@ -31,19 +31,18 @@ public class EGUI {
 
 	private JButton btnExit, btnSaveGame, btnNewGame, btnLoadGame, btnCustomLvL, btnUp, btnDown, btnLeft, btnRight;
 
-	private JTextField nOgres;
+	private JTextField nOgres, insertSize;
 	private JComboBox<String> guardsPers;
 
 	private String personality;
 	private int number_ogres = 0;
-	
+
 	private char element;
 	private int size;
 	private int nDoors = 0;
 	int nHero = 0;
-	
-	private ImageIcon hero, kFloor, kWall, kOpenGate, kClosedGate, key, ogre, logo;
 
+	private ImageIcon hero, kFloor, kWall, kOpenGate, kClosedGate, key, ogre, logo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -61,46 +60,47 @@ public class EGUI {
 		});
 	}
 
-
-
 	public JFrame getMenuFramel() {
 		return this.menu_frame;
 	}
 
-	public EGUI() throws IOException {
-
-		// creation of the menu frame
+	public void createMenuFrame() {
 		menu_frame = new JFrame();
 		menu_frame.setTitle("Main Menu");
 		menu_frame.getContentPane().setLayout(null);
 		menu_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menu_frame.setBounds(90, 25, 1200, 700);
 		menu_frame.setResizable(false);
+	}
 
-		// creation of the options frame, where user selects the options of the game
+	public void createOptionFrame() {
 		options_frame = new JFrame();
 		options_frame.setTitle("Options");
 		options_frame.getContentPane().setLayout(null);
 		options_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		options_frame.setBounds(430, 336, 450, 170);
 		options_frame.setResizable(false);
+	}
 
-		// creation of the editor frame
+	public void createEditFrame() {
 		edit_frame = new JFrame();
 		edit_frame.setTitle("Custom Level");
 		edit_frame.getContentPane().setLayout(null);
 		edit_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		edit_frame.setBounds(175, 25, 1000, 700);
 		edit_frame.setResizable(false);
+	}
 
-		// creation of the game frame, where player plays the game
+	public void createGameFrame() {
 		game_frame = new JFrame();
 		game_frame.setTitle("Dungeon Escape");
 		game_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game_frame.getContentPane().setLayout(null);
 		game_frame.setBounds(300, 25, 900, 700);
 		game_frame.setResizable(false);
+	}
 
+	public void createDevelopedByLabel() {
 		JLabel DevelopedBy = new JLabel("Developed by Jo\u00E3o Conde and Nelson Costa - FEUP/MIEIC/LPOO");
 		DevelopedBy.setLabelFor(menu_frame);
 		DevelopedBy.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -108,8 +108,18 @@ public class EGUI {
 		DevelopedBy.setForeground(Color.RED);
 		DevelopedBy.setBounds(765, 646, 419, 14);
 		menu_frame.getContentPane().add(DevelopedBy);
+	}
 
-		// Button's in Menu Panel
+	public void createMenuElements() throws IOException {
+		createDevelopedByLabel();
+		createNewGameBtn();
+		createLoadGame();
+		createCustomBtn();
+		createExitBtn();
+		createMenuPanel();
+	}
+
+	public void createNewGameBtn() {
 		btnNewGame = new JButton("New Game");
 		btnNewGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnNewGame.setForeground(Color.RED);
@@ -131,8 +141,9 @@ public class EGUI {
 
 			}
 		});
-		
-		
+	}
+
+	public void createLoadGame() {
 		btnLoadGame = new JButton("Load Game");
 		btnLoadGame.setForeground(Color.RED);
 		btnLoadGame.setToolTipText("Load previous game");
@@ -142,11 +153,16 @@ public class EGUI {
 
 		btnLoadGame.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {loadGame();}
+			public void actionPerformed(ActionEvent e) {
+				loadGame();
+			}
 		});
-		
+
 		menu_frame.getContentPane().add(btnLoadGame);
-		
+	}
+
+	public void createCustomBtn() {
+
 		btnCustomLvL = new JButton("Custom LvL Editor");
 		btnCustomLvL.setForeground(Color.RED);
 		btnCustomLvL.setToolTipText("Create your own magical dungeon");
@@ -160,7 +176,7 @@ public class EGUI {
 				edit_frame.setVisible(true);
 				edit_frame.setFocusable(true);
 				edit_frame.requestFocus();
-				
+
 				menu_frame.setVisible(false);
 				menu_frame.setFocusable(false);
 
@@ -169,6 +185,9 @@ public class EGUI {
 		});
 
 		menu_frame.getContentPane().add(btnCustomLvL);
+	}
+
+	public void createExitBtn() {
 
 		btnExit = new JButton("EXIT");
 		btnExit.setToolTipText("Exit the game");
@@ -184,10 +203,29 @@ public class EGUI {
 
 			}
 		});
-		
-		
-		createMoveBtns();
+	}
 
+	public void createFrames() {
+		createMenuFrame();
+		createOptionFrame();
+		createEditFrame();
+		createGameFrame();
+	}
+
+	public void createGameElements() {
+
+		createMoveBtns();
+		createSaveGameBtn();
+	}
+
+	public void createOptionElements() {
+		createLabels();
+		createTxtField();
+		createComboBox();
+		createOkBtn();
+	}
+
+	public void createLabels() {
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres (1-5):");
 		lblNumberOfOgres.setBounds(67, 28, 162, 16);
 		options_frame.getContentPane().add(lblNumberOfOgres);
@@ -195,19 +233,25 @@ public class EGUI {
 		JLabel lblTypeOfGuard = new JLabel("Type of Guard:");
 		lblTypeOfGuard.setBounds(67, 65, 134, 25);
 		options_frame.getContentPane().add(lblTypeOfGuard);
+	}
 
+	public void createTxtField() {
 		nOgres = new JTextField();
 		nOgres.setBounds(241, 23, 37, 26);
 		nOgres.setColumns(10);
 		options_frame.getContentPane().add(nOgres);
+	}
 
+	public void createComboBox() {
 		guardsPers = new JComboBox<String>();
 		guardsPers.setBounds(196, 65, 141, 27);
 		guardsPers.addItem("Novice");
 		guardsPers.addItem("Drunken");
 		guardsPers.addItem("Suspicious");
 		options_frame.getContentPane().add(guardsPers);
+	}
 
+	public void createOkBtn() {
 		JButton okBtn = new JButton("OK");
 		okBtn.setToolTipText("OK");
 		okBtn.setBounds(190, 105, 75, 23);
@@ -235,118 +279,137 @@ public class EGUI {
 				}
 			}
 		});
+	}
 
-
+	public void createMenuPanel() throws IOException {
 		menupanel = new MenuPanel(1200, 700);
 		menupanel.setBorder(UIManager.getBorder("ComboBox.border"));
 		menupanel.setBackground(Color.WHITE);
 		menupanel.setBounds(0, 0, 1194, 671);
 		menupanel.setFocusable(true);
-		
-		createEditingInterface();
-		
-		menu_frame.getContentPane().add(menupanel);
 		menu_frame.setIconImage(logo.getImage());
-	
+		menu_frame.getContentPane().add(menupanel);
+	}
+
+	public EGUI() throws IOException {
+
+		loadImages();
+		scaleImages();
+
+		createFrames();
+		createMenuElements();
+		createGameElements();
+		createOptionElements();
+		createEditorElements();
+	}
+
+	public void createSaveGameBtn() {
 		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnSaveGame.setForeground(Color.RED);
 		btnSaveGame.setToolTipText("Save current game");
 		btnSaveGame.setBounds(725, 100, 150, 50);
 		btnSaveGame.setVisible(true);
-	
-		
+
 		game_frame.getContentPane().add(btnSaveGame);
 		game_frame.setIconImage(logo.getImage());
 
 		btnSaveGame.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {saveOptions();}
+			public void actionPerformed(ActionEvent e) {
+				saveOptions();
+			}
 		});
-
 	}
-	
-	public void createMoveBtns(){
-		
+
+	public void createUpBtn() {
 		btnUp = new JButton("W");
 		btnUp.setToolTipText("Move Hero Up");
 		btnUp.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnUp.setBounds(775, 250, 50, 50);
 		btnUp.setVisible(true);
 		game_frame.getContentPane().add(btnUp);
-		
-		btnUp.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				game_panel.dungeon.getMap().moveHero('W');
 				game_panel.dungeon.getMap().advanceTurn();
 				game_panel.repaint();
 				game_panel.requestFocus();
 			}
 		});
-		
+	}
+
+	public void createDownBtn() {
 		btnDown = new JButton("S");
 		btnDown.setToolTipText("Move Hero Down");
 		btnDown.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnDown.setBounds(775, 300, 50, 50);
 		game_frame.getContentPane().add(btnDown);
-		
-		btnDown.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				game_panel.dungeon.getMap().moveHero('S');
 				game_panel.dungeon.getMap().advanceTurn();
 				game_panel.repaint();
 				game_panel.requestFocus();
 			}
 		});
-		
+	}
+
+	public void createLeftBtn() {
 		btnLeft = new JButton("A");
 		btnLeft.setToolTipText("Move Hero Left");
 		btnLeft.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnLeft.setBounds(725, 300, 50, 50);
 		game_frame.getContentPane().add(btnLeft);
-		
-		btnLeft.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				game_panel.dungeon.getMap().moveHero('A');
 				game_panel.dungeon.getMap().advanceTurn();
 				game_panel.repaint();
 				game_panel.requestFocus();
 			}
 		});
-		
-		
+	}
+
+	public void createRightBtn() {
 		btnRight = new JButton("D");
 		btnRight.setToolTipText("Move Hero Right");
 		btnRight.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnRight.setBounds(825, 300, 50, 50);
 		game_frame.getContentPane().add(btnRight);
-		
-		btnRight.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+
+		btnRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				game_panel.dungeon.getMap().moveHero('D');
 				game_panel.dungeon.getMap().advanceTurn();
 				game_panel.repaint();
 				game_panel.requestFocus();
 			}
 		});
-		
 	}
-	
-	public void createEditingInterface(){
-		
-		edit_frame.getContentPane().setLayout(null);
-		loadImages();
-		scaleImages();
-		
+
+	public void createMoveBtns() {
+		createUpBtn();
+		createDownBtn();
+		createLeftBtn();
+		createRightBtn();
+	}
+
+	public void createEditLabel() {
 		JLabel lblSize = new JLabel("Insert Map size:");
-		lblSize.setBounds(6,34,99, 16);
+		lblSize.setBounds(6, 34, 99, 16);
 		edit_frame.getContentPane().add(lblSize);
-		
-		JTextField insertSize = new JTextField();
+
+		insertSize = new JTextField();
 		insertSize.setBounds(117, 29, 34, 26);
 		edit_frame.getContentPane().add(insertSize);
 		insertSize.setColumns(10);
-		
+	}
+
+	public void createFloorBtn() {
 		JButton btnFloor = new JButton(kFloor);
 		btnFloor.setBounds(16, 102, 100, 100);
 		btnFloor.setOpaque(false);
@@ -354,13 +417,15 @@ public class EGUI {
 		btnFloor.setBorderPainted(false);
 
 		btnFloor.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			editorpanel.setElement(' ');
-		}
-	});
-		
+			public void actionPerformed(ActionEvent e) {
+				editorpanel.setElement(' ');
+			}
+		});
+
 		edit_frame.getContentPane().add(btnFloor);
-		
+	}
+	
+	public void createWallBtn(){
 		JButton btnWall = new JButton(kWall);
 		btnWall.setBounds(146, 102, 100, 100);
 		btnWall.setOpaque(false);
@@ -372,7 +437,9 @@ public class EGUI {
 				editorpanel.setElement('X');
 			}
 		});
-		
+	}
+	
+	public void createHeroBtn(){
 		JButton btnHero = new JButton(hero);
 		btnHero.setBounds(16, 342, 100, 100);
 		btnHero.setFocusPainted(false); 
@@ -382,16 +449,15 @@ public class EGUI {
 		edit_frame.getContentPane().add(btnHero);
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (nHero == 0){
-				editorpanel.setElement('A');
-				nHero++;
-				}
+				if (nHero == 0){ editorpanel.setElement('A'); nHero++;}
 				else{
 					JOptionPane.showMessageDialog(edit_frame,"Only one Hero!");
 				}
 			}
 		});
-		
+	}
+	
+	public void createClosedGateBtn(){
 		JButton btnCGate = new JButton(kClosedGate);
 		btnCGate.setBounds(146, 219, 100, 100);
 		btnCGate.setFocusPainted(false); 
@@ -404,7 +470,9 @@ public class EGUI {
 				editorpanel.setElement('I');
 			}
 		});
-		
+	}
+	
+	public void createOpenGateBtn(){
 		JButton btnOGate = new JButton(kOpenGate);
 		btnOGate.setBounds(16, 219, 100, 100);
 		btnOGate.setFocusPainted(false); 
@@ -417,7 +485,9 @@ public class EGUI {
 				editorpanel.setElement('S');
 			}
 		});
-		
+	}
+	
+	public void createKeyBtn(){
 		JButton btnKey = new JButton(key);
 		btnKey.setBounds(146, 342, 100, 100);
 		btnKey.setFocusPainted(false); 
@@ -430,7 +500,10 @@ public class EGUI {
 				editorpanel.setElement('k');
 			}
 		});
-		
+	}
+	
+	public void createOgreBtn(){
+
 		JButton btnOgre = new JButton(ogre);
 		btnOgre.setBounds(16, 453, 100, 100);
 		btnOgre.setFocusPainted(false); 
@@ -446,7 +519,9 @@ public class EGUI {
 				
 			}
 		});
-		
+	}
+	
+	public void createEditOkBtn(){
 		JButton btnOK = new JButton("OK");
 		btnOK.setBounds(129, 581, 117, 29);
 		btnOK.addActionListener(new ActionListener(){
@@ -529,7 +604,10 @@ public class EGUI {
 		});
 		
 		edit_frame.getContentPane().add(btnOK);
-		 
+
+	}
+	
+	public void createSetBtn(){
 		JButton btnSet = new JButton("Set");
 		btnSet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -560,17 +638,29 @@ public class EGUI {
 		
 		btnSet.setBounds(160, 29, 64, 29);
 		edit_frame.getContentPane().add(btnSet);
-		
-
-//		
+	
 	}
 	
-	public JFrame getEditorFrame(){
+	public void createEditorElements(){
+		
+		createEditLabel();
+		createWallBtn();
+		createHeroBtn();
+		createClosedGateBtn();
+		createOpenGateBtn();
+		createKeyBtn();
+		createOgreBtn();
+		createEditOkBtn();
+		createSetBtn();		
+	
+	}
+
+	public JFrame getEditorFrame() {
 		return this.edit_frame;
 	}
-	
-	public void loadImages(){
-		
+
+	public void loadImages() {
+
 		hero = new ImageIcon("res/mchar/bruceLeeArmed.png");
 		kFloor = new ImageIcon("res/static/keeper_floor.png");
 		kWall = new ImageIcon("res/static/keeper_wall.jpg");
@@ -579,112 +669,106 @@ public class EGUI {
 		key = new ImageIcon("res/static/Key.png");
 		ogre = new ImageIcon("res/mchar/ogre.png");
 		logo = new ImageIcon("res/static/logo.png");
-		
-		
+
 	}
-	
-	public void scaleImages(){
-		
+
+	public void scaleImages() {
+
 		hero = new ImageIcon(hero.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 		kFloor = new ImageIcon(kFloor.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 		kWall = new ImageIcon(kWall.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-		//kOpenGate = new ImageIcon(kOpenGate.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+		// kOpenGate = new ImageIcon(kOpenGate.getImage().getScaledInstance(100,
+		// 100, Image.SCALE_DEFAULT));
 		kClosedGate = new ImageIcon(kClosedGate.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 		key = new ImageIcon(key.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 		ogre = new ImageIcon(ogre.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-		
-		
+
 	}
-	
-	public void loadGame(){
-		
-		menu_frame.setVisible(false);
-		
+
+	public void loadGame() {
+
 		Game g = new Game();
-		
+
 		try {
-			game_panel = new GamePanel(700, 700, 0, "Novice",1);
+			game_panel = new GamePanel(700, 700, 0, "Novice", 1);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		game_panel.setBounds(0, 0, 700, 700);
 		game_panel.addKeyListener(game_panel);
 		game_panel.setFocusable(true);
 		game_frame.getContentPane().add(game_panel);
-		
+
 		try {
-			
-	         FileInputStream fileIn = new FileInputStream("res/saved/game.ser");
-	         ObjectInputStream in = new ObjectInputStream(fileIn);
-	         
-	         
-	         g = (Game)in.readObject();
-	         game_panel.setGame(g);
-	         
-	         in.close();
-	         fileIn.close();
-	         
-	         game_panel.setVisible(true);
-	         menu_frame.setFocusable(false);
-	         game_frame.requestFocus();
-	         game_frame.setVisible(true);
-	         
-	      }catch(IOException i) {
-	         i.printStackTrace();
-	         return;
-	      }catch(ClassNotFoundException c) {
-	         c.printStackTrace();
-	         return;
-	      }
-	}
-	
-	public void newGame(GamePanel game_panel) throws IOException{
-//game_panel = new GamePanel(700, 700, n, p, nDoors);
-			game_panel.setBounds(0, 0, 700, 700);
-			game_panel.addKeyListener(game_panel);
-			game_panel.setFocusable(true);
-			game_frame.getContentPane().add(game_panel);
-			options_frame.setVisible(false);
-			menu_frame.setVisible(false);
+
+			FileInputStream fileIn = new FileInputStream("res/saved/game.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+
+			g = (Game) in.readObject();
+			game_panel.setGame(g);
+
+			in.close();
+			fileIn.close();
+
+			game_panel.setVisible(true);
+			menu_frame.setFocusable(false);
+			game_frame.requestFocus();
 			game_frame.setVisible(true);
-	//}
+
+			menu_frame.setVisible(false);
+
+		} catch (Exception i) {
+			i.printStackTrace();
+			JOptionPane.showMessageDialog(menu_frame, "No save files found...");
+			menu_frame.setVisible(true);
 		}
-	
-	public void saveOptions(){
-		
-		switch(JOptionPane.showConfirmDialog(game_frame, "Game saved successfully. Do you wish to quit?")){
-					
+
+	}
+
+	public void newGame(GamePanel game_panel) throws IOException {
+		// game_panel = new GamePanel(700, 700, n, p, nDoors);
+		game_panel.setBounds(0, 0, 700, 700);
+		game_panel.addKeyListener(game_panel);
+		game_panel.setFocusable(true);
+		game_frame.getContentPane().add(game_panel);
+		options_frame.setVisible(false);
+		menu_frame.setVisible(false);
+		game_frame.setVisible(true);
+		// }
+	}
+
+	public void saveOptions() {
+
+		switch (JOptionPane.showConfirmDialog(game_frame, "Game saved successfully. Do you wish to quit?")) {
+
 		case JOptionPane.NO_OPTION:
 			saveGame();
 			break;
-			
+
 		case JOptionPane.OK_OPTION:
 			saveGame();
 			game_frame.setVisible(false);
 			menu_frame.setVisible(true);
-			break;			
-		
+			break;
+
 		}
 	}
-	
-	public void saveGame(){
+
+	public void saveGame() {
 		try {
-			 
-	         FileOutputStream fileOut =   new FileOutputStream("res/saved/game.ser");
-	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(game_panel.dungeon);
-	         out.close();
-	         fileOut.close();
-	         game_panel.requestFocus();
-	       			         
-	      }catch(IOException i) {
-	         i.printStackTrace();
-	      }
-		
-		
-		
-		
+
+			FileOutputStream fileOut = new FileOutputStream("res/saved/game.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(game_panel.dungeon);
+			out.close();
+			fileOut.close();
+			game_panel.requestFocus();
+
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+
 	}
-	
+
 }
