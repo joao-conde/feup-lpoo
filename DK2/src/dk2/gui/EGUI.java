@@ -402,7 +402,6 @@ public class EGUI {
 		btnCGate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editorpanel.setElement('I');
-				nDoors++;
 			}
 		});
 		
@@ -416,7 +415,6 @@ public class EGUI {
 		btnOGate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editorpanel.setElement('S');
-				nDoors++;
 			}
 		});
 		
@@ -445,7 +443,6 @@ public class EGUI {
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editorpanel.setElement('O');
-				number_ogres++;
 				
 			}
 		});
@@ -454,12 +451,8 @@ public class EGUI {
 		btnOK.setBounds(129, 581, 117, 29);
 		btnOK.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (number_ogres == 0)
-					JOptionPane.showMessageDialog(edit_frame,"At least one ogre!");
-				if (nDoors == 0){
-					JOptionPane.showMessageDialog(edit_frame,"At least one door!");
-				}
-				Map customMap = editorpanel.getGP().dungeon.getMap();
+				
+				Map customMap = editorpanel.getMap();
 				
 				for(int i = 0; i < customMap.getBoard().length; i++){
 					for(int j = 0; j < customMap.getBoard()[i].length; j++){
@@ -479,6 +472,7 @@ public class EGUI {
 							o.setLin(i);
 							o.setCol(j);
 							((Map2)customMap).addOgre(o);
+							number_ogres++;
 							break;
 							
 						case 'I':
@@ -487,6 +481,8 @@ public class EGUI {
 							l.setCol(j);
 							l.setSymbol('I');
 							((Map2)customMap).addDoor(l);
+							nDoors++;
+							break;
 							
 						case 'S':
 							Door s = new Door();
@@ -494,19 +490,30 @@ public class EGUI {
 							s.setCol(j);
 							s.setSymbol('S');
 							((Map2)customMap).addDoor(s);
+							nDoors++;
+							break;
 							
 						case 'k':
 							Key k = new Key();
 							k.setLin(i);
 							k.setCol(j);
 							((Map2)customMap).setKey(k);
+							break;
 						
 						}
 					}
 				}
-				editorpanel.getGP().dungeon.setCurrentMap(0);
 				try {
-					newGame(editorpanel.getGP());
+					game_panel = new GamePanel(700, 700, number_ogres, "Novice", nDoors);
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				game_panel.dungeon.getLevels().remove(1);
+				game_panel.dungeon.addMap(customMap);
+				game_panel.dungeon.setCurrentMap(0);
+				try {
+					newGame(game_panel);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -515,8 +522,8 @@ public class EGUI {
 				
 				edit_frame.setVisible(false);
 				game_frame.setVisible(true);
-				game_frame.getContentPane().add(editorpanel.getGP());
-				editorpanel.getGP().setVisible(true);
+				game_frame.getContentPane().add(game_panel);
+				game_panel.setVisible(true);
 				edit_frame.dispose();
 			}
 		});

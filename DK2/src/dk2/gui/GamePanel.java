@@ -216,7 +216,9 @@ public class GamePanel extends JPanel implements  KeyListener {
 						gamemap.getAllDoors()[i].getLin() * offsetW, this);
 				if (gamemap.getHero().distanceTo(gamemap.getAllDoors()[i]) <= 1){
 					//this.setVisible(false);
-					dungeon.setCurrentMap(1);
+					
+						dungeon.setCurrentMap(1);
+					
 					repaint(); 
 				}
 			}
@@ -348,6 +350,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 		return bruceLee;
 	}
 
+	
 	public BufferedImage getdFloor() {
 		return dFloor;
 	}

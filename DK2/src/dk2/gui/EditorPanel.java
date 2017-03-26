@@ -13,23 +13,18 @@ import dk2.logic.Map2;
 import dk2.gui.GamePanel;
 
 
-public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseListener{
+public class EditorPanel extends GamePanel implements MouseListener{
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private char element;
 	private int size;
-	private GamePanel gp;
+	private Map customMap;
 	
 	public EditorPanel(int width, int height, int mapSize)  throws IOException  {
 		
-		gp = new GamePanel(width, height,5,"Novice",5);
+		super(width, height,5,"Novice",5);
 		this.size = mapSize;
 		buildCustomMap(mapSize, 5, 5);
-		
 							
 	}
 	
@@ -38,27 +33,22 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 		this.element = element;
 	}
 	
-	public GamePanel getGP(){
-		return gp;
-	}
 	
 	public void buildCustomMap(int size, int nOgres, int nDoors){
 		
-		Map customMap = new Map2(size, nOgres, nDoors);
-		
+		customMap = new Map2(size, nOgres, nDoors);
 		customMap.buildExtWalls();
-		gp.dungeon.setCurrentMap(1);
-		gp.dungeon.getLevels().remove(gp.dungeon.getCurrentMap());
-		gp.dungeon.getLevels().add(customMap);
-		
-	repaint();
 	}
 	
+	
+	public Map getMap(){
+		return customMap;
+	}
 	
 	@Override
 	public void paintComponent(Graphics g){
 		
-		Map gamemap = gp.dungeon.getMap();
+		
 		
 		//this.setOpaque(false);
 		g.fillRect(0, 0, 500 , 500);
@@ -66,7 +56,7 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 		// covering all floor
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				g.drawImage(gp.getkFloor(), i * gp.getOffsetW(), j * gp.getOffsetH(), this);
+				g.drawImage( getkFloor(), i *  getOffsetW(), j *  getOffsetH(), this);
 			}
 		}
 
@@ -74,27 +64,27 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 
-				char component = gamemap.getBoard()[i][j];
+				char component = customMap.getBoard()[i][j];
 
 				switch (component) {
 
 				case 'X':
-					g.drawImage(gp.getkWall(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
+					g.drawImage( getkWall(), j *  getOffsetH(), i *  getOffsetW(), this);
 					break;
 				case 'A':
-					g.drawImage(gp.getArmedLee(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
+					g.drawImage( getArmedLee(), j *  getOffsetH(), i *  getOffsetW(), this);
 					break;
 				case 'O':
-					g.drawImage(gp.getOgre(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
+					g.drawImage( getOgre(), j *  getOffsetH(), i *  getOffsetW(), this);
 					break;
 				case 'S':
-					g.drawImage(gp.getkOpenGate(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
+					g.drawImage( getkOpenGate(), j *  getOffsetH(), i *  getOffsetW(), this);
 					break;
 				case 'I':
-					g.drawImage(gp.getkClosedGate(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
+					g.drawImage( getkClosedGate(), j *  getOffsetH(), i *  getOffsetW(), this);
 					break;
 				case 'k':
-					g.drawImage(gp.getKey(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
+					g.drawImage( getKey(), j *  getOffsetH(), i *  getOffsetW(), this);
 					break;
 				}
 			}
@@ -107,10 +97,9 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
-		int lin = e.getX() / gp.getOffsetW();
-		int col = e.getY() / gp.getOffsetH();
-		gp.dungeon.setCurrentMap(1);
-		gp.dungeon.getMap().setBoardCell(col, lin, element);
+		int lin = e.getX() /  getOffsetW();
+		int col = e.getY() /  getOffsetH();
+		customMap.setBoardCell(col, lin, element);;
 		
 		repaint();
 		

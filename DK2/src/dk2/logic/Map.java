@@ -46,6 +46,9 @@ public abstract class Map implements Serializable{
 		return this.mieic_student;
 	};
 
+	public void setBoard(char[][] b ){
+		this.board = b;
+	}
 	public abstract Door[] getDoor();
 
 	public abstract Door[] getAllDoors();	
