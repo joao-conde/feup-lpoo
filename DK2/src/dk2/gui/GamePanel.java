@@ -60,6 +60,10 @@ public class GamePanel extends JPanel implements  KeyListener {
 	public void setBruceLee(BufferedImage bruceLee) {
 		this.bruceLee = bruceLee;
 	}
+	
+	public BufferedImage getArmedLee() {
+		return armedLee;
+	}
 
 	public void setdFloor(BufferedImage dFloor) {
 		this.dFloor = dFloor;

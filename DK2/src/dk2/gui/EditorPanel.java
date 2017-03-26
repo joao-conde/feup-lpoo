@@ -51,7 +51,7 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 		gp.dungeon.getLevels().remove(gp.dungeon.getCurrentMap());
 		gp.dungeon.getLevels().add(customMap);
 		
-		repaint();
+	repaint();
 	}
 	
 	
@@ -59,7 +59,7 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 	public void paintComponent(Graphics g){
 		
 		Map gamemap = gp.dungeon.getMap();
-
+		
 		//this.setOpaque(false);
 		g.fillRect(0, 0, 500 , 500);
 		
@@ -82,7 +82,7 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 					g.drawImage(gp.getkWall(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
 					break;
 				case 'A':
-					g.drawImage(gp.getBruceLee(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
+					g.drawImage(gp.getArmedLee(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
 					break;
 				case 'O':
 					g.drawImage(gp.getOgre(), j * gp.getOffsetH(), i * gp.getOffsetW(), this);
@@ -100,8 +100,8 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 			}
 
 		}
-		repaint();
 		
+		//repaint();
 	}
 	
 	@Override

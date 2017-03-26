@@ -564,7 +564,7 @@ public class EGUI {
 	
 	public void loadImages(){
 		
-		hero = new ImageIcon("res/mchar/hero_bruceLee.png");
+		hero = new ImageIcon("res/mchar/bruceLeeArmed.png");
 		kFloor = new ImageIcon("res/static/keeper_floor.png");
 		kWall = new ImageIcon("res/static/keeper_wall.jpg");
 		kOpenGate = new ImageIcon("res/static/gate_open.png");
