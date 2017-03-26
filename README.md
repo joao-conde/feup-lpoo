@@ -8,3 +8,10 @@ BetterCodeHub Status Badge
 ----------Team members (name - student number - email)----------
 
 João Dias Conde Azevedo - up201503256 - joaoconde_13@hotmail.com
+
+
+
+
+----------BetterCodeHub Status Badge----------
+
+[![BCH compliance](https://bettercodehub.com/edge/badge/JC13/LPOO1617_T3G13?token=252d76c53eaabcf75f441641dd28743a6ea047b8)](https://bettercodehub.com/)
