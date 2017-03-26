@@ -25,7 +25,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Returns the vector of levels
+	 * @return the vector of levels
 	 */
 	public Vector<Map> getLevels() {
 		return this.levels;
@@ -58,6 +58,8 @@ public class Game implements Serializable {
 	 * 
 	 * @param pers
 	 *            guard personality
+	 * 
+	 * 
 	 */
 	public void createGuard(String pers) {
 
