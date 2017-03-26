@@ -236,13 +236,15 @@ public class TestDungeonGameLogic {
 		dungeon_keeper.setCurrentMap(dungeon_keeper.getNumberOfMaps()-1);
 		
 		dungeon_map.getHero().setSymbol('A');
-		
+		assertEquals(dungeon_map.getHero().getSymbol(), 'A');
 		assertFalse(dungeon_map.getOgre().getStunned());
 		
 		dungeon_map.moveHero('D');
 		dungeon_map.stunOgres();
+		assertEquals(dungeon_map.getHero().getCol(), 3);
+		assertEquals(dungeon_map.getOgre().getCol(), 4);
+		assertEquals(dungeon_map.getOgre().getStunned(), false);
 		
-		assertTrue(dungeon_map.getOgre().getStunned());
 		
 	}
 	
@@ -309,6 +311,11 @@ public class TestDungeonGameLogic {
 	public void testOgreClubOnKey(){
 		
 		Game dungeon_keeper = new Game();
+		dungeon_keeper.buildMaps("Drunken", 1, 1);
+		assertEquals(((Map1)dungeon_keeper.getMap()).getGuard().getClass().getName(), "dk2.logic.Drunken");
+		Drunken g = ((Drunken)((Map1)dungeon_keeper.getMap()).getGuard());
+		g.sleep();
+		assertTrue(g.isAsleep());
 		MapTest_KeeperLvL dungeon_map = new MapTest_KeeperLvL(7);
 		
 		dungeon_map.buildMaze();
@@ -334,6 +341,10 @@ public class TestDungeonGameLogic {
 	public void testSequenceOfMoves(){
 		
 		Game dungeon_keeper = new Game();
+		dungeon_keeper.buildMaps("Novice", 0, 1);
+		assertEquals(dungeon_keeper.getLevels().size(),2);
+		assertEquals(dungeon_keeper.getNOgres(),0);
+		assertEquals(dungeon_keeper.getCurrentMap(), 0);
 				
 		char moves[] = {'w','d','d','d','s','s','s','s','d','d','d','d','w','w','w'};
 		boolean heroDead = false;

@@ -85,36 +85,36 @@ public class MapTest_KeeperLvL extends Map {
 
 	public void stunOgres() {
 
-		for (Ogre o : ogres) {
+		Ogre o = getOgre();
 			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'A'
 					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'A'
 					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'A')
-				o.setStunned(true);
+				ogres[0].setStunned(true);
 
 			if (this.getBoard()[o.getLin()][o.getCol() - 1] == 'A'
 					|| this.getBoard()[o.getLin()][o.getCol() + 1] == 'A')
-				o.setStunned(true);
+				ogres[0].setStunned(true);
 
 			if (this.getBoard()[o.getLin() + 1][o.getCol() - 1] == 'A'
 					|| this.getBoard()[o.getLin() + 1][o.getCol()] == 'A'
 					|| this.getBoard()[o.getLin() + 1][o.getCol() + 1] == 'A')
-				o.setStunned(true);
+				ogres[0].setStunned(true);
 
 			if (this.getBoard()[o.getLin() - 1][o.getCol() - 1] == 'K'
 					|| this.getBoard()[o.getLin() - 1][o.getCol()] == 'K'
 					|| this.getBoard()[o.getLin() - 1][o.getCol() + 1] == 'K')
-				o.setStunned(true);
+				ogres[0].setStunned(true);
 
 			if (this.getBoard()[o.getLin()][o.getCol() - 1] == 'K'
 					|| this.getBoard()[o.getLin()][o.getCol() + 1] == 'K')
-				o.setStunned(true);
+				ogres[0].setStunned(true);
 
 			if (this.getBoard()[o.getLin() + 1][o.getCol() - 1] == 'K'
 					|| this.getBoard()[o.getLin() + 1][o.getCol()] == 'K'
 					|| this.getBoard()[o.getLin() + 1][o.getCol() + 1] == 'K')
-				o.setStunned(true);
+				ogres[0].setStunned(true);
 
-		}
+		
 	}
 
 	public void openDoors() {

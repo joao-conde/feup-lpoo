@@ -249,6 +249,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 				g.drawImage(drunken_asleep, offsetH * guard.getCol(), offsetW * guard.getLin(), this);
 			else
 				g.drawImage(drunken, offsetH * guard.getCol(), offsetW * guard.getLin(), this);
+
 		}
 		
 		if(gamemap.getHero().distanceTo(guard) <= 1){

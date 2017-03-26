@@ -449,10 +449,7 @@ public class EGUI {
 		edit_frame.getContentPane().add(btnHero);
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (nHero == 0){ editorpanel.setElement('A'); nHero++;}
-				else{
-					JOptionPane.showMessageDialog(edit_frame,"Only one Hero!");
-				}
+				editorpanel.setElement('A');
 			}
 		});
 	}
