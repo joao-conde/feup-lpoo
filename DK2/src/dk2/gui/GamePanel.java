@@ -282,22 +282,7 @@ public class GamePanel extends JPanel implements  KeyListener {
 			}
 
 		}
-		if(gamemap.getAllDoors().length != 0){
-			// drawing gates
-			for (int i = 0; i < gamemap.getAllDoors().length; i++) {
-	
-				if (gamemap.getAllDoors()[i].isOpen()){
-					g.drawImage(kOpenGate, gamemap.getAllDoors()[i].getCol() * offsetH,
-							gamemap.getAllDoors()[i].getLin() * offsetW, this);
-					if (gamemap.getHero().distanceTo(gamemap.getAllDoors()[i]) <= 1 )
-						won = true;
-				}
-				else
-					g.drawImage(kClosedGate, gamemap.getAllDoors()[i].getCol() * offsetH,
-							gamemap.getAllDoors()[i].getLin() * offsetW, this);
-				
-				}
-			}
+		
 		
 
 		
@@ -331,7 +316,22 @@ public class GamePanel extends JPanel implements  KeyListener {
 						dungeon.getMap().getHero().getLin() * offsetW, this);
 		}
 
-		
+		if(gamemap.getAllDoors().length != 0){
+			// drawing gates
+			for (int i = 0; i < gamemap.getAllDoors().length; i++) {
+	
+				if (gamemap.getAllDoors()[i].isOpen()){
+					g.drawImage(kOpenGate, gamemap.getAllDoors()[i].getCol() * offsetH,
+							gamemap.getAllDoors()[i].getLin() * offsetW, this);
+					if (gamemap.getHero().distanceTo(gamemap.getAllDoors()[i]) <= 1 )
+						won = true;
+				}
+				else
+					g.drawImage(kClosedGate, gamemap.getAllDoors()[i].getCol() * offsetH,
+							gamemap.getAllDoors()[i].getLin() * offsetW, this);
+				
+				}
+			}
 		
 
 	}

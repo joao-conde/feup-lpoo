@@ -35,11 +35,11 @@ public class EGUI {
 	private JComboBox<String> guardsPers;
 
 	private String personality;
-	private int number_ogres = 1;
+	private int number_ogres = 0;
 	
 	private char element;
 	private int size;
-	private int nDoors = 1;
+	private int nDoors = 0;
 	int nHero = 0;
 	
 	private ImageIcon hero, kFloor, kWall, kOpenGate, kClosedGate, key, ogre, logo;
@@ -214,7 +214,26 @@ public class EGUI {
 		options_frame.getContentPane().add(okBtn);
 
 		okBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {newGame();}
+			public void actionPerformed(ActionEvent e) {
+				personality = guardsPers.getSelectedItem().toString();
+				number_ogres = Integer.parseInt(nOgres.getText());
+				if (number_ogres < 1 || number_ogres > 5) {
+					JOptionPane.showMessageDialog(options_frame, "Invalid options!");
+				} else {
+					try {
+						game_panel = new GamePanel(700, 700, number_ogres, personality, 1);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					try {
+						newGame(game_panel);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
 		});
 
 
@@ -440,7 +459,6 @@ public class EGUI {
 				if (nDoors == 0){
 					JOptionPane.showMessageDialog(edit_frame,"At least one door!");
 				}
-				editorpanel.getGP().dungeon.setCurrentMap(1);
 				Map customMap = editorpanel.getGP().dungeon.getMap();
 				
 				for(int i = 0; i < customMap.getBoard().length; i++){
@@ -487,6 +505,14 @@ public class EGUI {
 					}
 				}
 				editorpanel.getGP().dungeon.setCurrentMap(0);
+				try {
+					newGame(editorpanel.getGP());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
 				edit_frame.setVisible(false);
 				game_frame.setVisible(true);
 				game_frame.getContentPane().add(editorpanel.getGP());
@@ -508,8 +534,7 @@ public class EGUI {
 					return;
 				}
 				try {
-					editorpanel = new EditorPanel(500,500,size,element);
-					editorpanel.buildCustomMap(size,number_ogres, nDoors);
+					editorpanel = new EditorPanel(500,500,size);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -607,27 +632,17 @@ public class EGUI {
 	      }
 	}
 	
-	public void newGame(){
-		personality = guardsPers.getSelectedItem().toString();
-		number_ogres = Integer.parseInt(nOgres.getText());
-		if (number_ogres < 1 || number_ogres > 5) {
-			JOptionPane.showMessageDialog(options_frame, "Invalid options!");
-		} else {
-			try {
-				game_panel = new GamePanel(700, 700, number_ogres, personality,1);
-				game_panel.setBounds(0, 0, 700, 700);
-				game_panel.addKeyListener(game_panel);
-				game_panel.setFocusable(true);
-				game_frame.getContentPane().add(game_panel);
-			} catch (IOException e1) {
-				JOptionPane.showMessageDialog(options_frame, "Invalid options!");
-				e1.printStackTrace();
-			}
+	public void newGame(GamePanel game_panel) throws IOException{
+//game_panel = new GamePanel(700, 700, n, p, nDoors);
+			game_panel.setBounds(0, 0, 700, 700);
+			game_panel.addKeyListener(game_panel);
+			game_panel.setFocusable(true);
+			game_frame.getContentPane().add(game_panel);
 			options_frame.setVisible(false);
 			menu_frame.setVisible(false);
 			game_frame.setVisible(true);
+	//}
 		}
-	}
 	
 	public void saveOptions(){
 		

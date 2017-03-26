@@ -24,11 +24,11 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 	private int size;
 	private GamePanel gp;
 	
-	public EditorPanel(int width, int height, int mapSize, char toDraw)  throws IOException  {
+	public EditorPanel(int width, int height, int mapSize)  throws IOException  {
 		
-		gp = new GamePanel(width, height,0,"Novice",0);
+		gp = new GamePanel(width, height,5,"Novice",5);
 		this.size = mapSize;
-		this.element = toDraw;
+		buildCustomMap(mapSize, 5, 5);
 		
 							
 	}
@@ -100,6 +100,8 @@ public class EditorPanel /*extends GamePanel*/extends JPanel implements MouseLis
 			}
 
 		}
+		repaint();
+		
 	}
 	
 	@Override

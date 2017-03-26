@@ -56,7 +56,7 @@ public class Game implements Serializable {
 		}
 
 		Map1 map1 = new Map1(10, guard);
-		Map2 map2 = new Map2(10, nOgres, nDoors);
+		Map2 map2 = new Map2(10, nOgres, 1);
 
 		map1.buildMaze();
 		map2.buildMaze();
