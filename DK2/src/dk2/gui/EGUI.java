@@ -645,6 +645,7 @@ public class EGUI {
 		
 		createEditLabel();
 		createWallBtn();
+		createFloorBtn();
 		createHeroBtn();
 		createClosedGateBtn();
 		createOpenGateBtn();
