@@ -94,8 +94,7 @@ public class Game implements Serializable {
 
 	/**
 	 * 
-	 * @param m
-	 *            map to be add
+	 * @param map to be added
 	 */
 	public void addMap(Map m) {
 		levels.add(m);
