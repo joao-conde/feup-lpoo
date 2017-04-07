@@ -17,4 +17,4 @@
 *.RTF	 diff=astextplain
 
 
-DK2/docs/* linguist-vendored
+DK2/doc/* linguist-vendored
