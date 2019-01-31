@@ -1,2 +1,3 @@
-# LPOO1617_T3G13
-LPOO Projects
+# feup-lpoo
+
+Object-oriented laboratory first projects. First contact with OOP and Java language.
